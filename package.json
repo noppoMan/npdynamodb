@@ -1,0 +1,47 @@
+{
+  "name": "npdynamodb",
+  "version": "0.0.1",
+  "description": "A Simple and Fast Node.js ORM for AWS DynamoDB.",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "keywords": [
+    "aws",
+    "dynamodb",
+    "activerecord",
+    "orm",
+    "migration",
+    "migrate"
+  ],
+  "bin": {
+    "npd": "./lib/bin/npd"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/noppoMan/npdynamodb.git"
+  },
+  "author": "noppoMan <yuki@miketokyo.com> (http://miketokyo.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/noppoMan/npdynamodb/issues"
+  },
+  "homepage": "https://github.com/noppoMan/npdynamodb",
+  "dependencies": {
+    "bluebird": "^2.9.24",
+    "chai": "^2.2.0",
+    "chalk": "^1.0.0",
+    "commander": "^2.7.1",
+    "dynamodb-doc": "^1.0.0",
+    "glob": "^5.0.3",
+    "interpret": "^0.5.2",
+    "liftoff": "^2.0.3",
+    "lodash": "^3.5.0",
+    "minimist": "^1.1.1",
+    "readline": "0.0.7",
+    "v8flags": "^2.0.3"
+  },
+  "devDependencies": {
+    "aws-sdk": "^2.1.18"
+  }
+}

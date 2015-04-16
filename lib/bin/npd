@@ -1,0 +1,205 @@
+#!/usr/bin/env node
+
+var Liftoff   = require('liftoff');
+var interpret = require('interpret');
+var program = require('commander');
+var fs = require('fs');
+var templates = require('../templates/index');
+var readline = require('readline');
+var argv = require('minimist')(process.argv.slice(2));
+var chalk = require('chalk');
+var _ = require('lodash');
+var Migrator = require('../migrate/migrator');
+
+var rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+function padDate(t){
+  if(t < 10) t = "0"+t.toString();
+  return t;
+}
+
+function exitWithError(text) {
+  chalk.red(console.error(text));
+  process.exit(1);
+}
+
+function exit(text) {
+  if(text) {
+    console.log(text);
+  }
+  process.exit(0);
+}
+
+function initialize(){
+  program.version('0.0.1');
+
+  program
+  .command('init')
+  .description('        Create a fresh npdfile.')
+  .action(function() {
+
+    var npdPath = process.cwd() + "/npdfile.js";
+
+    if(fs.existsSync(npdPath)){
+      rl.question('Npdfile is already existed. Do you want to overwrite it? [Y/n]', function(answer) {
+        if(answer.toLowerCase() == 'y'){
+          fs.writeFileSync(npdPath, templates.npdfile);
+          exit('Overwrited the npdfile.');
+        }
+        rl.close();
+      });
+
+    }else{
+      fs.writeFileSync(npdPath, templates.npdfile);
+      exit('Created npdfile.');
+    }
+
+  });
+
+  program
+  .command('migrate:generate <name>')
+  .description('       Create a named migration file.')
+  .action(function(name) {
+
+    var migrationDir = process.cwd() + "/migrations";
+
+    if(!fs.existsSync(migrationDir)){
+      fs.mkdirSync(migrationDir);
+    }
+
+    var now = new Date();
+    var d = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDay(), now.getHours(), now.getMinutes(), now.getSeconds()));
+
+    var migrateFileParts = [
+      d.getFullYear(),
+      padDate(d.getMonth()+1),
+      padDate(d.getDay()+1),
+      padDate(d.getHours()),
+      padDate(d.getMinutes()),
+      padDate(d.getSeconds()),
+      '_',
+      name,
+      '.js'
+    ];
+
+    var fPath = migrationDir+'/'+migrateFileParts.join('');
+    fs.writeFileSync(fPath, templates.generator);
+    exit('Created ' + fPath);
+  });
+
+  program
+  .command('migrate:run')
+  .option('-e, --environment [value]', 'Specify the environment to run migrate.')
+  .description('       Create a named migration file.')
+  .action(function(name) {
+    var env = argv.e || 'development';
+    var root = process.cwd();
+    var config = require(root + "/npdfile")[env];
+
+    if(!config) {
+      exitWithError(env + ' is not specified environemnt.');
+    }
+
+    config.migrationRoot = root + '/migrations';
+
+    new Migrator.Runner(config).run()
+    .then(function(data){
+      exit();
+    })
+    .catch(function(err){
+      exitWithError(err);
+    });
+  });
+
+  program
+  .command('migrate:rollback')
+  .option('-e, --environment [value]', 'Specify the environment to run migrate.')
+  .description('       Rollback the last set of migrations performed.')
+  .action(function(name) {
+    var env = argv.e || 'development';
+    var root = process.cwd();
+    var config = require(root + "/npdfile")[env];
+
+    if(!config) {
+      exitWithError(env + ' is not specified environemnt.');
+    }
+
+    config.migrationRoot = root + '/migrations';
+
+    new Migrator.Runner(config).rollback()
+    .then(function(data){
+      exit();
+    })
+    .catch(function(err){
+      exitWithError(err);
+    });
+  });
+
+  program
+  .command('listTables')
+  .option('-e, --environment [value]', 'Specify the environment to run migrate.')
+  .description('      list all tables')
+  .action(function(name) {
+    var env = argv.e || 'development';
+    var root = process.cwd();
+    var config = require(root + "/npdfile")[env];
+    var npd = require('../../index').createClient(config.dynamoClient);
+
+    if(!config) {
+      exitWithError(env + ' is not specified environemnt.');
+    }
+
+    npd().showTables()
+    .then(function(tables){
+      exit(tables.TableNames.join("\n"));
+    })
+    .catch(function(err){
+      exitWithError(err);
+    });
+  });
+
+  program
+  .command('dump <table>')
+  .option('-e, --environment [value]', 'Specify the environment to run migrate.')
+  .description('       Dump specified table contents.')
+  .action(function(table) {
+    var env = argv.e || 'development';
+    var root = process.cwd();
+    var config = require(root + "/npdfile")[env];
+    var npd = require('../../index').createClient(config.dynamoClient);
+
+    if(!config) {
+      exitWithError(env + ' is not specified environemnt.');
+    }
+
+    npd().table(table).all()
+    .then(function(data){
+      exit(data);
+    })
+    .catch(function(err){
+      exitWithError(err);
+    });
+  });
+
+  program.parse(process.argv);
+
+  if(argv._.length == 0) {
+    program.help();
+  }
+}
+
+var cli = new Liftoff({
+  name: 'npd',
+  extensions: interpret.jsVariants,
+  v8flags: require('v8flags')
+});
+
+cli.launch({
+  cwd: argv.cwd,
+  configPath: argv.knexfile,
+  require: argv.require,
+  completion: argv.completion
+}, initialize);
