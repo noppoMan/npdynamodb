@@ -23,7 +23,7 @@ npm install npdynamodb
 ## Why is the Pure AWS-SDK in Node.js NOT good?
 
 Parameters are like Chant of the magic.
-[http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html#listTables-property](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html#listTables-property)
+[http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html)
 
 ## Usage
 Npdynamodb has two faces. One is Simple Query Builder and the other is Light ORM.
@@ -72,13 +72,13 @@ npd().table('users')
 });
 ```
 
-##### With Extra Options
+##### With Feature
 ```js
 npd().table('users')
 .where('name', 'tonny')
-.extraOptions(function(feature){
-  feature.consistentRead(true);
-  feature.returnConsumedCapacity('TOTAL');
+.feature(function(f){
+  f.consistentRead(true);
+  f.returnConsumedCapacity('TOTAL');
 })
 .then(function(data){
   console.log(data);
@@ -88,10 +88,10 @@ npd().table('users')
 });
 ```
 
-##### Create(Make Overwrite values, if key has already existed.)
+##### save(Make Overwrite values, if key has already existed.)
 ```js
 npd().table('users')
-.create({
+.save({
   id: 2,
   name: 'rhodes',
   company: {
@@ -165,8 +165,7 @@ Chat.query(function(qb){
 * all
 * then
 * count
-* create
-* update
+* save
 * delete
 * describe
 * showTables
@@ -197,7 +196,7 @@ Chat.query(function(qb){
 * limit
 
 
-##### Other options
+##### feature methods (2012-08-10)
 * requestItems
 * returnConsumedCapacity
 * returnItemCollectionMetrics
@@ -231,10 +230,9 @@ Chat.query(function(qb){
 * updateExpression
 * globalSecondaryIndexUpdates
 
-### Events(Not implemented.)
-* `callbacks.beforeQueryBuild`
-* `callbacks.beforeQuery`
-* `callbacks.afterQuery`
+### Events
+* `callbacks.beforeQuery`: Fired before sending request
+* `callbacks.afterQuery`: Fired after getting response
 
 
 

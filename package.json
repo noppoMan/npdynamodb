@@ -4,7 +4,7 @@
   "description": "A Simple and Fast Node.js ORM for AWS DynamoDB.",
   "main": "index.js",
   "scripts": {
-    "test": "npm test"
+    "test": "find ./test -name *_spec.js | xargs mocha --reporter spec"
   },
   "keywords": [
     "aws",
