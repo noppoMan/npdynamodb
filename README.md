@@ -1,5 +1,5 @@
-# npdynamodb
-A Simple and Fast Node.js ORM for AWS DynamoDB.
+# npdynamodb [![wercker status](https://app.wercker.com/status/1ccc24d0af9825e0ae7990ea3fd8121a/s "wercker status")](https://app.wercker.com/project/bykey/1ccc24d0af9825e0ae7990ea3fd8121a)
+A Node.js Simple Query Builder and ORM for AWS DynamoDB.
 
 ## Motivation
 When I visited [here ](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html#query-property
