@@ -14,4 +14,4 @@ exports.define = function(tableName, params){
   return NPDynamoDBORM(tableName, params);
 }
 
-exports.Migrator = require('./lib/migrate/Migrator');
+exports.Migrator = require('./lib/migrate/migrator');
