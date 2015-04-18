@@ -91,7 +91,7 @@ npd().table('users')
 ##### save(Make Overwrite values, if key has already existed.)
 ```js
 npd().table('users')
-.save({
+.save({ // Also can save collection.
   id: 2,
   name: 'rhodes',
   company: {
@@ -111,24 +111,47 @@ npd().table('users')
 
 ## Use as ORM
 
+Initialization
 ```js
+var npdynamodb = require('npdynamodb');
+var AWS = require('aws-sdk');
+
+var dynamodb = new AWS.DynamoDB({
+  apiVersion: '2012-08-10'
+});
 
 var Chat = npd.define('chat', {
+  dynamodb: dynamodb,
+
   hashKey: 'id',
 
   rangeKey: 'timestamp'
-
-  timestamps: true,
 });
+```
 
-// Fast get with hash_key
+##### Fast get with hash_key
+```js
 Chat.find(1).then(function(chat){  // where('id', '=', 1)
   console.log(chat.get('id'));
-});
 
-Chat.query(function(qb){
-  qb.where('id', 1).whereBeteen('timestamp', 1429212102, 1429212202);
+  console.log(chat.keys());
+
+  console.log(chat.values());
+
+  console.log(chat.pick('chat_id', 'timestamp'));
+
+  console.log(chat.toJson());
+});
+```
+
+##### fetch with multiple conditions
+```js
+Chat.where('id', 1)
+// complex conditions
+.query(function(qb){
+  qb.whereBeteen('timestamp', 1429212102, 1429212202);
 })
+.fetch()
 .then(function(data){
 
   // Check query result is empty?
@@ -152,9 +175,40 @@ Chat.query(function(qb){
   console.log(data.pluck('id'));
 
   // Get as raw json
-  console.log(data.attributes());
+  console.log(data.toHash());
   // => [{id: 1, name: 'tonny', company: {....}}]
 
+});
+```
+
+##### Save
+```js
+// As Static
+Chat.save({
+  room_id: 'room1',
+  ....
+})
+.then(function(chat){
+  console.log(chat.get('room_id'));
+});
+
+// As Instance
+var chat = Chat.create();
+chat.set('room_id', 'room1');
+chat.set('...', ...);
+
+chat.save()
+.then(function(chat){
+  console.log(chat.get('room_id'));
+});
+```
+
+##### Destroy
+```js
+chat.destroy()
+.then(function(data){
+  console.log(data);
+  // empty object;
 });
 ```
 
@@ -244,6 +298,7 @@ Chat.query(function(qb){
 
 
 #### ResultItemCollection
+* pluck
 * each
 * map
 * reduce
@@ -255,25 +310,31 @@ Chat.query(function(qb){
 * reject
 * every
 * some
-* contains
 * invoke
-* pluck
-* max
-* min
 * sortBy
 * groupBy
 * indexBy
 * countBy
 * shuffle
 * sample
-* toArray
 * size
 * partition
 * first
 * last
+* toJson
+* toHash
 
 #### ResultItem
 * get
+* set
+* each
+* map
+* keys
+* values
+* contains
+* pick
+* toJson
+* attributes
 
 
 ## Migration (Works in progress.)
@@ -320,20 +381,25 @@ exports.down = function(migrator){
 }
 ```
 
-##### Run migration.
+##### Run latest migration.
 ```sh
 npd migrate:run
 ```
 
-##### Rollback migration.
+##### Rollback latest migration.
 ```sh
 npd migrate:rollback
 ```
 
-## Command Line Interfaces
-* `init` Initialize project to run migration.
-* `migrate:*` Commands for migration.
+## Command Line Interfaces (required global install and type `npd`)
+* `init` Create a fresh npdfile.
+* `migrate:generate <name>` Create a named migration file.
+* `migrate:run` Create a named migration file.
+* `migrate:rollback` Rollback the last set of migrations performed.
 * `listTables` List existing tables.
+* `dump <tablename>` Dump amount of records in specified table to stdout.
+* `-h`
+* `-V`
 
 ## How to test?
 ```sh
