@@ -1,12 +1,6 @@
 box: wercker/nodejs
-# Build definition
 build:
-  # The steps that will be executed on build
   steps:
-    # A step that executes `npm install` command
-    - npm-install
-    # A custom script step, name value is used in the UI
-    # and the code value contains the command that get executed
     - script:
         name: install java
         code: |
@@ -24,6 +18,7 @@ build:
         name: install mocha
         code: |
           sudo npm install -g mocha
+    - npm-install
     - npm-test
     - script:
         name: echo nodejs information
