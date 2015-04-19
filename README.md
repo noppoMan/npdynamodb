@@ -245,6 +245,8 @@ chat.destroy()
 * describe
 * showTables
 * waitFor
+* feature
+* rawClient: Return promisified AWS.DynamoDB
 
 ##### Where
 * where
@@ -357,8 +359,8 @@ chat.destroy()
 * attributes
 
 
-## Migration (Works in progress.)
-We support schema migration with dynamodb.
+## Migration
+We support schema migration for Dynamodb.
 
 ##### First, initialize your project to run migration.
 ```sh
