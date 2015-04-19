@@ -1,6 +1,6 @@
 {
   "name": "npdynamodb",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "A Simple and Fast Node.js ORM for AWS DynamoDB.",
   "main": "index.js",
   "scripts": {

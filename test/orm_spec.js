@@ -70,9 +70,7 @@ describe('ORM', function(){
     })
     .fetch()
     .then(function(chatCollection){
-      var roomIds = chatCollection.pluck("room_id");
-      expect(roomIds[0]).to.equal('room1');
-      expect(roomIds[1]).to.equal('room1');
+      expect(chatCollection.pluck("room_id")).to.deep.equal(['room1', 'room1']);
       return chatCollection;
     })
     .then(function(chatCollection){
