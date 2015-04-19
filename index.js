@@ -1,3 +1,5 @@
+'use strict';
+
 var NPDynamoDB = require('./lib/npdynamodb');
 var NPDynamoDBORM = require('./lib/orm/index');
 

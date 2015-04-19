@@ -1,3 +1,5 @@
+'use strict';
+
 exports.compex_table = {
   AttributeDefinitions: [
     { AttributeName: 'hash_key', AttributeType: 'S' },
