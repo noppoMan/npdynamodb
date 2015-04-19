@@ -7,6 +7,7 @@ describe('Schema', function(){
 
   it("Should build schema(which contain globalSecondaryIndex and localSecondaryIndex) for createTable operation for 2012-08-10 api", function(){
     var t = new SchemaBuilder({
+      apiVer: '2012-08-10',
       tableName: "complex_table"
     });
 
@@ -50,8 +51,7 @@ describe('Schema', function(){
       t.ProjectionTypeAll();
     });
 
-    var params = require('../lib/dialects/2012-08-10/schema').build(t);
-    expect(params).to.deep.equal(require('./data/test_tables').for_schema_test);
+    expect(t.build()).to.deep.equal(require('./data/test_tables').for_schema_test);
   });
 
 });
