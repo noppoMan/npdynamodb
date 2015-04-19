@@ -34,7 +34,7 @@ function exit(text) {
 }
 
 function initialize(){
-  program.version('0.0.1');
+  program.version(require('../../package.json').version);
 
   program
   .command('init')
@@ -103,7 +103,7 @@ function initialize(){
       exitWithError(env + ' is not specified environemnt.');
     }
 
-    config.migrationRoot = root + '/migrations';
+    config.cwd = root + '/migrations';
 
     new Migrator.Runner(config).run()
     .then(function(data){
@@ -127,7 +127,7 @@ function initialize(){
       exitWithError(env + ' is not specified environemnt.');
     }
 
-    config.migrationRoot = root + '/migrations';
+    config.cwd = root + '/migrations';
 
     new Migrator.Runner(config).rollback()
     .then(function(data){

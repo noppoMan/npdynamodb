@@ -1,8 +1,7 @@
 var NPDynamoDB = require('./lib/npdynamodb');
-var Schema = require('./lib/schema/schema');
 var NPDynamoDBORM = require('./lib/orm/index');
 
-exports.version = '0.0.1';
+exports.version = require('./package.json').version;
 
 exports.createClient = function(dynamodb){
   return function(){
