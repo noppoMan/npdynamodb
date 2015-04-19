@@ -44,15 +44,30 @@ var dynamodb = new AWS.DynamoDB({
 var npd = npdynamodb.createClient(dynamodb);
 ```
 
-##### Read Example
+##### Get rows by hash key
 ```js
 npd().table('users')
 .where('name', 'tonny') //hash key
 .then(function(data){
 
-console.log(data)
-// => {Items: [{id: 1, name: 'Tonny'}], Count: 1, ScannedCount: 1}
+  console.log(data)
+  // => {Items: [{id: 1, name: 'Tonny'}], Count: 1, ScannedCount: 1}
 
+})
+.catch(function(err){
+  console.err(err);
+});
+```
+
+##### Get rows with where, filter and descending order
+```js
+npd().table('chats')
+.where('room_id', 'room1') // hash key
+.where('timestamp', '>', 1429454911) // range key
+.filter('user_name', 'tonny') // non index key
+.desc()
+.then(function(data){
+  console.log(data);
 })
 .catch(function(err){
   console.err(err);
@@ -61,8 +76,8 @@ console.log(data)
 
 ##### Count
 ```js
-npd().table('users')
-.where('name', 'tonny')
+npd().table('chats')
+.where('room_id', 'room1')
 .count()
 .then(function(data){
   console.log(data);
@@ -72,11 +87,13 @@ npd().table('users')
 });
 ```
 
-##### With Feature
+##### Set not required options(depends on api version)
+You can set not required options with `feature` method. All options are transformed from property to method, But its name(camelized) and arguments are same as pure AWS-SDK for node.js.
+
 ```js
 npd().table('users')
 .where('name', 'tonny')
-.feature(function(f){
+.feature(function(f){ // f is raw feature object.
   f.consistentRead(true);
   f.returnConsumedCapacity('TOTAL');
 })
@@ -88,7 +105,7 @@ npd().table('users')
 });
 ```
 
-##### save(Make Overwrite values, if key has already existed.)
+##### save(Make Overwrite values, if each key has already existed.)
 ```js
 npd().table('users')
 .save({ // Also can save collection.
@@ -120,7 +137,7 @@ var dynamodb = new AWS.DynamoDB({
   apiVersion: '2012-08-10'
 });
 
-var Chat = npd.define('chat', {
+var Chat = npdynamodb.define('chats', {
   dynamodb: dynamodb,
 
   hashKey: 'id',
@@ -132,14 +149,19 @@ var Chat = npd.define('chat', {
 ##### Fast get with hash_key
 ```js
 Chat.find(1).then(function(chat){  // where('id', '=', 1)
+  // Get value of id key
   console.log(chat.get('id'));
 
+  // Get attribute keys
   console.log(chat.keys());
 
+  // Get attribute values
   console.log(chat.values());
 
+  // Pick specified key and value pairs
   console.log(chat.pick('chat_id', 'timestamp'));
 
+  // Transform as json string.
   console.log(chat.toJson());
 });
 ```
@@ -174,7 +196,7 @@ Chat.where('id', 1)
   // Pluck specific column values.
   console.log(data.pluck('id'));
 
-  // Get as raw json
+  // Get as object.
   console.log(data.toHash());
   // => [{id: 1, name: 'tonny', company: {....}}]
 
@@ -208,7 +230,6 @@ chat.save()
 chat.destroy()
 .then(function(data){
   console.log(data);
-  // empty object;
 });
 ```
 
@@ -224,7 +245,6 @@ chat.destroy()
 * describe
 * showTables
 * waitFor
-* import
 
 ##### Where
 * where
@@ -246,7 +266,8 @@ chat.destroy()
 * select :alias of `attributesToGet(['attr1', 'attr2'])`
 * table
 * indexName
-* descending :alias of `scanIndexForward(true)`
+* asc :alias of `scanIndexForward(true)`
+* desc :alias of `scanIndexForward(false)`
 * limit
 
 
@@ -285,9 +306,8 @@ chat.destroy()
 * globalSecondaryIndexUpdates
 
 ### Events
-* `callbacks.beforeQuery`: Fired before sending request
-* `callbacks.afterQuery`: Fired after getting response
-
+* `beforeQuery`: Fired before sending request
+* `afterQuery`: Fired after getting response
 
 
 ## ORM Apis
