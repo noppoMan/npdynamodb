@@ -1,18 +1,17 @@
 {
   "name": "npdynamodb",
   "version": "0.1.0",
-  "description": "A Simple and Fast Node.js ORM for AWS DynamoDB.",
+  "description": "A Node.js Simple Query Builder and ORM for AWS DynamoDB.",
   "main": "index.js",
   "scripts": {
     "test": "find ./test -name *_spec.js | xargs mocha --reporter spec -t 20000"
   },
   "keywords": [
-    "aws",
     "dynamodb",
+    "aws",
     "activerecord",
     "orm",
-    "migration",
-    "migrate"
+    "migration"
   ],
   "bin": {
     "npd": "./lib/bin/npd"
@@ -29,7 +28,6 @@
   "homepage": "https://github.com/noppoMan/npdynamodb",
   "dependencies": {
     "bluebird": "^2.9.24",
-    "chai": "^2.2.0",
     "chalk": "^1.0.0",
     "commander": "^2.7.1",
     "dynamodb-doc": "^1.0.0",
@@ -42,6 +40,7 @@
     "v8flags": "^2.0.3"
   },
   "devDependencies": {
-    "aws-sdk": "^2.1.18"
+    "aws-sdk": "^2.1.18",
+    "chai": "^2.2.0"
   }
 }
