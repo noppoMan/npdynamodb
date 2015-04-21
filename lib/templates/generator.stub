@@ -1,9 +1,9 @@
 'use strict';
 
-exports.up = function(migrator){
+exports.up = function(migrator, config){
 
 }
 
-exports.down = function(migrator){
+exports.down = function(migrator, config){
 
 }
