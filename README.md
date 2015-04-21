@@ -15,7 +15,6 @@ My fighting has started.
 * 2012-08-10
 
 ## Installation
-(Not published yet.)
 ```sh
 npm install npdynamodb
 ```
@@ -105,10 +104,10 @@ npd().table('users')
 });
 ```
 
-##### save(Make Overwrite values, if each key has already existed.)
+##### create(Make Overwrite all of values, if key[s] have already existed.)
 ```js
 npd().table('users')
-.save({ // Also can save collection.
+.create({ // Also can save collection.
   id: 2,
   name: 'rhodes',
   company: {
@@ -124,6 +123,52 @@ npd().table('users')
 .catch(function(err){
   console.err(err);
 });
+```
+
+##### Update
+```js
+npd().table('users')
+.set("company", "PUT", {
+  name: 'moved company',
+  tel: '123-456-789',
+  zip: '123-456-789',
+  address: 'foo-bar-456'
+})
+.set("suite_color", "ADD", 1)
+.update()
+.then(function(data){
+  console.log(data);
+})
+.catch(function(err){
+  console.err(err);
+});
+```
+
+
+##### Update with expressions
+```js
+npd().table('users')
+.feature(function(f){
+  f.updateExpression('SET #gt = if_not_exists(#gt, :one)');
+
+  f.expressionAttributeNames({
+    '#gt': 'gender_type'
+  });
+
+  f.expressionAttributeValues({
+    ':one': 1
+  });
+
+  f.returnValues('UPDATED_NEW');
+})
+.update()
+.then(function(data){
+  console.log(data);
+})
+.catch(function(err){
+  console.err(err);
+});
+
 ```
 
 ## Use as ORM
@@ -233,6 +278,34 @@ chat.destroy()
 });
 ```
 
+##### Custom Methods and Properties
+```js
+var Chat = npdynamodb.define('chats', {
+  dynamodb: dynamodb,
+
+  hashKey: 'id',
+
+  rangeKey: 'timestamp'
+},
+{
+  customConstant: 1,
+
+  customMethod: function(){
+    return this.where('room_id', 'room1')
+      .query(function(qb){
+        qb.filter('timestamp', '>', 1429212102);
+      })
+      .fetch();
+  }
+});
+
+console.log(Chat.customConstant);
+
+Chat.customMethod().then(function(data){
+  console.log(data);
+});
+```
+
 ## QueryBuilder Apis
 * createTable
 * deleteTable
@@ -240,7 +313,8 @@ chat.destroy()
 * all
 * then
 * count
-* save
+* create
+* update
 * delete
 * describe
 * showTables
@@ -315,8 +389,10 @@ chat.destroy()
 ## ORM Apis
 * find
 * all
+* where
 * then
 * save
+* destroy
 
 
 #### ResultItemCollection
@@ -416,7 +492,7 @@ npd migrate:rollback
 ## Command Line Interfaces (required global install and type `npd`)
 * `init` Create a fresh npdfile.
 * `migrate:generate <name>` Create a named migration file.
-* `migrate:run` Create a named migration file.
+* `migrate:run` Run all migrations that have not yet been run.
 * `migrate:rollback` Rollback the last set of migrations performed.
 * `listTables` List existing tables.
 * `dump <tablename>` Dump amount of records in specified table to stdout.
