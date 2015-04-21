@@ -31,7 +31,7 @@ describe('QueryBuilder', function(){
   before(function(done){
     npd().rawClient().createTable(require('./data/test_tables').compex_table)
     .then(function(){
-      return npd().table('complex_table').save(complexTableData);
+      return npd().table('complex_table').create(complexTableData);
     })
     .then(function(){
       done();

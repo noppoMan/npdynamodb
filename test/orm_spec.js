@@ -10,8 +10,20 @@ var Chat = npdynamodb.define('chats', {
   hashKey: 'room_id',
 
   rangeKey: 'timestamp',
+},
 
-  hasTimestamps: ['created_at', 'updated_at'],
+{
+
+  customConstant: 1,
+
+  customMethod: function(){
+    return this.where('room_id', 'room1')
+      .query(function(qb){
+        qb.filter('timestamp', '>', 1429291245);
+      })
+      .fetch();
+  }
+
 });
 
 var npd = Chat.npdynamodb;
@@ -21,7 +33,7 @@ describe('ORM', function(){
   beforeEach(function(done){
     npd().rawClient().createTable(require('./data/test_tables').chats)
     .then(function(data){
-      return npd().table('chats').save([
+      return npd().table('chats').create([
         {
           room_id: "room1",
           timestamp: 1429291245,
@@ -175,6 +187,22 @@ describe('ORM', function(){
         done(err);
       });
     });
+  });
+
+  describe('Custom method and props', function(){
+    it('Should get custom property', function(){
+      expect(Chat.customConstant).to.equal(1);
+    });
+
+    it('Should get rows with custom method', function(done){
+
+      Chat.customMethod().then(function(data){
+        expect(data.pluck('timestamp')).to.deep.equal([1429291246]);
+        done();
+      })
+
+    });
+
   });
 
 });

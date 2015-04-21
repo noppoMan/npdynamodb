@@ -15,9 +15,7 @@ describe('QueryBuilder', function(){
     .then(function(){
       done();
     })
-    .catch(function(err){
-      done(err);
-    })
+    .catch(done)
   });
 
   afterEach(function(done){
@@ -27,12 +25,10 @@ describe('QueryBuilder', function(){
     .then(function(){
       done();
     })
-    .catch(function(err){
-      done(err);
-    });
+    .catch(done);
   });
 
-  describe('save', function(){
+  describe('create', function(){
 
     it('Should Create a new row', function(done){
       npd().table('chats')
@@ -41,7 +37,7 @@ describe('QueryBuilder', function(){
       //   f.returnItemCollectionMetrics('SIZE');
       //   f.returnValues('ALL_OLD');
       // })
-      .save({
+      .create({
         room_id: "room1",
         timestamp: 1429291245,
         message: 'This is message'
@@ -49,22 +45,20 @@ describe('QueryBuilder', function(){
       .then(function(data){
         done();
       })
-      .catch(function(err){
-        done(err);
-      });
+      .catch(done);
     });
 
     it('Should Update existing row', function(done){
 
       npd().table('chats')
-      .save({
+      .create({
         room_id: "room1",
         timestamp: 1429291245,
         message: 'This is message'
       })
       .then(function(){
         return npd().table('chats')
-        .save({
+        .create({
           room_id: "room1",
           timestamp: 1429291245,
           message: 'This is updated message'
@@ -79,14 +73,12 @@ describe('QueryBuilder', function(){
           done();
         });
       })
-      .catch(function(err){
-        done(err);
-      });
+      .catch(done);
     });
 
     it('Should batch create rows', function(done){
-      npd().table('chats')
-      .save([
+      return npd().table('chats')
+      .create([
         {
           room_id: "room1",
           timestamp: 1429291246,
@@ -107,16 +99,85 @@ describe('QueryBuilder', function(){
         expect(Object.keys(data.UnprocessedItems).length).to.equal(0);
         done();
       })
-      .catch(function(err){
-        done(err);
-      });
+      .catch(done);
+    });
+  });
+
+  describe('update', function(){
+
+    it('Should update message and add user_name field by update method', function(done){
+      npd().table('chats')
+      .create([
+        {
+          room_id: "room1",
+          timestamp: 1429291246,
+          message: 'This is first message',
+          user: {
+            name: "Tonny",
+            age: 40
+          }
+        }
+      ])
+      .then(function(){
+        return npd().table('chats')
+          .where("room_id", "room1")
+          .where('timestamp', 1429291246)
+          .set("user", "PUT", {name: 'rhodes', age: 45})
+          .set("gender_type", "ADD", 1)
+          .feature(function(f){
+            f.returnValues('UPDATED_NEW');
+          })
+          .update()
+      })
+      .then(function(data){
+        expect(data).to.deep.equal({ Attributes: { gender_type: 1, user: { name: 'rhodes', age: 45 } } });
+        done();
+      })
+      .catch(done);
+    });
+
+    it('Should update row with expressions', function(done){
+      npd().table('chats')
+      .create([
+        {
+          room_id: "room1",
+          timestamp: 1429291246,
+          message: 'This is first message',
+          user: {
+            name: "Tonny"
+          }
+        }
+      ])
+      .then(function(){
+        return npd().table('chats')
+          .where("room_id", "room1")
+          .where('timestamp', 1429291245)
+          .feature(function(f){
+            f.updateExpression('SET #gt = if_not_exists(#gt, :one)');
+
+            f.expressionAttributeNames({
+              '#gt': 'gender_type'
+            });
+
+            f.expressionAttributeValues({
+              ':one': 1
+            });
+            f.returnValues('UPDATED_NEW');
+          })
+          .update()
+      })
+      .then(function(data){
+        expect(data).to.deep.equal({ Attributes: { gender_type: 1 } });
+        done();
+      })
+      .catch(done);
     });
   });
 
   describe('delete', function(){
     it('Should delete a row', function(done){
       npd().table('chats')
-      .save({
+      .create({
         room_id: "room1",
         timestamp: 1429291245,
         message: 'This is message'
@@ -133,9 +194,7 @@ describe('QueryBuilder', function(){
           done();
         });
       })
-      .catch(function(err){
-        done(err);
-      });
+      .catch(done);
     });
   });
 
