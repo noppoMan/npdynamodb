@@ -23,7 +23,7 @@ function padDate(t){
 }
 
 function exitWithError(text) {
-  chalk.red(console.error(text));
+  console.error(chalk.red(text));
   process.exit(1);
 }
 
@@ -95,7 +95,7 @@ function initialize(){
   .command('migrate:run')
   .option('-e, --environment [value]', 'Specify the environment to run migrate.')
   .description('       Create a named migration file.')
-  .action(function(name) {
+  .action(function() {
     var env = argv.e || 'development';
     var root = process.cwd();
     var config = require(root + "/npdfile")[env];
@@ -104,22 +104,21 @@ function initialize(){
       exitWithError(env + ' is not specified environemnt.');
     }
 
+    config.env = env;
     config.cwd = root + '/migrations';
 
     new Migrator.Runner(config).run()
     .then(function(data){
-      exit();
+      exit(chalk.cyan(data.map(function(path){ return "Migrated" + path; }).join("\n")));
     })
-    .catch(function(err){
-      exitWithError(err);
-    });
+    .catch(exitWithError);
   });
 
   program
   .command('migrate:rollback')
   .option('-e, --environment [value]', 'Specify the environment to run migrate.')
   .description('       Rollback the last set of migrations performed.')
-  .action(function(name) {
+  .action(function() {
     var env = argv.e || 'development';
     var root = process.cwd();
     var config = require(root + "/npdfile")[env];
@@ -128,22 +127,21 @@ function initialize(){
       exitWithError(env + ' is not specified environemnt.');
     }
 
+    config.env = env;
     config.cwd = root + '/migrations';
 
     new Migrator.Runner(config).rollback()
     .then(function(data){
-      exit();
+      exit(chalk.cyan('Rollbacked ' + data));
     })
-    .catch(function(err){
-      exitWithError(err);
-    });
+    .catch(exitWithError);
   });
 
   program
   .command('listTables')
   .option('-e, --environment [value]', 'Specify the environment to run migrate.')
   .description('      list all tables')
-  .action(function(name) {
+  .action(function() {
     var env = argv.e || 'development';
     var root = process.cwd();
     var config = require(root + "/npdfile")[env];
@@ -157,9 +155,7 @@ function initialize(){
     .then(function(tables){
       exit(tables.TableNames.join("\n"));
     })
-    .catch(function(err){
-      exitWithError(err);
-    });
+    .catch(exitWithError);
   });
 
   program
@@ -178,11 +174,15 @@ function initialize(){
 
     npd().table(table).all()
     .then(function(data){
-      exit(data);
+      exit(chalk.cyan(data));
     })
-    .catch(function(err){
-      exitWithError(err);
-    });
+    .catch(exitWithError);
+  });
+
+  program
+  .command('*')
+  .action(function(cmd){
+    exitWithError("npd: " + cmd +" is not a npd command. See 'npd --help'.");
   });
 
   program.parse(process.argv);
