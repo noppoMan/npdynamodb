@@ -11,8 +11,8 @@ exports.createClient = function(dynamodb){
   };
 };
 
-exports.define = function(tableName, params){
-  return NPDynamoDBORM(tableName, params);
+exports.define = function(tableName, params, customProps){
+  return NPDynamoDBORM(tableName, params, customProps);
 }
 
 exports.Migrator = require('./lib/migrate/migrator');
