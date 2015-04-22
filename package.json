@@ -1,6 +1,6 @@
 {
   "name": "npdynamodb",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "A Node.js Simple Query Builder and ORM for AWS DynamoDB.",
   "main": "index.js",
   "scripts": {
