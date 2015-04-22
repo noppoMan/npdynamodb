@@ -43,7 +43,23 @@ var dynamodb = new AWS.DynamoDB({
 var npd = npdynamodb.createClient(dynamodb);
 ```
 
-##### Get rows by hash key
+##### Get by hash key (getItem operation)
+```js
+npd().table('users')
+.where("id", 1)
+.first()
+.then(function(data){
+
+  console.log(data)
+  // => {Item: {id: 1, name: 'Tonny'}, Count: 1, ScannedCount: 1}
+
+})
+.catch(function(err){
+  console.err(err);
+});
+```
+
+##### Get rows with where (query operation)
 ```js
 npd().table('users')
 .where('name', 'tonny') //hash key
@@ -79,7 +95,7 @@ npd().table('chats')
 .where('room_id', 'room1')
 .count()
 .then(function(data){
-  console.log(data);
+  console.log(data.Count);
 })
 .catch(function(err){
   console.err(err);
