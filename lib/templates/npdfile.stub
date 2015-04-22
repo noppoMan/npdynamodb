@@ -12,6 +12,12 @@ var dynamodb = new AWS.DynamoDB({
 });
 
 module.exports = {
+
+  // Specify migration file path. Default is `./migrations`
+  // migration: {
+  //  migrationFilePath: './npdynamodb_migrations'
+  // },
+
   development: {
     dynamoClient: dynamodb,
     migrations: {

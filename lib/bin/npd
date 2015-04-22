@@ -34,6 +34,18 @@ function exit(text) {
   process.exit(0);
 }
 
+var npdfile;
+
+function npdFile(){
+  npdfile = npdfile || require(process.cwd() + "/npdfile");
+  return npdfile;
+}
+
+function migrationFilePath(){
+  var _migrationFilePath = (npdFile().migration && npdFile().migration.migrationFilePath) ? npdFile().migration.migrationFilePath : 'migrations'
+  return process.cwd() + '/' + _migrationFilePath;
+}
+
 function initialize(){
   program.version(require('../../package.json').version);
 
@@ -48,14 +60,14 @@ function initialize(){
       rl.question('Npdfile is already existed. Do you want to overwrite it? [Y/n]', function(answer) {
         if(answer.toLowerCase() == 'y'){
           fs.writeFileSync(npdPath, templates.npdfile);
-          exit('Overwrited the npdfile.');
+          exit('Overwrote the npdfile.');
         }
         rl.close();
       });
 
     }else{
       fs.writeFileSync(npdPath, templates.npdfile);
-      exit('Created npdfile.');
+      exit('Created npdfile.js');
     }
 
   });
@@ -64,8 +76,7 @@ function initialize(){
   .command('migrate:generate <name>')
   .description('       Create a named migration file.')
   .action(function(name) {
-
-    var migrationDir = process.cwd() + "/migrations";
+    var migrationDir = migrationFilePath();
 
     if(!fs.existsSync(migrationDir)){
       fs.mkdirSync(migrationDir);
@@ -97,15 +108,14 @@ function initialize(){
   .description('       Run all migrations that have not yet been run.')
   .action(function() {
     var env = argv.e || 'development';
-    var root = process.cwd();
-    var config = require(root + "/npdfile")[env];
+    var config = npdFile()[env];
 
     if(!config) {
       exitWithError(env + ' is not specified environemnt.');
     }
 
     config.env = env;
-    config.cwd = root + '/migrations';
+    config.cwd = migrationFilePath();
 
     new Migrator.Runner(config).run()
     .then(function(data){
@@ -120,15 +130,14 @@ function initialize(){
   .description('       Rollback the last set of migrations performed.')
   .action(function() {
     var env = argv.e || 'development';
-    var root = process.cwd();
-    var config = require(root + "/npdfile")[env];
+    var config = npdFile()[env];
 
     if(!config) {
       exitWithError(env + ' is not specified environemnt.');
     }
 
     config.env = env;
-    config.cwd = root + '/migrations';
+    config.cwd = migrationFilePath();
 
     new Migrator.Runner(config).rollback()
     .then(function(data){
@@ -144,7 +153,7 @@ function initialize(){
   .action(function() {
     var env = argv.e || 'development';
     var root = process.cwd();
-    var config = require(root + "/npdfile")[env];
+    var config = npdFile()[env];
     var npd = require('../../index').createClient(config.dynamoClient);
 
     if(!config) {
@@ -165,7 +174,7 @@ function initialize(){
   .action(function(table) {
     var env = argv.e || 'development';
     var root = process.cwd();
-    var config = require(root + "/npdfile")[env];
+    var config = npdFile()[env];
     var npd = require('../../index').createClient(config.dynamoClient);
 
     if(!config) {
@@ -174,7 +183,7 @@ function initialize(){
 
     npd().table(table).all()
     .then(function(data){
-      exit(chalk.cyan(data));
+      exit(data);
     })
     .catch(exitWithError);
   });
