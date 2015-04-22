@@ -459,6 +459,53 @@ We support schema migration for Dynamodb.
 npd install -g npdynamodb
 # cd /path/to/your/project
 npd init
+# created npdfile.js
+```
+
+##### npdfile.js
+```js
+'use strict';
+
+var AWS = require('aws-sdk');
+
+var dynamodb = new AWS.DynamoDB({
+  apiVersion: '2012-08-10',
+  accessKeyId: "AWS_KEY",
+  secretAccessKey: "AWS_SECRET",
+  region: "ap-northeast-1"
+});
+
+module.exports = {
+
+  // Specify migration file path. Default is `./migrations`
+  // migration: {
+  //  migrationFilePath: './npdynamodb_migrations'
+  // },
+
+  development: {
+    dynamoClient: dynamodb,
+    migrations: {
+      ProvisionedThroughput: [10, 10],
+      tableName: 'npd_migrations'
+    }
+  },
+
+  staging: {
+    dynamoClient: dynamodb,
+    migrations: {
+      ProvisionedThroughput: [10, 10],
+      tableName: 'npd_migrations'
+    }
+  },
+
+  production: {
+    dynamoClient: dynamodb,
+    migrations: {
+      ProvisionedThroughput: [10, 10],
+      tableName: 'npd_migrations'
+    }
+  }
+};
 ```
 
 ##### Generate migration file.
