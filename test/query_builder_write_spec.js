@@ -127,7 +127,7 @@ describe('QueryBuilder', function(){
           .feature(function(f){
             f.returnValues('UPDATED_NEW');
           })
-          .update()
+          .update();
       })
       .then(function(data){
         expect(data).to.deep.equal({ Attributes: { gender_type: 1, user: { name: 'rhodes', age: 45 } } });
@@ -164,7 +164,7 @@ describe('QueryBuilder', function(){
             });
             f.returnValues('UPDATED_NEW');
           })
-          .update()
+          .update();
       })
       .then(function(data){
         expect(data).to.deep.equal({ Attributes: { gender_type: 1 } });

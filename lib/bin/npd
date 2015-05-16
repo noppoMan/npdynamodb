@@ -196,7 +196,7 @@ function initialize(){
 
   program.parse(process.argv);
 
-  if(argv._.length == 0) {
+  if(argv._.length === 0) {
     program.help();
   }
 }

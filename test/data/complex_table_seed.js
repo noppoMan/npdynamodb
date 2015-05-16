@@ -38,7 +38,7 @@ var stabData = _.range(1, 11).map(function(i){
         }
       ]
     }
-  }
+  };
 });
 
 module.exports = stabData;

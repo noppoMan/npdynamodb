@@ -18,8 +18,8 @@ exports.up = function(migrator){
       t.ProjectionTypeAll();
     });
   });
-}
+};
 
 exports.down = function(migrator){
   return migrator().deleteTable('test_table1');
-}
+};

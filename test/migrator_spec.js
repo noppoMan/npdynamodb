@@ -72,9 +72,9 @@ describe('Migrator', function(){
           .then(function(data){
             expect(data.Count).to.equal(0);
             done();
-          })
+          });
         });
-      })
+      });
     });
   });
 });

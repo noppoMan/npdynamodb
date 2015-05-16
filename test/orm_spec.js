@@ -51,7 +51,7 @@ describe('ORM', function(){
     })
     .catch(function(err){
       done(err);
-    })
+    });
   });
 
   afterEach(function(done){
@@ -195,14 +195,11 @@ describe('ORM', function(){
     });
 
     it('Should get rows with custom method', function(done){
-
       Chat.customMethod().then(function(data){
         expect(data.pluck('timestamp')).to.deep.equal([1429291246]);
         done();
-      })
-
+      });
     });
-
   });
 
 });

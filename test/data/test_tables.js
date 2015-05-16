@@ -35,7 +35,7 @@ exports.compex_table = {
       Projection: { ProjectionType: 'ALL' }
     }
   ]
-}
+};
 
 
 exports.chats = {
@@ -51,7 +51,7 @@ exports.chats = {
   ProvisionedThroughput: {
     ReadCapacityUnits: 100, WriteCapacityUnits: 100
   },
-}
+};
 
 exports.for_schema_test = {
   AttributeDefinitions: [
@@ -122,4 +122,4 @@ exports.for_schema_test = {
       Projection: { ProjectionType: 'ALL' }
     }
   ]
-}
+};
