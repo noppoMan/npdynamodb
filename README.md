@@ -276,7 +276,7 @@ Chat.save({
 });
 
 // As Instance
-var chat = Chat.create();
+var chat = new Chat();
 chat.set('room_id', 'room1');
 chat.set('...', ...);
 
