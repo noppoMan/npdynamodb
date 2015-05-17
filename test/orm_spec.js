@@ -10,13 +10,19 @@ var Chat = npdynamodb.define('chats', {
   hashKey: 'room_id',
 
   rangeKey: 'timestamp',
+
+  customProtoConstant: 1,
+
+  customProtoMethod: function(){
+    return this.get('room_id') === 'room1';
+  }
 },
 
 {
 
-  customConstant: 1,
+  customStaticConstant: 1,
 
-  customMethod: function(){
+  customStaticMethod: function(){
     return this.where('room_id', 'room1')
       .query(function(qb){
         qb.filter('timestamp', '>', 1429291245);
@@ -145,7 +151,7 @@ describe('ORM', function(){
 
     it('Should save item from new orm object', function(done){
 
-      var chat = Chat.new();
+      var chat = new Chat();
       chat.set('room_id', 'room2');
       chat.set('timestamp', 1429291247);
       chat.set('message', 'This is message');
@@ -189,13 +195,29 @@ describe('ORM', function(){
     });
   });
 
-  describe('Custom method and props', function(){
-    it('Should get custom property', function(){
-      expect(Chat.customConstant).to.equal(1);
+  describe('Custom prototype method and props', function(){
+    it('Should get custom property', function(done){
+      Chat.find("room1", 1429291245).then(function(chat){
+        expect(chat.customProtoConstant).to.equal(1);
+        done();
+      });
     });
 
     it('Should get rows with custom method', function(done){
-      Chat.customMethod().then(function(data){
+      Chat.find("room1", 1429291245).then(function(chat){
+        expect(chat.customProtoMethod()).to.equal(true);
+        done();
+      });
+    });
+  });
+
+  describe('Custom static method and props', function(){
+    it('Should get custom property', function(){
+      expect(Chat.customStaticConstant).to.equal(1);
+    });
+
+    it('Should get rows with custom method', function(done){
+      Chat.customStaticMethod().then(function(data){
         expect(data.pluck('timestamp')).to.deep.equal([1429291246]);
         done();
       });

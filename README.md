@@ -301,12 +301,20 @@ var Chat = npdynamodb.define('chats', {
 
   hashKey: 'id',
 
-  rangeKey: 'timestamp'
-},
-{
-  customConstant: 1,
+  rangeKey: 'timestamp',
 
-  customMethod: function(){
+  customProtoTypeConstant: 1,
+
+  customeProtoTypeMethod: function(){
+    return this.get('id') === 1;
+  }
+
+},
+
+{
+  customStaticConstant: 1,
+
+  customStaticMethod: function(){
     return this.where('room_id', 'room1')
       .query(function(qb){
         qb.filter('timestamp', '>', 1429212102);
@@ -315,9 +323,17 @@ var Chat = npdynamodb.define('chats', {
   }
 });
 
-console.log(Chat.customConstant);
+// prototype
+Chat.find(1).then(function(chat){
+  console.log(chat.customProtoTypeConstant);
+  console.log(chat.customeProtoTypeMethod());
+});
 
-Chat.customMethod().then(function(data){
+
+// static
+console.log(Chat.customStaticConstant);
+
+Chat.customStaticMethod().then(function(data){
   console.log(data);
 });
 ```
