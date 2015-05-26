@@ -179,6 +179,21 @@ describe('ORM', function(){
         done(err);
       });
     });
+
+    it("Should each model in collection save an item", function(done){
+      Chat.where('room_id', 'room1').fetch().then(function(chats){
+        return chats.first().set('message', 'this is a updated message').save()
+        .then(function(chat){
+          return chat.reload();
+        });
+      })
+      .then(function(chat){
+        expect(chat.get('message')).to.equal('this is a updated message');
+        done();
+      })
+      .catch(done);
+    });
+
   });
 
   describe('destroy', function(){
