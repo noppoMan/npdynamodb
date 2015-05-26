@@ -14,7 +14,7 @@ var Chat = npdynamodb.define('chats', {
   customProtoConstant: 1,
 
   customProtoMethod: function(){
-    return this.get('room_id') === 'room1';
+    return this.get('timestamp') === 1429291245;
   }
 },
 
@@ -205,23 +205,31 @@ describe('ORM', function(){
   });
 
   describe('Custom prototype method and props', function(){
-    it('Should get custom property', function(done){
+    it('Custom property should equals with expected value', function(done){
       Chat.find("room1", 1429291245).then(function(chat){
         expect(chat.customProtoConstant).to.equal(1);
         done();
       });
     });
 
-    it('Should get rows with custom method', function(done){
+    it('Result item should call custom method and equals with expected value.', function(done){
       Chat.find("room1", 1429291245).then(function(chat){
         expect(chat.customProtoMethod()).to.equal(true);
+        done();
+      });
+    });
+
+    it('Result each item of result collection should call custom instance method and equals with expected value.', function(done){
+      Chat.where('room_id', 'room1').fetch().then(function(chats){
+        expect(chats.indexAt(0).customProtoMethod()).to.equal(true);
+        expect(chats.indexAt(1).customProtoMethod()).to.equal(false);
         done();
       });
     });
   });
 
   describe('Custom static method and props', function(){
-    it('Should get custom property', function(){
+    it('Custom property should equals with expected value', function(){
       expect(Chat.customStaticConstant).to.equal(1);
     });
 
