@@ -276,9 +276,11 @@ Chat.save({
 });
 
 // As Instance
-var chat = new Chat();
-chat.set('room_id', 'room1');
-chat.set('...', ...);
+var chat = new Chat({
+  room_id: 'room1',
+  user_id: 1
+});
+chat.set('message', 'This is a message.');
 
 chat.save()
 .then(function(chat){
@@ -427,7 +429,7 @@ Chat.customStaticMethod().then(function(data){
 * destroy
 
 
-#### ResultItemCollection
+#### Collection
 * pluck
 * each
 * map
@@ -452,11 +454,13 @@ Chat.customStaticMethod().then(function(data){
 * first
 * last
 * toJson
-* toHash
+* toArray
 
-#### ResultItem
+#### Model
 * get
 * set
+* unset
+* extend
 * each
 * map
 * keys
@@ -551,11 +555,11 @@ exports.up = function(migrator){
       t.ProjectionTypeAll(); //default is NONE
     });
   });
-}
+};
 
 exports.down = function(migrator){
   return migrator().deleteTable('chats');
-}
+};
 ```
 
 ##### Run latest migration.
