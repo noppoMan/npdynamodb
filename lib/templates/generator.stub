@@ -2,8 +2,8 @@
 
 exports.up = function(migrator, config){
 
-}
+};
 
 exports.down = function(migrator, config){
 
-}
+};
