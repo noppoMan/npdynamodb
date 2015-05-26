@@ -258,7 +258,7 @@ Chat.where('id', 1)
   console.log(data.pluck('id'));
 
   // Get as object.
-  console.log(data.toHash());
+  console.log(data.toArray());
   // => [{id: 1, name: 'tonny', company: {....}}]
 
 });

@@ -122,6 +122,10 @@ describe('ORM', function(){
       expect(chats[1].get("timestamp")).to.equal(1429291245);
       return chatCollection;
     })
+    .then(function(chatCollection){
+      expect(chatCollection.toArray().length).to.equal(2);
+      return chatCollection;
+    })
     .then(function(){
       done();
     })
