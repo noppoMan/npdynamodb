@@ -137,7 +137,7 @@ describe('ORM', function(){
 
   describe('save', function(){
 
-    it('Should save an item with giving params directory', function(done){
+    it('Should save an item statically', function(done){
       Chat.save({
         room_id: "room2",
         timestamp: 1429291247,
@@ -146,6 +146,7 @@ describe('ORM', function(){
       .then(function(chat){
         expect(chat.get('room_id')).to.equal('room2');
         expect(chat.get('timestamp')).to.equal(1429291247);
+        expect(chat.get('message')).to.equal('This is message');
         done();
       })
       .catch(function(err){
@@ -153,15 +154,19 @@ describe('ORM', function(){
       });
     });
 
-    it('Should save item from new orm object', function(done){
+    it("Should save an item from ORM Instance", function(done){
 
-      var chat = new Chat();
-      chat.set('room_id', 'room2');
-      chat.set('timestamp', 1429291247);
+      var chat = new Chat({
+        room_id: 'room2',
+        timestamp: 1429291247
+      });
+
       chat.set('message', 'This is message');
 
       chat.save()
       .then(function(chat){
+        expect(chat.get('room_id')).to.equal('room2');
+        expect(chat.get('timestamp')).to.equal(1429291247);
         expect(chat.get('message')).to.equal('This is message');
         return chat.set('message', "This is updated message").save();
       })
