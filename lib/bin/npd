@@ -117,9 +117,15 @@ function initialize(){
     config.env = env;
     config.cwd = migrationFilePath();
 
+    console.log("Environment: " + chalk.yellow(config.env));
+
     new Migrator.Runner(config).run()
     .then(function(data){
-      exit(chalk.cyan(data.map(function(path){ return "Migrated" + path; }).join("\n")));
+      if(data.length === 0) {
+        exit(chalk.cyan("Already up to date"));
+      }else{
+        exit(chalk.cyan(data.map(function(path){ return "Migrated" + path; }).join("\n")));
+      }
     })
     .catch(exitWithError);
   });
