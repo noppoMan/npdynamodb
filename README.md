@@ -24,10 +24,22 @@ npm install npdynamodb
 Parameters are like Chant of the magic.
 [http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html)
 
+## Upgrading
+#### Upgrading 0.1x -> 0.2x
+
+##### QueryBuilder
+There should be a minor change for QueryBuilder. 0.2x  QueryBuilder can take options as second argument of createClient.
+* 0.2.0: `timeout` option supported.
+
+##### ORM
+There should be a major change for ORM. 0.2x ORM constructor need to pass the npdynamodb instance instead of pure dynamodb instance.
+
+
 ## Usage
 Npdynamodb has two faces. One is Simple Query Builder and the other is Light ORM.
 We release you redundancy codes and see simple syntax.  
 of course, will not see callback hell !!
+
 
 ## Use as QueryBuilder
 
@@ -41,6 +53,11 @@ var dynamodb = new AWS.DynamoDB({
 });
 
 var npd = npdynamodb.createClient(dynamodb);
+
+// Or can take options
+var npd = npdynamodb.createClient(dynamodb, {
+  timeout: 3000
+});
 ```
 
 ##### Get by hash key (getItem operation)
@@ -194,12 +211,12 @@ Initialization
 var npdynamodb = require('npdynamodb');
 var AWS = require('aws-sdk');
 
-var dynamodb = new AWS.DynamoDB({
+var npd = npdynamodb.createClient(new AWS.DynamoDB({
   apiVersion: '2012-08-10'
-});
+}));
 
 var Chat = npdynamodb.define('chats', {
-  dynamodb: dynamodb,
+  npdynamodb: npd,
 
   hashKey: 'id',
 
@@ -299,7 +316,7 @@ chat.destroy()
 ##### Custom Methods and Properties
 ```js
 var Chat = npdynamodb.define('chats', {
-  dynamodb: dynamodb,
+  npdynamodb: npd,
 
   hashKey: 'id',
 
@@ -339,6 +356,9 @@ Chat.customStaticMethod().then(function(data){
   console.log(data);
 });
 ```
+
+## QueryBuilder options
+* timeout: default is 5000(ms)
 
 ## QueryBuilder Apis
 * createTable
