@@ -4,8 +4,10 @@ var npdynamodb = require('../index');
 var chai = require('chai');
 var expect = chai.expect;
 
+var npd = npdynamodb.createClient(require('./dynamodb_2012_08_10'));
+
 var Chat = npdynamodb.define('chats', {
-  dynamodb: require('./dynamodb_2012_08_10'),
+  npdynamodb: npd,
 
   hashKey: 'room_id',
 
@@ -31,8 +33,6 @@ var Chat = npdynamodb.define('chats', {
   }
 
 });
-
-var npd = Chat.npdynamodb;
 
 describe('ORM', function(){
 
@@ -61,7 +61,7 @@ describe('ORM', function(){
   });
 
   afterEach(function(done){
-    Chat.npdynamodb().rawClient().deleteTable({
+    npd().rawClient().deleteTable({
       TableName: 'chats'
     })
     .then(function(){

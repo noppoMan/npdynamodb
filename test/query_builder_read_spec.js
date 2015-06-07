@@ -486,4 +486,30 @@ describe('QueryBuilder', function(){
     });
   });
 
+  describe('options', function(){
+    var AWS = require('aws-sdk');
+
+    it('Should handle timeout', function(done){
+      var config = {
+        apiVersion: '2012-08-10',
+        accessKeyId: "AWS_KEY",
+        secretAccessKey: "AWS_SECRET",
+        sslEnabled: false,
+        region: "ap-northeast-1",
+        endpoint: 'invalid.host'
+      };
+
+      var npd = npdynamodb.createClient(new AWS.DynamoDB(config), {
+        timeout: 1000
+      });
+
+      npd().table('complex_table').all().then(function(data){
+        throw new Error('Here is never called.');
+      })
+      .catch(function(err){
+        expect(err.toString()).to.eq('Error: The connection has timed out.');
+        done();
+      });
+    });
+  });
 });
