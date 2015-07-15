@@ -11,11 +11,8 @@ var argv = require('minimist')(process.argv.slice(2));
 var chalk = require('chalk');
 var _ = require('lodash');
 var Migrator = require('../migrate/migrator');
-
-var rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout
-});
+var fs = require('fs');
+var repl = require("repl");
 
 function padDate(t){
   if(t < 10) t = "0"+t.toString();
@@ -46,13 +43,56 @@ function migrationFilePath(){
   return process.cwd() + '/' + _migrationFilePath;
 }
 
+function npdAA(){
+  return fs.readFileSync(__dirname + '/../templates/npd_aa.stub', 'utf-8');
+}
+
+function checkNpdfileExists(){
+  if(!fs.existsSync(process.cwd() + "/npdfile.js")){
+    console.error(chalk.red("npdfile.js was not found. Please type `npd init` to create npdfile.js"));
+    process.exit(1);
+  }
+}
+
+function actionValidator(){
+  var env = program.env || argv.e || 'development';
+
+  if(argv.e) {
+    var name = program.args[0]._name;
+    if(name) {
+      console.log(chalk.yellow('DEPRECATION WARNING') + ': npd: using `' + name+ '` with a `-e` option is deprecated!');
+    }
+  }
+  checkNpdfileExists();
+  var config = npdFile()[env];
+
+  if(!config) {
+    exitWithError(env + ' is not specified environemnt.');
+  }
+  config.env = env;
+  config.cwd = migrationFilePath();
+
+  console.log("Environment: " + chalk.yellow(config.env));
+
+  return new Promise(function(resolve){
+    resolve(config);
+  });
+}
+
 function initialize(){
-  program.version(require('../../package.json').version);
+  program
+    .version(require('../../package.json').version)
+    .option('--env [value]', 'Specify the environment to run command.')
+  ;
 
   program
   .command('init')
   .description('        Create a fresh npdfile.')
   .action(function() {
+    var rl = readline.createInterface({
+      input: process.stdin,
+      output: process.stdout
+    });
 
     var npdPath = process.cwd() + "/npdfile.js";
 
@@ -60,14 +100,30 @@ function initialize(){
       rl.question('Npdfile is already existed. Do you want to overwrite it? [Y/n]', function(answer) {
         if(answer.toLowerCase() == 'y'){
           fs.writeFileSync(npdPath, templates.npdfile);
-          exit('Overwrote the npdfile.');
+          exit(chalk.yellow('Overwrote the npdfile.'));
         }
         rl.close();
       });
 
     }else{
       fs.writeFileSync(npdPath, templates.npdfile);
-      exit('Created npdfile.js');
+      exit(
+        [
+          "\n",
+          chalk.cyan('Created npdfile.js'),
+          "\n",
+          npdAA(),
+          "\n",
+          "Thanks for installing npdynamodb! \n",
+          "--------------------------------------------------------",
+          "HomePage: " + chalk.underline('https://github.com/noppoMan/npdynamodb'),
+          "Documantation: " + chalk.underline('https://goo.gl/NgH8TT'),
+          "Issues: " + chalk.underline('https://goo.gl/KdxAuc'),
+          "Contact: Noppoman <yuki@miketokyo.com>",
+          "--------------------------------------------------------\n",
+          "Enjoy hack with npdynamodb!\n"
+        ].join("\n")
+      );
     }
 
   });
@@ -104,105 +160,66 @@ function initialize(){
 
   program
   .command('migrate:run')
-  .option('-e, --environment [value]', 'Specify the environment to run migrate.')
+  .option('-e, --environment [value]', 'Specify the environment to run.')
   .description('       Run all migrations that have not yet been run.')
   .action(function() {
-    var env = argv.e || 'development';
-    var config = npdFile()[env];
-
-    if(!config) {
-      exitWithError(env + ' is not specified environemnt.');
-    }
-
-    config.env = env;
-    config.cwd = migrationFilePath();
-
-    console.log("Environment: " + chalk.yellow(config.env));
-
-    new Migrator.Runner(config).run()
-    .then(function(data){
-      if(data.length === 0) {
-        exit(chalk.cyan("Already up to date"));
-      }else{
-        exit(chalk.cyan(data.map(function(path){ return "Migrated" + path; }).join("\n")));
-      }
-    })
-    .catch(exitWithError);
+    return actionValidator().then(function(config){
+      return new Migrator.Runner(config).run()
+      .then(function(data){
+        if(data.length === 0) {
+          exit(chalk.cyan("Already up to date"));
+        }else{
+          exit(chalk.cyan(data.map(function(path){ return "Migrated" + path; }).join("\n")));
+        }
+      });
+    }).catch(exitWithError);
   });
 
   program
   .command('migrate:rollback')
-  .option('-e, --environment [value]', 'Specify the environment to run migrate.')
+  .option('-e, --environment [value]', 'Specify the environment to run.')
   .description('       Rollback the last set of migrations performed.')
   .action(function() {
-    var env = argv.e || 'development';
-    var config = npdFile()[env];
-
-    if(!config) {
-      exitWithError(env + ' is not specified environemnt.');
-    }
-
-    config.env = env;
-    config.cwd = migrationFilePath();
-
-    new Migrator.Runner(config).rollback()
-    .then(function(data){
-      exit(chalk.cyan('Rollbacked ' + data));
-    })
-    .catch(exitWithError);
+    return actionValidator().then(function(config){
+      return new Migrator.Runner(config).rollback()
+      .then(function(data){
+        exit(chalk.cyan('Rollbacked ' + data));
+      });
+    }).catch(exitWithError);
   });
 
   program
   .command('listTables')
-  .option('-e, --environment [value]', 'Specify the environment to run migrate.')
+  .option('-e, --environment [value]', 'Specify the environment to run.')
   .description('      list all tables')
   .action(function() {
-    var env = argv.e || 'development';
-    var root = process.cwd();
-    var config = npdFile()[env];
-    var npd = require('../../index').createClient(config.dynamoClient);
+    return actionValidator().then(function(config){
+      var npd = require('../../index').createClient(config.dynamoClient);
 
-    if(!config) {
-      exitWithError(env + ' is not specified environemnt.');
-    }
-
-    npd().showTables()
-    .then(function(tables){
-      exit(tables.TableNames.join("\n"));
-    })
-    .catch(exitWithError);
+      return npd().showTables()
+      .then(function(tables){
+        exit(tables.TableNames.join("\n"));
+      });
+    }).catch(exitWithError);
   });
 
   program
   .command('dump <table>')
-  .option('-e, --environment [value]', 'Specify the environment to run migrate.')
+  .option('-e, --environment [value]', 'Specify the environment to run.')
   .description('       Dump specified table contents.')
   .action(function(table) {
-    var env = argv.e || 'development';
-    var root = process.cwd();
-    var config = npdFile()[env];
-    var npd = require('../../index').createClient(config.dynamoClient);
-
-    if(!config) {
-      exitWithError(env + ' is not specified environemnt.');
-    }
-
-    npd().table(table).all()
-    .then(function(data){
-      exit(data);
-    })
-    .catch(exitWithError);
-  });
-
-  program
-  .command('*')
-  .action(function(cmd){
-    exitWithError("npd: " + cmd +" is not a npd command. See 'npd --help'.");
+    return actionValidator().then(function(config){
+      var npd = require('../../index').createClient(config.dynamoClient);
+      return npd().table(table).all()
+      .then(function(data){
+        exit(require('util').inspect(data, {depth: null }));
+      });
+    }).catch(exitWithError);
   });
 
   program.parse(process.argv);
 
-  if(argv._.length === 0) {
+  if(argv._.length === 0 || !_.last(program.args)._name) {
     program.help();
   }
 }
