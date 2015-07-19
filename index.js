@@ -18,8 +18,8 @@ exports.createClient = function(dynamodb, options){
   };
 };
 
-exports.define = function(tableName, params, customProps){
-  return npdynamodbORM(tableName, params, customProps);
+exports.define = function(tableName, prototypeProps, staticProps){
+  return npdynamodbORM(tableName, prototypeProps, staticProps);
 };
 
 exports.Collection = require('./lib/orm/collection');
