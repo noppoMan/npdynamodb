@@ -256,4 +256,39 @@ describe('ORM', function(){
     });
   });
 
+  describe('Customizability', function(){
+
+    it('Collection.prototype should be extended', function(done){
+      var Collection = npdynamodb.Collection;
+      Collection.prototype.pluckRoomId = function(){
+        return this.pluck('room_id');
+      };
+
+      Chat.where('room_id', 'room1').fetch().then(function(collection){
+        expect(collection.pluckRoomId()).to.deep.eq(['room1', 'room1']);
+        done();
+      });
+    });
+
+    it('Model.prototype should be extended', function(done){
+      var Model = npdynamodb.Model;
+      Model.prototype.relativeTime = function(){
+        return parseInt(new Date() / 1000) - parseInt(this.get('timestamp'));
+      };
+
+      var Chat = npdynamodb.define('chats', {
+        npdynamodb: npd,
+
+        hashKey: 'room_id',
+
+        rangeKey: 'timestamp',
+      });
+
+      Chat.find('room1', 1429291245).then(function(model){
+        expect(model.relativeTime()).to.be.an('number');
+        done();
+      });
+    });
+  });
+
 });
