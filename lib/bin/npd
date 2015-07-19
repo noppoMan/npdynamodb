@@ -13,6 +13,8 @@ var _ = require('lodash');
 var Migrator = require('../migrate/migrator');
 var fs = require('fs');
 var repl = require("repl");
+var util = require('util');
+var npdynamod = require('../../index');
 
 function padDate(t){
   if(t < 10) t = "0"+t.toString();
@@ -54,7 +56,11 @@ function checkNpdfileExists(){
   }
 }
 
-function actionValidator(){
+function inspect(data){
+  return util.inspect(data, {depth: null });
+}
+
+function initCli(){
   var env = program.env || argv.e || 'development';
 
   if(argv.e) {
@@ -163,7 +169,7 @@ function initialize(){
   .option('-e, --environment [value]', 'Specify the environment to run.')
   .description('       Run all migrations that have not yet been run.')
   .action(function() {
-    return actionValidator().then(function(config){
+    return initCli().then(function(config){
       return new Migrator.Runner(config).run()
       .then(function(data){
         if(data.length === 0) {
@@ -180,7 +186,7 @@ function initialize(){
   .option('-e, --environment [value]', 'Specify the environment to run.')
   .description('       Rollback the last set of migrations performed.')
   .action(function() {
-    return actionValidator().then(function(config){
+    return initCli().then(function(config){
       return new Migrator.Runner(config).rollback()
       .then(function(data){
         exit(chalk.cyan('Rollbacked ' + data));
@@ -193,11 +199,10 @@ function initialize(){
   .option('-e, --environment [value]', 'Specify the environment to run.')
   .description('      list all tables')
   .action(function() {
-    return actionValidator().then(function(config){
-      var npd = require('../../index').createClient(config.dynamoClient);
+    return initCli().then(function(config){
+      var npd = npdynamod.createClient(config.dynamoClient);
 
-      return npd().showTables()
-      .then(function(tables){
+      return npd().showTables().then(function(tables){
         exit(tables.TableNames.join("\n"));
       });
     }).catch(exitWithError);
@@ -208,11 +213,48 @@ function initialize(){
   .option('-e, --environment [value]', 'Specify the environment to run.')
   .description('       Dump specified table contents.')
   .action(function(table) {
-    return actionValidator().then(function(config){
-      var npd = require('../../index').createClient(config.dynamoClient);
-      return npd().table(table).all()
-      .then(function(data){
-        exit(require('util').inspect(data, {depth: null }));
+    return initCli().then(function(config){
+      var npd = npdynamod.createClient(config.dynamoClient);
+
+      return npd().table(table).all().then(function(data){
+        exit(inspect(data));
+      });
+    }).catch(exitWithError);
+  });
+
+  program
+  .command('desc <table>')
+  .description('       Show result of the describe operation')
+  .action(function(table) {
+    return initCli().then(function(config){
+      var npd = npdynamod.createClient(config.dynamoClient);
+
+      return npd().table(table).describe().then(function(data){
+        exit(inspect(data));
+      });
+    }).catch(exitWithError);
+  });
+
+  program
+  .command('get <table> <hashKey> [rangeKey]')
+  .description('       Show results of the query operation')
+  .action(function(table, hashKey, rangeKey) {
+    return initCli().then(function(config){
+      var npd = npdynamod.createClient(config.dynamoClient);
+      return npd().table(table).describe().then(function(data){
+
+        var hashKeyName = data.Table.KeySchema[0].AttributeName,
+          rangeKeyName = data.Table.KeySchema[1].AttributeName
+        ;
+
+        var query = npd().table(table).where(hashKeyName, hashKey);
+        if(rangeKeyName && rangeKey) {
+          query.where(rangeKeyName, rangeKey);
+        }
+
+        return query.then(function(result){
+          exit(inspect(result));
+        });
       });
     }).catch(exitWithError);
   });
