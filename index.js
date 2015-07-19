@@ -22,4 +22,8 @@ exports.define = function(tableName, params, customProps){
   return npdynamodbORM(tableName, params, customProps);
 };
 
+exports.Collection = require('./lib/orm/collection');
+
+exports.Model = require('./lib/orm/model');
+
 exports.Migrator = require('./lib/migrate/migrator');
