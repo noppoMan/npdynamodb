@@ -602,6 +602,7 @@ npd migrate:rollback
 * `dump <table>`: Dump amount of records in specified table to stdout.
 * `desc <table>`: Show result of the describe operation
 * `get <table> <hashKey> [rangeKey]`: Show results of the query operation by given conditions.
+* `dropTable <table>`: Drop the specified table.
 
 ### Global Options
 * `-h`
