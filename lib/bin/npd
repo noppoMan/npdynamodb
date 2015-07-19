@@ -259,6 +259,18 @@ function initialize(){
     }).catch(exitWithError);
   });
 
+  program
+  .command('dropTable <table>')
+  .description('       Drop the specified table.')
+  .action(function(table, hashKey, rangeKey) {
+    return initCli().then(function(config){
+      var npd = npdynamod.createClient(config.dynamoClient);
+      return npd().table(table).deleteTable().then(function(result){
+        exit(inspect(result));
+      });
+    }).catch(exitWithError);
+  });
+
   program.parse(process.argv);
 
   if(argv._.length === 0 || !_.last(program.args)._name) {
