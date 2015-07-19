@@ -594,14 +594,16 @@ npd migrate:rollback
 
 ## Command Line Interfaces (required global install and type `npd`)
 ### Commands
-* `init` Create a fresh npdfile.
+* `init`: Create a fresh npdfile.js.
 * `migrate:generate <name>` Create a named migration file.
 * `migrate:run` Run all migrations that have not yet been run.
 * `migrate:rollback` Rollback the last set of migrations performed.
 * `listTables` List existing tables.
-* `dump <tablename>` Dump amount of records in specified table to stdout.
+* `dump <table>`: Dump amount of records in specified table to stdout.
+* `desc <table>`: Show result of the describe operation
+* `get <table> <hashKey> [rangeKey]`: Show results of the query operation by given conditions.
 
-### Options
+### Global Options
 * `-h`
 * `-V`
 * `--env`
