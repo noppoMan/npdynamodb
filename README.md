@@ -3,15 +3,11 @@ A Node.js Simple Query Builder and ORM for AWS DynamoDB.
 
 ## Motivation
 When I visited [here ](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html#query-property
-) for the first time, I closed this page in a moment.
-Because it is too long and hard to see to understand. Especially people who are not in English-speaking world.
-After that I decided to not involve with DynamoDB at Node.js Project.
-But After a while, Fortunately or unfortunately I faced time to use DynamoDB with Node.js again and There was no escape way.
-So I decided to develop client to handle it more easier and It doesn't take waste of time to read documentation.
-Now I think this opportunity is chance to be good friend with it.  
-My fighting has started.
+) for the first time, I closed it in a moment.
+Because it is too long and hard to see to understand.
+So I decided to make client to handle DynamoDB more easier and It doesn't take waste of time to read documentation for it.
 
-## Supported Api Versions
+## Supported DynamoDB Api Versions
 * 2012-08-10
 
 ## Installation
@@ -41,7 +37,7 @@ We release you redundancy codes and see simple syntax.
 of course, will not see callback hell !!
 
 
-## Use as QueryBuilder
+## Usage of QueryBuilder
 
 Initialization
 ```js
@@ -119,8 +115,8 @@ npd().table('chats')
 });
 ```
 
-##### Set not required options(depends on api version)
-You can set not required options with `feature` method. All options are transformed from property to method, But its name(camelized) and arguments are same as pure AWS-SDK for node.js.
+##### Extra options
+You can set extra options in callback of `feature` method. All options are transformed from property to method, But its name(camelized) and arguments are same as pure AWS-SDK for node.js.
 
 ```js
 npd().table('users')
@@ -204,7 +200,7 @@ npd().table('users')
 
 ```
 
-## Use as ORM
+## Usage of ORM
 
 Initialization
 ```js
@@ -324,7 +320,7 @@ var Chat = npdynamodb.define('chats', {
 
   customProtoTypeConstant: 1,
 
-  customeProtoTypeMethod: function(){
+  customProtoTypeMethod: function(){
     return this.get('id') === 1;
   }
 
@@ -357,22 +353,24 @@ Chat.customStaticMethod().then(function(data){
 });
 ```
 
-## QueryBuilder options
+# Apis
+
+##  QueryBuilder
+
+##### options
 * timeout: default is 5000(ms)
 
-## QueryBuilder Apis
+##### operations
 * createTable
 * deleteTable
 * alterTable
 * all
-* then
 * count
 * create
 * update
 * delete
 * describe
 * showTables
-* waitFor
 * feature
 * rawClient: Return promisified AWS.DynamoDB
 
@@ -440,7 +438,8 @@ Chat.customStaticMethod().then(function(data){
 * `afterQuery`: Fired after getting response
 
 
-## ORM Apis
+## ORM
+##### Operations
 * find
 * all
 * where
@@ -448,8 +447,21 @@ Chat.customStaticMethod().then(function(data){
 * save
 * destroy
 
+##### Model
+* get
+* set
+* unset
+* extend
+* each
+* map
+* keys
+* values
+* contains
+* pick
+* toJson
+* attributes
 
-#### Collection
+##### Collection
 * pluck
 * each
 * map
@@ -475,20 +487,6 @@ Chat.customStaticMethod().then(function(data){
 * last
 * toJson
 * toArray
-
-#### Model
-* get
-* set
-* unset
-* extend
-* each
-* map
-* keys
-* values
-* contains
-* pick
-* toJson
-* attributes
 
 
 ## Migration
