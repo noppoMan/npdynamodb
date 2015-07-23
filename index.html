@@ -730,6 +730,55 @@ npd init
 <div class="highlight highlight-sh"><pre>npm <span class="pl-c1">test</span></pre></div>
 
 <h2>
+<a id="browser-support" class="anchor" href="#browser-support" aria-hidden="true"><span class="octicon octicon-link"></span></a>Browser Support</h2>
+
+<p>Npdynamodb can be built using browserify or webpack, and pre-built or pre-built with uglified version can be found in the build directory.</p>
+
+<h4>
+<a id="note-that-if-you-use-npdynamodb-on-any-browsers-it-has-a-security-issue-because-accesskey-and-secretaccesskey-for-dynamodb-can-be-seen-from-public-we-recommend-you-only-using-it-for-private-or-readonly-projects-which-is-not-including-any-privacy-informations" class="anchor" href="#note-that-if-you-use-npdynamodb-on-any-browsers-it-has-a-security-issue-because-accesskey-and-secretaccesskey-for-dynamodb-can-be-seen-from-public-we-recommend-you-only-using-it-for-private-or-readonly-projects-which-is-not-including-any-privacy-informations" aria-hidden="true"><span class="octicon octicon-link"></span></a>Note that, if you use Npdynamodb on any browsers, It has a security issue. Because AccessKey and SecretAccessKey for DynamoDB can be seen from public. We recommend you only using it for private or readonly projects which is not including any privacy informations.</h4>
+
+<h3>
+<a id="for-browserify-or-webpack" class="anchor" href="#for-browserify-or-webpack" aria-hidden="true"><span class="octicon octicon-link"></span></a>For Browserify or Webpack</h3>
+
+<div class="highlight highlight-js"><pre><span class="pl-k">var</span> <span class="pl-c1">AWS</span> <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>aws-sdk<span class="pl-pds">'</span></span>);
+<span class="pl-k">var</span> npdynamodb <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>npdynamodb/build/npdynamodb<span class="pl-pds">'</span></span>);
+
+<span class="pl-k">var</span> dynamodb <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">AWS.DynamoDB</span>({
+  apiVersion<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>2012-08-10<span class="pl-pds">'</span></span>,
+  accessKeyId<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>here is key<span class="pl-pds">"</span></span>,
+  secretAccessKey<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>here is secret key<span class="pl-pds">"</span></span>,
+  region<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>ap-northeast-1<span class="pl-pds">"</span></span>,
+  sslEnabled<span class="pl-k">:</span> <span class="pl-c1">true</span>,
+});
+
+<span class="pl-k">var</span> npd <span class="pl-k">=</span> npdynamodb.createClient(dynamodb);
+npd().table(<span class="pl-s"><span class="pl-pds">'</span>table_name<span class="pl-pds">'</span></span>).where(<span class="pl-s"><span class="pl-pds">'</span>id<span class="pl-pds">'</span></span>, <span class="pl-c1">1</span>).then(<span class="pl-k">function</span>(<span class="pl-smi">data</span>){
+  <span class="pl-en">console</span><span class="pl-c1">.log</span>(data);
+});</pre></div>
+
+<h3>
+<a id="for-html" class="anchor" href="#for-html" aria-hidden="true"><span class="octicon octicon-link"></span></a>For HTML</h3>
+
+<div class="highlight highlight-html"><pre>&lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>https://cdnjs.cloudflare.com/ajax/libs/aws-sdk/2.1.39/aws-sdk.min.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;
+&lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.0/lodash.min.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;
+&lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>https://cdnjs.cloudflare.com/ajax/libs/bluebird/2.9.33/bluebird.min.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;
+&lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>../build/npdynamodb.min.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;
+<span class="pl-s1">&lt;<span class="pl-ent">script</span>&gt;</span>
+<span class="pl-s1">  <span class="pl-k">var</span> dynamodb <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">AWS.DynamoDB</span>({</span>
+<span class="pl-s1">    apiVersion<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>2012-08-10<span class="pl-pds">'</span></span>,</span>
+<span class="pl-s1">    accessKeyId<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>here is key<span class="pl-pds">"</span></span>,</span>
+<span class="pl-s1">    secretAccessKey<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>here is secret key<span class="pl-pds">"</span></span>,</span>
+<span class="pl-s1">    region<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>ap-northeast-1<span class="pl-pds">"</span></span>,</span>
+<span class="pl-s1">    sslEnabled<span class="pl-k">:</span> <span class="pl-c1">true</span>,</span>
+<span class="pl-s1">  });</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">  <span class="pl-k">var</span> npd <span class="pl-k">=</span> npdynamodb.createClient(dynamodb);</span>
+<span class="pl-s1">  npd().table(<span class="pl-s"><span class="pl-pds">'</span>table_name<span class="pl-pds">'</span></span>).where(<span class="pl-s"><span class="pl-pds">'</span>id<span class="pl-pds">'</span></span>, <span class="pl-c1">1</span>).then(<span class="pl-k">function</span>(<span class="pl-smi">data</span>){</span>
+<span class="pl-s1">    <span class="pl-en">console</span><span class="pl-c1">.log</span>(data);</span>
+<span class="pl-s1">  });</span>
+<span class="pl-s1">&lt;/<span class="pl-ent">script</span>&gt;</span></pre></div>
+
+<h2>
 <a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h2>
 
 <p>(The MIT License)</p>
