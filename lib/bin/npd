@@ -144,16 +144,14 @@ function initialize(){
       fs.mkdirSync(migrationDir);
     }
 
-    var now = new Date();
-    var d = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDay(), now.getHours(), now.getMinutes(), now.getSeconds()));
-
+    var d = new Date();
     var migrateFileParts = [
-      d.getFullYear(),
-      padDate(d.getMonth()+1),
-      padDate(d.getDay()+1),
-      padDate(d.getHours()),
-      padDate(d.getMinutes()),
-      padDate(d.getSeconds()),
+      d.getUTCFullYear(),
+      padDate(d.getUTCMonth()+1),
+      padDate(d.getUTCDate()+1),
+      padDate(d.getUTCHours()),
+      padDate(d.getUTCMinutes()),
+      padDate(d.getUTCSeconds()),
       '_',
       name,
       '.js'
