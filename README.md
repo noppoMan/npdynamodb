@@ -612,6 +612,54 @@ npd migrate:rollback
 npm test
 ```
 
+## Browser Support
+Npdynamodb can be built using browserify or webpack, and pre-built or pre-built with uglified version can be found in the build directory.
+
+#### Note that, if you use Npdynamodb on any browsers, It has a security issue. Because AccessKey and SecretAccessKey for DynamoDB can be seen from public. We recommend you only using it for private or readonly projects which is not including any privacy informations.
+
+
+### For Browserify or Webpack
+```js
+var AWS = require('aws-sdk');
+var npdynamodb = require('npdynamodb/build/npdynamodb');
+
+var dynamodb = new AWS.DynamoDB({
+  apiVersion: '2012-08-10',
+  accessKeyId: "here is key",
+  secretAccessKey: "here is secret key",
+  region: "ap-northeast-1",
+  sslEnabled: true,
+});
+
+var npd = npdynamodb.createClient(dynamodb);
+npd().table('table_name').where('id', 1).then(function(data){
+  console.log(data);
+});
+```
+
+### For HTML
+```html
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aws-sdk/2.1.39/aws-sdk.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.0/lodash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bluebird/2.9.33/bluebird.min.js"></script>
+<script src="../build/npdynamodb.min.js"></script>
+<script>
+  var dynamodb = new AWS.DynamoDB({
+    apiVersion: '2012-08-10',
+    accessKeyId: "here is key",
+    secretAccessKey: "here is secret key",
+    region: "ap-northeast-1",
+    sslEnabled: true,
+  });
+
+  var npd = npdynamodb.createClient(dynamodb);
+  npd().table('table_name').where('id', 1).then(function(data){
+    console.log(data);
+  });
+</script>
+```
+
+
 ## License
 
 (The MIT License)

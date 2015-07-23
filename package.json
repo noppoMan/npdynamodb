@@ -42,5 +42,10 @@
   "devDependencies": {
     "aws-sdk": "^2.1.18",
     "chai": "^2.2.0"
+  },
+  "browser": {
+    "./lib/migrate/migrator.js": false,
+    "./lib/dialects/2012-08-10/schema.js": false,
+    "aws-sdk": false
   }
 }

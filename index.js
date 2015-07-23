@@ -1,26 +1,17 @@
 'use strict';
 
-var npdynamodb = require('./lib/npdynamodb');
-var npdynamodbORM = require('./lib/orm/index');
-var promisify = require('./lib/promisify');
-var DOC = require("dynamodb-doc");
+// For Browser
+if(typeof(window) === 'object') {
+  window.npdynamodb = exports;
+  window.DynamoDBDatatype = require('./node_modules/dynamodb-doc/lib/datatypes').DynamoDBDatatype;
+  window.DynamoDBFormatter = require('./node_modules/dynamodb-doc/lib/formatter').DynamoDBFormatter;
+}
 
 exports.version = require('./package.json').version;
 
-exports.createClient = function(dynamodb, options){
-  var api = require('./lib/dialects/' + dynamodb.config.apiVersion + '/' + 'api');
-  var clients = {
-    dynamodb: typeof dynamodb.Condition === 'function' ? dynamodb: new DOC.DynamoDB(dynamodb),
-    promisifidRawClient: promisify(dynamodb, api.originalApis)
-  };
-  return function(){
-    return npdynamodb(clients, options);
-  };
-};
+exports.createClient = require('./lib/npdynamodb');
 
-exports.define = function(tableName, prototypeProps, staticProps){
-  return npdynamodbORM(tableName, prototypeProps, staticProps);
-};
+exports.define = require('./lib/orm/index');
 
 exports.Collection = require('./lib/orm/collection');
 
