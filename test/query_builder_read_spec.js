@@ -3,6 +3,7 @@
 var Promise = require('bluebird')
 var chai = require('chai');
 var expect = chai.expect;
+var _ = require('lodash');
 
 var npdynamodb = require('../index');
 var npd = npdynamodb.createClient(require('./dynamodb_2012_08_10'));
@@ -486,7 +487,7 @@ describe('QueryBuilder', function(){
     });
   });
 
-  describe('options', function(){
+  describe('options.timeout', function(){
     var AWS = require('aws-sdk');
 
     it('Should handle timeout', function(done){
@@ -510,6 +511,50 @@ describe('QueryBuilder', function(){
         expect(err.toString()).to.eq('Error: The connection has timed out.');
         done();
       });
+    });
+  });
+
+  describe('options.callbacks', function(){
+    it('Callbacks of beforeQuery and afterQuery should be triggered', function(done){
+      var npd = npdynamodb.createClient(require('./dynamodb_2012_08_10'), {
+        initialize: function(){
+          this.callbacks('beforeQuery', function(){
+            if(this._feature.whereConditions[1]) {
+              this._feature.whereConditions[1].values = [parseInt(this._feature.whereConditions[1].values[0]())];
+            }
+          });
+
+          this.callbacks('afterQuery', function(result){
+            if(result.Items) {
+              result.Items[0].hex = result.Items[0].binary.toString('hex');
+              result.Items[0].str = result.Items[0].binary.toString('utf8');
+              return npd().table('complex_table')
+              .on('afterQuery', function(){
+                expect(this._feature.params.hash_key).to.eq('key10');
+              })
+              .create({
+                hash_key: "key10",
+                range_key: 5,
+              });
+            }
+          });
+        }
+      });
+
+      npd().table('complex_table').where('hash_key', 'key1').where('range_key', function(){
+        return '1';
+      })
+      .on('beforeQuery', function(params){
+        expect(params.KeyConditions[1].val1).to.eq(1);
+      })
+      .on('afterQuery', function(result){
+        expect(result.Items[0].hex).to.eq('01020304');
+        expect(result.Items[0].str).to.eq('\u0001\u0002\u0003\u0004');
+      })
+      .then(function(result){
+        done();
+      })
+      .catch(done);
     });
   });
 });
