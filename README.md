@@ -26,6 +26,7 @@ Parameters are like Chant of the magic.
 ##### QueryBuilder
 There should be a minor change for QueryBuilder. 0.2x  QueryBuilder can take options as second argument of createClient.
 * 0.2.0: `timeout` option supported.
+* 0.2.6: `initialize` option and [callbacks](#Callbacks) supported.
 
 ##### ORM
 There should be a major change for ORM. 0.2x ORM constructor need to pass the npdynamodb instance instead of pure dynamodb instance.
@@ -52,7 +53,10 @@ var npd = npdynamodb.createClient(dynamodb);
 
 // Or can take options
 var npd = npdynamodb.createClient(dynamodb, {
-  timeout: 3000
+  timeout: 3000,
+  initialize: function(){
+    // Some Initialization here.
+  }
 });
 ```
 
@@ -359,6 +363,7 @@ Chat.customStaticMethod().then(function(data){
 
 ##### options
 * timeout: default is 5000(ms)
+* initialize
 
 ##### operations
 * createTable
@@ -437,6 +442,9 @@ Chat.customStaticMethod().then(function(data){
 * `beforeQuery`: Fired before sending request
 * `afterQuery`: Fired after getting response
 
+### Callbacks
+* `beforeQuery`: Executed before sending request
+* `afterQuery`: Executed after getting response
 
 ## ORM
 ##### Operations
@@ -610,6 +618,97 @@ npd migrate:rollback
 ## How to test?
 ```sh
 npm test
+```
+
+## Callbacks
+You can be hooked several events and their can be taken promise.
+
+Mechanism of Callbacks and Events
+```
+operation called.
+      ↓
+callbacks: beforeQuery
+      ↓
+events: beforeQuery
+      ↓
+Sending Request to Dynamodb
+      ↓
+Getting Response from Dynamodb
+      ↓
+callbacks: afterQuery
+      ↓
+events: afterQuery
+```
+
+```js
+// Register callbacks globally
+var npd = npdynamodb.createClient(dynamodb, {
+  initialize: function(){
+    this.callbacks('beforeQuery', function(){
+      if(this._fature.params['hash_key'] !== 1) {
+        return Promise.reject(new Error('invalid value'));
+      }
+    });
+
+    this.callbacks('afterQuery', function(result){
+      return npd().table('related').create({
+        foo_id: result.Items[0]['hash_key'],
+        bar: 'string value'
+      });
+    });
+  }
+});
+
+// Register callbacks at only this time.
+npd().table('foo').callbacks('beforeQuery', Func).create({
+  hoo: 'hoo',
+  bar: 'bar'
+});
+```
+
+## Plugin and Extending
+Npdynamodb can be accepted plugins.
+
+```js
+npdynamodb.plugin(function(Klass){
+
+  // Extend QueryBuilder
+  Klass.QueryBuilder.extend({
+    protoFn: function(){
+      console.log('foo');
+    }
+  },
+  {
+    staticFn: function(){
+      console.log('bar');
+    }
+  });
+
+  // Extend Orm Collection
+  Klass.Collection.extend({
+    protoFn: function(){
+      console.log('foo');
+    }
+  },
+  {
+    staticFn: function(){
+      console.log('bar');
+    }
+  });
+
+  // Extend Orm Model
+  Klass.Model.extend({
+    protoFn: function(){
+      console.log('foo');
+    }
+  },
+  {
+    staticFn: function(){
+      console.log('bar');
+    }
+  });
+
+});
 ```
 
 ## Browser Support

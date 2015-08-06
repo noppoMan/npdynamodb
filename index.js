@@ -1,5 +1,7 @@
 'use strict';
 
+var _ = require('lodash');
+
 // For Browser
 if(typeof(window) === 'object') {
   window.npdynamodb = exports;
@@ -13,8 +15,35 @@ exports.createClient = require('./lib/npdynamodb');
 
 exports.define = require('./lib/orm/index');
 
+exports.Migrator = require('./lib/migrate/migrator');
+
+var QueryBuilder = require('./lib/query_builder'),
+  Collection = require('./lib/orm/collection'),
+  Model = require('./lib/orm/model')
+;
+
+[QueryBuilder, Collection, Model].forEach(function(Klass){
+  Klass.extend = function(protoProps, staticProps){
+    _.extend(Klass.prototype, protoProps || {});
+    _.extend(Klass, staticProps || {});
+  };
+});
+
+exports.plugin = function(pluginFn){
+  if(typeof pluginFn !== 'function') {
+    throw new Error('The plugin must be function.');
+  }
+  pluginFn({
+    QueryBuilder: QueryBuilder,
+    Collection: Collection,
+    Model: Model
+  });
+};
+
+/*******  TODO Will be duplicated in 0.3.x *******/
+
 exports.Collection = require('./lib/orm/collection');
 
 exports.Model = require('./lib/orm/model');
 
-exports.Migrator = require('./lib/migrate/migrator');
+/*******  TODO Will be duplicated in 0.3.x *******/
