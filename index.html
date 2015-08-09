@@ -29,12 +29,10 @@
       </header>
       <section>
         <h1>
-<a id="npdynamodb" class="anchor" href="#npdynamodb" aria-hidden="true"><span class="octicon octicon-link"></span></a>npdynamodb</h1>
+<a id="npdynamodb---" class="anchor" href="#npdynamodb---" aria-hidden="true"><span class="octicon octicon-link"></span></a>npdynamodb <a href="http://badge.fury.io/js/npdynamodb"><img src="https://badge.fury.io/js/npdynamodb.svg" alt="npm version"></a> <a href="https://codeclimate.com/github/noppoMan/npdynamodb"><img src="https://codeclimate.com/github/noppoMan/npdynamodb/badges/gpa.svg" alt="Code Climate"></a> <a href="https://app.wercker.com/project/bykey/1ccc24d0af9825e0ae7990ea3fd8121a"><img src="https://app.wercker.com/status/1ccc24d0af9825e0ae7990ea3fd8121a/s" alt="wercker status" title="wercker status"></a>
+</h1>
 
-<p><a href="http://badge.fury.io/js/npdynamodb"><img src="https://badge.fury.io/js/npdynamodb.svg" alt="npm version"></a> <a href="https://codeclimate.com/github/noppoMan/npdynamodb"><img src="https://codeclimate.com/github/noppoMan/npdynamodb/badges/gpa.svg" alt="Code Climate"></a> <a href="https://app.wercker.com/project/bykey/1ccc24d0af9825e0ae7990ea3fd8121a"><img src="https://app.wercker.com/status/1ccc24d0af9825e0ae7990ea3fd8121a/s" alt="wercker status" title="wercker status"></a>  </p>
-
-<h3>
-<a id="a-nodejs-simple-query-builder-and-orm-for-aws-dynamodb" class="anchor" href="#a-nodejs-simple-query-builder-and-orm-for-aws-dynamodb" aria-hidden="true"><span class="octicon octicon-link"></span></a>A Node.js Simple Query Builder and ORM for AWS DynamoDB.</h3>
+<p>A Node.js Simple Query Builder and ORM for AWS DynamoDB.</p>
 
 <h2>
 <a id="motivation" class="anchor" href="#motivation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Motivation</h2>
@@ -62,26 +60,6 @@ So I decided to make client to handle DynamoDB more easier and It doesn't take w
 <a href="http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html">http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html</a></p>
 
 <h2>
-<a id="upgrading" class="anchor" href="#upgrading" aria-hidden="true"><span class="octicon octicon-link"></span></a>Upgrading</h2>
-
-<h4>
-<a id="upgrading-01x---02x" class="anchor" href="#upgrading-01x---02x" aria-hidden="true"><span class="octicon octicon-link"></span></a>Upgrading 0.1x -&gt; 0.2x</h4>
-
-<h5>
-<a id="querybuilder" class="anchor" href="#querybuilder" aria-hidden="true"><span class="octicon octicon-link"></span></a>QueryBuilder</h5>
-
-<p>There should be a minor change for QueryBuilder. 0.2x  QueryBuilder can take options as second argument of createClient.</p>
-
-<ul>
-<li>0.2.0: <code>timeout</code> option supported.</li>
-</ul>
-
-<h5>
-<a id="orm" class="anchor" href="#orm" aria-hidden="true"><span class="octicon octicon-link"></span></a>ORM</h5>
-
-<p>There should be a major change for ORM. 0.2x ORM constructor need to pass the npdynamodb instance instead of pure dynamodb instance.</p>
-
-<h2>
 <a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h2>
 
 <p>Npdynamodb has two faces. One is Simple Query Builder and the other is Light ORM.
@@ -104,7 +82,10 @@ of course, will not see callback hell !!</p>
 
 <span class="pl-c">// Or can take options</span>
 <span class="pl-k">var</span> npd <span class="pl-k">=</span> npdynamodb.createClient(dynamodb, {
-  timeout<span class="pl-k">:</span> <span class="pl-c1">3000</span>
+  timeout<span class="pl-k">:</span> <span class="pl-c1">3000</span>,
+  <span class="pl-en">initialize</span><span class="pl-k">:</span> <span class="pl-k">function</span>(){
+    <span class="pl-c">// Some Initialization here.</span>
+  }
 });</pre></div>
 
 <h5>
@@ -139,13 +120,42 @@ of course, will not see callback hell !!</p>
 });</pre></div>
 
 <h5>
-<a id="get-rows-with-where-filter-and-descending-order" class="anchor" href="#get-rows-with-where-filter-and-descending-order" aria-hidden="true"><span class="octicon octicon-link"></span></a>Get rows with where, filter and descending order</h5>
+<a id="get-multiple-rows-with-where-filter-and-descending-order" class="anchor" href="#get-multiple-rows-with-where-filter-and-descending-order" aria-hidden="true"><span class="octicon octicon-link"></span></a>Get multiple rows with where, filter and descending order</h5>
 
 <div class="highlight highlight-js"><pre>npd().table(<span class="pl-s"><span class="pl-pds">'</span>chats<span class="pl-pds">'</span></span>)
 .where(<span class="pl-s"><span class="pl-pds">'</span>room_id<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>room1<span class="pl-pds">'</span></span>) <span class="pl-c">// hash key</span>
 .where(<span class="pl-s"><span class="pl-pds">'</span>timestamp<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>&gt;<span class="pl-pds">'</span></span>, <span class="pl-c1">1429454911</span>) <span class="pl-c">// range key</span>
 .filter(<span class="pl-s"><span class="pl-pds">'</span>user_name<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>tonny<span class="pl-pds">'</span></span>) <span class="pl-c">// non index key</span>
 .desc()
+.then(<span class="pl-k">function</span>(<span class="pl-smi">data</span>){
+  <span class="pl-en">console</span><span class="pl-c1">.log</span>(data);
+})
+.catch(<span class="pl-k">function</span>(<span class="pl-smi">err</span>){
+  <span class="pl-en">console</span>.err(err);
+});</pre></div>
+
+<h5>
+<a id="wherein" class="anchor" href="#wherein" aria-hidden="true"><span class="octicon octicon-link"></span></a>whereIn</h5>
+
+<p>whereIn call batchGetItem instead of query operation.</p>
+
+<h6>
+<a id="single-key-usage" class="anchor" href="#single-key-usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Single Key Usage</h6>
+
+<div class="highlight highlight-js"><pre>npd().table(<span class="pl-s"><span class="pl-pds">'</span>chats<span class="pl-pds">'</span></span>)
+.whereIn(<span class="pl-s"><span class="pl-pds">'</span>room_id<span class="pl-pds">'</span></span>, [<span class="pl-s"><span class="pl-pds">'</span>room1<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>room2<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>room3<span class="pl-pds">'</span></span>])
+.then(<span class="pl-k">function</span>(<span class="pl-smi">data</span>){
+  <span class="pl-en">console</span><span class="pl-c1">.log</span>(data);
+})
+.catch(<span class="pl-k">function</span>(<span class="pl-smi">err</span>){
+  <span class="pl-en">console</span>.err(err);
+});</pre></div>
+
+<h6>
+<a id="multiple-kyes-usage" class="anchor" href="#multiple-kyes-usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Multiple Kyes Usage</h6>
+
+<div class="highlight highlight-js"><pre>npd().table(<span class="pl-s"><span class="pl-pds">'</span>chats<span class="pl-pds">'</span></span>)
+.whereIn([<span class="pl-s"><span class="pl-pds">'</span>room_id<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>timestamp<span class="pl-pds">'</span></span>], [[<span class="pl-s"><span class="pl-pds">'</span>room1<span class="pl-pds">'</span></span>, <span class="pl-c1">1429454911</span>], [<span class="pl-s"><span class="pl-pds">'</span>room2<span class="pl-pds">'</span></span>, <span class="pl-c1">1429454912</span>], [<span class="pl-s"><span class="pl-pds">'</span>room3<span class="pl-pds">'</span></span>, <span class="pl-c1">1429454913</span>]])
 .then(<span class="pl-k">function</span>(<span class="pl-smi">data</span>){
   <span class="pl-en">console</span><span class="pl-c1">.log</span>(data);
 })
@@ -407,13 +417,14 @@ Chat.customStaticMethod().then(<span class="pl-k">function</span>(<span class="p
 <a id="apis" class="anchor" href="#apis" aria-hidden="true"><span class="octicon octicon-link"></span></a>Apis</h1>
 
 <h2>
-<a id="querybuilder-1" class="anchor" href="#querybuilder-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>QueryBuilder</h2>
+<a id="querybuilder" class="anchor" href="#querybuilder" aria-hidden="true"><span class="octicon octicon-link"></span></a>QueryBuilder</h2>
 
 <h5>
 <a id="options" class="anchor" href="#options" aria-hidden="true"><span class="octicon octicon-link"></span></a>options</h5>
 
 <ul>
 <li>timeout: default is 5000(ms)</li>
+<li>initialize</li>
 </ul>
 
 <h5>
@@ -439,6 +450,7 @@ Chat.customStaticMethod().then(<span class="pl-k">function</span>(<span class="p
 
 <ul>
 <li>where</li>
+<li>whereIn: Using batchGetItem</li>
 <li>whereBetween</li>
 <li>whereBeginsWith</li>
 </ul>
@@ -520,8 +532,18 @@ Chat.customStaticMethod().then(<span class="pl-k">function</span>(<span class="p
 <code>afterQuery</code>: Fired after getting response</li>
 </ul>
 
+<h3>
+<a id="callbacks" class="anchor" href="#callbacks" aria-hidden="true"><span class="octicon octicon-link"></span></a>Callbacks</h3>
+
+<ul>
+<li>
+<code>beforeQuery</code>: Executed before sending request</li>
+<li>
+<code>afterQuery</code>: Executed after getting response</li>
+</ul>
+
 <h2>
-<a id="orm-1" class="anchor" href="#orm-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>ORM</h2>
+<a id="orm" class="anchor" href="#orm" aria-hidden="true"><span class="octicon octicon-link"></span></a>ORM</h2>
 
 <h5>
 <a id="operations-1" class="anchor" href="#operations-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Operations</h5>
@@ -730,6 +752,97 @@ npd init
 <div class="highlight highlight-sh"><pre>npm <span class="pl-c1">test</span></pre></div>
 
 <h2>
+<a id="querybuilder-callbacks" class="anchor" href="#querybuilder-callbacks" aria-hidden="true"><span class="octicon octicon-link"></span></a>QueryBuilder Callbacks</h2>
+
+<p>You can be hooked several events and their can be taken promise.</p>
+
+<p>Mechanism of Callbacks and Events</p>
+
+<pre><code>operation called.
+      ↓
+callbacks: beforeQuery
+      ↓
+events: beforeQuery
+      ↓
+Sending Request to Dynamodb
+      ↓
+Getting Response from Dynamodb
+      ↓
+callbacks: afterQuery
+      ↓
+events: afterQuery
+</code></pre>
+
+<div class="highlight highlight-js"><pre><span class="pl-c">// Register callbacks globally</span>
+<span class="pl-k">var</span> npd <span class="pl-k">=</span> npdynamodb.createClient(dynamodb, {
+  <span class="pl-en">initialize</span><span class="pl-k">:</span> <span class="pl-k">function</span>(){
+    <span class="pl-v">this</span>.callbacks(<span class="pl-s"><span class="pl-pds">'</span>beforeQuery<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>(){
+      <span class="pl-k">if</span>(<span class="pl-v">this</span>._fature.params[<span class="pl-s"><span class="pl-pds">'</span>hash_key<span class="pl-pds">'</span></span>] <span class="pl-k">!==</span> <span class="pl-c1">1</span>) {
+        <span class="pl-k">return</span> Promise.reject(<span class="pl-k">new</span> <span class="pl-en">Error</span>(<span class="pl-s"><span class="pl-pds">'</span>invalid value<span class="pl-pds">'</span></span>));
+      }
+    });
+
+    <span class="pl-v">this</span>.callbacks(<span class="pl-s"><span class="pl-pds">'</span>afterQuery<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>(<span class="pl-smi">result</span>){
+      <span class="pl-k">return</span> npd().table(<span class="pl-s"><span class="pl-pds">'</span>related<span class="pl-pds">'</span></span>).create({
+        foo_id<span class="pl-k">:</span> result.Items[<span class="pl-c1">0</span>][<span class="pl-s"><span class="pl-pds">'</span>hash_key<span class="pl-pds">'</span></span>],
+        bar<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>string value<span class="pl-pds">'</span></span>
+      });
+    });
+  }
+});
+
+<span class="pl-c">// Register callbacks at only this time.</span>
+npd().table(<span class="pl-s"><span class="pl-pds">'</span>foo<span class="pl-pds">'</span></span>).callbacks(<span class="pl-s"><span class="pl-pds">'</span>beforeQuery<span class="pl-pds">'</span></span>, Func).create({
+  hoo<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>hoo<span class="pl-pds">'</span></span>,
+  bar<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>bar<span class="pl-pds">'</span></span>
+});</pre></div>
+
+<h2>
+<a id="plugin-and-extending" class="anchor" href="#plugin-and-extending" aria-hidden="true"><span class="octicon octicon-link"></span></a>Plugin and Extending</h2>
+
+<p>Npdynamodb can be accepted plugins.</p>
+
+<div class="highlight highlight-js"><pre>npdynamodb.plugin(<span class="pl-k">function</span>(<span class="pl-smi">Klass</span>){
+
+  <span class="pl-c">// Extend QueryBuilder</span>
+  Klass.QueryBuilder.extend({
+    <span class="pl-en">protoFn</span><span class="pl-k">:</span> <span class="pl-k">function</span>(){
+      <span class="pl-en">console</span><span class="pl-c1">.log</span>(<span class="pl-s"><span class="pl-pds">'</span>foo<span class="pl-pds">'</span></span>);
+    }
+  },
+  {
+    <span class="pl-en">staticFn</span><span class="pl-k">:</span> <span class="pl-k">function</span>(){
+      <span class="pl-en">console</span><span class="pl-c1">.log</span>(<span class="pl-s"><span class="pl-pds">'</span>bar<span class="pl-pds">'</span></span>);
+    }
+  });
+
+  <span class="pl-c">// Extend Orm Collection</span>
+  Klass.Collection.extend({
+    <span class="pl-en">protoFn</span><span class="pl-k">:</span> <span class="pl-k">function</span>(){
+      <span class="pl-en">console</span><span class="pl-c1">.log</span>(<span class="pl-s"><span class="pl-pds">'</span>foo<span class="pl-pds">'</span></span>);
+    }
+  },
+  {
+    <span class="pl-en">staticFn</span><span class="pl-k">:</span> <span class="pl-k">function</span>(){
+      <span class="pl-en">console</span><span class="pl-c1">.log</span>(<span class="pl-s"><span class="pl-pds">'</span>bar<span class="pl-pds">'</span></span>);
+    }
+  });
+
+  <span class="pl-c">// Extend Orm Model</span>
+  Klass.Model.extend({
+    <span class="pl-en">protoFn</span><span class="pl-k">:</span> <span class="pl-k">function</span>(){
+      <span class="pl-en">console</span><span class="pl-c1">.log</span>(<span class="pl-s"><span class="pl-pds">'</span>foo<span class="pl-pds">'</span></span>);
+    }
+  },
+  {
+    <span class="pl-en">staticFn</span><span class="pl-k">:</span> <span class="pl-k">function</span>(){
+      <span class="pl-en">console</span><span class="pl-c1">.log</span>(<span class="pl-s"><span class="pl-pds">'</span>bar<span class="pl-pds">'</span></span>);
+    }
+  });
+
+});</pre></div>
+
+<h2>
 <a id="browser-support" class="anchor" href="#browser-support" aria-hidden="true"><span class="octicon octicon-link"></span></a>Browser Support</h2>
 
 <p>Npdynamodb can be built using browserify or webpack, and pre-built or pre-built with uglified version can be found in the build directory.</p>
@@ -777,6 +890,32 @@ npd().table(<span class="pl-s"><span class="pl-pds">'</span>table_name<span clas
 <span class="pl-s1">    <span class="pl-en">console</span><span class="pl-c1">.log</span>(data);</span>
 <span class="pl-s1">  });</span>
 <span class="pl-s1">&lt;/<span class="pl-ent">script</span>&gt;</span></pre></div>
+
+<h2>
+<a id="upgrading-and-release-note" class="anchor" href="#upgrading-and-release-note" aria-hidden="true"><span class="octicon octicon-link"></span></a>Upgrading and Release Note</h2>
+
+<h4>
+<a id="upgrading-01x---02x" class="anchor" href="#upgrading-01x---02x" aria-hidden="true"><span class="octicon octicon-link"></span></a>Upgrading 0.1x -&gt; 0.2x</h4>
+
+<h5>
+<a id="querybuilder-1" class="anchor" href="#querybuilder-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>QueryBuilder</h5>
+
+<p>There should be a minor change for QueryBuilder. 0.2x  QueryBuilder can take options as second argument of createClient.</p>
+
+<ul>
+<li>0.2.0: <code>timeout</code> option supported.</li>
+<li>0.2.6: <code>initialize</code> option and <a href="#querybuilder-callbacks">callbacks</a> supported.</li>
+<li>0.2.7: <a href="wherein">whereIn</a> method supported.</li>
+</ul>
+
+<h5>
+<a id="orm-1" class="anchor" href="#orm-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>ORM</h5>
+
+<p>There should be a major change for ORM. 0.2x ORM constructor need to pass the npdynamodb instance instead of pure dynamodb instance.</p>
+
+<ul>
+<li>0.2.7: Supported to parse <code>whereIn</code> results.</li>
+</ul>
 
 <h2>
 <a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h2>
