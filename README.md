@@ -20,18 +20,6 @@ npm install npdynamodb
 Parameters are like Chant of the magic.
 [http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html)
 
-## Upgrading
-#### Upgrading 0.1x -> 0.2x
-
-##### QueryBuilder
-There should be a minor change for QueryBuilder. 0.2x  QueryBuilder can take options as second argument of createClient.
-* 0.2.0: `timeout` option supported.
-* 0.2.6: `initialize` option and [callbacks](#Callbacks) supported.
-
-##### ORM
-There should be a major change for ORM. 0.2x ORM constructor need to pass the npdynamodb instance instead of pure dynamodb instance.
-
-
 ## Usage
 Npdynamodb has two faces. One is Simple Query Builder and the other is Light ORM.
 We release you redundancy codes and see simple syntax.  
@@ -91,12 +79,41 @@ npd().table('users')
 });
 ```
 
-##### Get rows with where, filter and descending order
+##### Get multiple rows with where, filter and descending order
 ```js
 npd().table('chats')
 .where('room_id', 'room1') // hash key
 .where('timestamp', '>', 1429454911) // range key
 .filter('user_name', 'tonny') // non index key
+.desc()
+.then(function(data){
+  console.log(data);
+})
+.catch(function(err){
+  console.err(err);
+});
+```
+
+##### whereIn
+whereIn call batchGetItem instead of query operation.
+
+###### Single Key Usage
+```js
+npd().table('chats')
+.whereIn('room_id', ['room1', 'room2', 'room3'])
+.desc()
+.then(function(data){
+  console.log(data);
+})
+.catch(function(err){
+  console.err(err);
+});
+```
+
+###### Multiple Kyes Usage
+```js
+npd().table('chats')
+.whereIn(['room_id', 'timestamp'], [['room1', 1429454911], ['room2', 1429454912], ['room3', 1429454913]])
 .desc()
 .then(function(data){
   console.log(data);
@@ -381,6 +398,7 @@ Chat.customStaticMethod().then(function(data){
 
 ##### Where
 * where
+* whereIn: Using batchGetItem
 * whereBetween
 * whereBeginsWith
 
@@ -620,7 +638,7 @@ npd migrate:rollback
 npm test
 ```
 
-## Callbacks
+## QueryBuilder Callbacks
 You can be hooked several events and their can be taken promise.
 
 Mechanism of Callbacks and Events
@@ -758,6 +776,18 @@ npd().table('table_name').where('id', 1).then(function(data){
 </script>
 ```
 
+## Upgrading and Release Note
+#### Upgrading 0.1x -> 0.2x
+
+##### QueryBuilder
+There should be a minor change for QueryBuilder. 0.2x  QueryBuilder can take options as second argument of createClient.
+* 0.2.0: `timeout` option supported.
+* 0.2.6: `initialize` option and [callbacks](#querybuilder-callbacks) supported.
+* 0.2.7: [whereIn](wherein) method supported.
+
+##### ORM
+There should be a major change for ORM. 0.2x ORM constructor need to pass the npdynamodb instance instead of pure dynamodb instance.
+* 0.2.7: Supported to parse `whereIn` results.
 
 ## License
 
