@@ -101,7 +101,6 @@ whereIn call batchGetItem instead of query operation.
 ```js
 npd().table('chats')
 .whereIn('room_id', ['room1', 'room2', 'room3'])
-.desc()
 .then(function(data){
   console.log(data);
 })
@@ -114,7 +113,6 @@ npd().table('chats')
 ```js
 npd().table('chats')
 .whereIn(['room_id', 'timestamp'], [['room1', 1429454911], ['room2', 1429454912], ['room3', 1429454913]])
-.desc()
 .then(function(data){
   console.log(data);
 })
