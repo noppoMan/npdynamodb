@@ -157,6 +157,73 @@ describe('QueryBuilder', function(){
         done(err);
       });
     });
+
+    it('Should take multiple items with whereIn and single key', function(done){
+      var tableName = 'where_in_test';
+      npd().rawClient().createTable({
+        AttributeDefinitions: [
+          { AttributeName: 'hk', AttributeType: 'S' },
+        ],
+        KeySchema: [
+          { AttributeName: 'hk', KeyType: 'HASH' },
+        ],
+        TableName: tableName,
+        ProvisionedThroughput: {
+          ReadCapacityUnits: 100, WriteCapacityUnits: 100
+        },
+      })
+      .then(function(data){
+        return npd().table(tableName).create([
+          {
+            hk: 'key1',
+            foo: 'bar'
+          },
+          {
+            hk: 'key2',
+            foo: 'bar'
+          }
+        ]);
+      })
+      .then(function(){
+        return npd().table(tableName)
+        .whereIn('hk', ['key1', 'key2'])
+        .then(function(data){
+          expect(data.Responses[tableName][0].hk).to.eq('key1');
+          expect(data.Responses[tableName][1].hk).to.eq('key2');
+          done();
+        });
+      })
+      .catch(done)
+      .finally(function(){
+        return npd().rawClient().deleteTable({TableName: tableName});
+        done();
+      });
+    });
+
+    it('Should take multiple items with whereIn and multiple keys', function(done){
+      npd().table('complex_table')
+      .whereIn(['hash_key', 'range_key'], [['key1', 1], ['key1', 2]])
+      .then(function(data){
+        expect(data.Responses.complex_table.length).to.eq(2);
+        done();
+      })
+      .catch(function(err){
+        done(err);
+      });
+    });
+
+    it('Should be raised error with using where and whereIn at the same time', function(done){
+      npd().table('complex_table')
+      .whereIn(['hash_key', 'range_key'], [['key1', 1], ['key1', 2]])
+      .where('hash_key', 'key1')
+      .then(function(data){
+        throw new Error('Here is never called.');
+      })
+      .catch(function(err){
+        expect(err).to.be.an.instanceof(Error);
+        done();
+      });
+    });
   });
 
   describe('filter*', function(){

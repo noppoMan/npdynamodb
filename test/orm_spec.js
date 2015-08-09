@@ -134,6 +134,20 @@ describe('ORM', function(){
     });
   });
 
+  it('Should get multiple rows with whereIn(batchGetItem)', function(done){
+    Chat.query(function(qb){
+      qb.whereIn(['room_id', 'timestamp'], [['room1', 1429291245], ['room1', 1429291246]]);
+    })
+    .fetch()
+    .then(function(chats){
+      expect(chats.at(0).get('timestamp')).to.equal(1429291245);
+      expect(chats.at(1).get('timestamp')).to.equal(1429291246);
+      done();
+    })
+    .catch(function(err){
+      done(err);
+    });
+  });
 
   describe('save', function(){
 
