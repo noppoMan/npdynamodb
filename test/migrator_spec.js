@@ -38,8 +38,7 @@ describe('Migrator', function(){
 
   describe('run', function(){
     it("Should create test_table1 and test_table2", function(done){
-      migrator.run()
-      .then(function(data){
+      migrator.run().then(function(data){
         return Promise.all([
           npd().table('test_table1').describe(),
           npd().table('test_table2').describe(),
@@ -58,20 +57,23 @@ describe('Migrator', function(){
 
   describe('rollback', function(){
     it("Should delete test_table2 and remove value of 20150404071722 from npd_migrations_for_testing", function(done){
-      migrator.rollback()
-      .then(function(data){
+      migrator.rollback().then(function(data){
+        migrator.rollback().then(function(data){
+          migrator.rollback().then(function(data){
 
-        npd().table('test_table2').describe()
-        .then(function(data){
-          done(new Error());
-        })
-        .catch(function(err){
-          expect(err.name).to.equal('ResourceNotFoundException');
+            npd().table('test_table2').describe()
+            .then(function(data){
+              done(new Error('Here is never called'));
+            })
+            .catch(function(err){
+              expect(err.name).to.equal('ResourceNotFoundException');
 
-          npd().table('npd_migrations_for_testing').where('version', 20150404071722)
-          .then(function(data){
-            expect(data.Count).to.equal(0);
-            done();
+              npd().table('npd_migrations_for_testing').where('version', 20150404071722)
+              .then(function(data){
+                expect(data.Count).to.equal(0);
+                done();
+              });
+            });
           });
         });
       });

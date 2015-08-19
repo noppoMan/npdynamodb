@@ -53,7 +53,7 @@ describe('Schema', function(){
       t.ProjectionTypeAll();
     });
 
-    expect(t.build()).to.deep.equal(require('./data/test_tables').for_schema_test);
+    expect(t.buildCreateTable()).to.deep.equal(require('./data/test_tables').for_schema_test);
   });
 
 });
