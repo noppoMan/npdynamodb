@@ -518,6 +518,14 @@ Chat.customStaticMethod().then(function(data){
 ## Migration
 We support schema migration for Dynamodb.
 
+##### apis
+* createTable
+* updateTable
+* deleteTable
+* waitUntilTableActivate
+* waitForTableExists
+* waitForTableNotExists
+
 ##### First, initialize your project to run migration.
 ```sh
 npd install -g npdynamodb
@@ -590,19 +598,47 @@ exports.up = function(migrator){
     t.globalSecandayIndex('indexName1', function(t){
       t.string('user_id').hashKey();
       t.provisionedThroughput(100, 100); // read, write
-      t.ProjectionTypeAll(); //default is NONE
+      t.projectionTypeAll(); //default is NONE
     });
 
     t.localSecandaryIndex('indexName2', function(t){
       t.string('room_id').hashKey();
       t.number('user_id').rangeKey();
-      t.ProjectionTypeAll(); //default is NONE
+      t.projectionTypeAll(); //default is NONE
     });
   });
 };
 
 exports.down = function(migrator){
   return migrator().deleteTable('chats');
+};
+```
+
+##### UpdateTable Usage
+```js
+exports.up = function(migrator, config){
+  return migrator().updateTable('test_table1', function(t){
+    t.globalSecondaryIndexUpdates(function(t){
+
+      t.create('indexName3', function(t){
+        t.string('hash_key2').hashKey();
+        t.provisionedThroughput(100, 100);
+        t.projectionTypeAll();
+      });
+
+      t.delete('indexName2');
+
+      t.update('indexName1', function(t){
+        t.provisionedThroughput(150, 100);
+      });
+
+      t.provisionedThroughput(200, 200);
+
+    });
+  }).then(function(){
+    // wait until tables state will be ACTIVE.
+    return migrator().waitUntilTableActivate('test_table1');
+  });
 };
 ```
 
