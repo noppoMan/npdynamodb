@@ -6,7 +6,7 @@ exports.up = function(migrator, config){
       t.create('indexName3', function(t){
         t.string('hash_key2').hashKey();
         t.provisionedThroughput(100, 100);
-        t.ProjectionTypeAll();
+        t.projectionTypeAll();
       });
     });
   }).then(function(){

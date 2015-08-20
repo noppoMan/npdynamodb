@@ -19,7 +19,7 @@ exports.down = function(migrator, config){
       t.create('indexName2', function(t){
         t.number('gsi_hash_key2').hashKey();
         t.provisionedThroughput(100, 100);
-        t.ProjectionTypeAll();
+        t.projectionTypeAll();
       });
       t.update('indexName1', function(t){
         t.provisionedThroughput(10, 10);

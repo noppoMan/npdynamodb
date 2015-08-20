@@ -9,13 +9,13 @@ exports.up = function(migrator){
     t.globalSecondaryIndex('indexName1', function(t){
       t.string('gsi_hash_key').hashKey();
       t.provisionedThroughput(100, 100);
-      t.ProjectionTypeAll();
+      t.projectionTypeAll();
     });
 
     t.localSecondaryIndex('indexName2', function(t){
       t.string('hash_key').hashKey();
       t.number('lsi_range_key').rangeKey();
-      t.ProjectionTypeAll();
+      t.projectionTypeAll();
     });
   });
 };
