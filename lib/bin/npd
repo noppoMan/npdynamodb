@@ -168,8 +168,7 @@ function initialize(){
   .description('       Run all migrations that have not yet been run.')
   .action(function() {
     return initCli().then(function(config){
-      return new Migrator.Runner(config).run()
-      .then(function(data){
+      return new Migrator.Runner(config).run().then(function(data){
         if(data.length === 0) {
           exit(chalk.cyan("Already up to date"));
         }else{
@@ -185,8 +184,10 @@ function initialize(){
   .description('       Rollback the last set of migrations performed.')
   .action(function() {
     return initCli().then(function(config){
-      return new Migrator.Runner(config).rollback()
-      .then(function(data){
+      return new Migrator.Runner(config).rollback().then(function(data){
+        if(!data) {
+          return exit(chalk.cyan('There is no rollbackable generation.'));
+        }
         exit(chalk.cyan('Rollbacked ' + data));
       });
     }).catch(exitWithError);
