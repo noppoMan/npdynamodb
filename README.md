@@ -383,7 +383,6 @@ Chat.customStaticMethod().then(function(data){
 ##### operations
 * createTable
 * deleteTable
-* alterTable
 * all
 * count
 * create
@@ -427,9 +426,6 @@ Chat.customStaticMethod().then(function(data){
 * attributeDefinitions
 * tableName
 * keySchema
-* localSecondaryIndexes
-* globalSecondaryIndexes
-* provisionedThroughput
 * key
 * expected
 * conditionalOperator
@@ -452,7 +448,6 @@ Chat.customStaticMethod().then(function(data){
 * segment
 * attributeUpdates
 * updateExpression
-* globalSecondaryIndexUpdates
 
 ### Events
 * `beforeQuery`: Fired before sending request
@@ -515,14 +510,6 @@ Chat.customStaticMethod().then(function(data){
 
 ## Migration
 We support schema migration for Dynamodb.
-
-##### apis
-* createTable
-* updateTable
-* deleteTable
-* waitUntilTableActivate
-* waitForTableExists
-* waitForTableNotExists
 
 ##### First, initialize your project to run migration.
 ```sh
@@ -649,6 +636,36 @@ npd migrate:run
 ```sh
 npd migrate:rollback
 ```
+
+### List of APIs
+#### Migrator
+* createTable
+* updateTable
+* deleteTable
+* waitUntilTableActivate
+* waitForTableExists
+* waitForTableNotExists
+
+#### Schema Builder
+* string
+* number
+* binary
+* globalSecondaryIndexUpdates
+  - create
+  - update
+  - delete
+* localSecondaryIndex
+* globalSecondaryIndex
+* provisionedThroughput
+* streamSpecificationEnabled
+* streamSpecificationViewType
+* projectionTypeAll
+* projectionTypeKeysOnly
+* projectionTypeInclude
+
+##### chainable
+* rangeKey
+* hashKey
 
 ## Command Line Interfaces (required global install and type `npd`)
 ### Commands
