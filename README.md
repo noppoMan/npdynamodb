@@ -1,4 +1,4 @@
-# npdynamodb [![npm version](https://badge.fury.io/js/npdynamodb.svg)](http://badge.fury.io/js/npdynamodb) [![Code Climate](https://codeclimate.com/github/noppoMan/npdynamodb/badges/gpa.svg)](https://codeclimate.com/github/noppoMan/npdynamodb) [![wercker status](https://app.wercker.com/status/1ccc24d0af9825e0ae7990ea3fd8121a/s "wercker status")](https://app.wercker.com/project/bykey/1ccc24d0af9825e0ae7990ea3fd8121a)
+# npdynamodb [![npm version](https://badge.fury.io/js/npdynamodb.svg)](http://badge.fury.io/js/npdynamodb) [![Code Climate](https://codeclimate.com/github/noppoMan/npdynamodb/badges/gpa.svg)](https://codeclimate.com/github/noppoMan/npdynamodb) [![Circle CI](https://circleci.com/gh/noppoMan/npdynamodb/tree/master.svg?style=svg)](https://circleci.com/gh/noppoMan/npdynamodb/tree/master)
 A Node.js Simple Query Builder and ORM for AWS DynamoDB.
 
 ## Motivation
@@ -393,6 +393,7 @@ Chat.customStaticMethod().then(function(data){
 * showTables
 * feature
 * rawClient: Return promisified AWS.DynamoDB
+* freshBuilder: Getting fresh QueryBuilder instance with extending same options.
 
 ##### Where
 * where
