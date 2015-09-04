@@ -199,7 +199,7 @@ function initialize(){
   .description('      list all tables')
   .action(function() {
     return initCli().then(function(config){
-      var npd = npdynamod.createClient(config.dynamoClient);
+      var npd = npdynamod.createClient(config.dynamoClient, config.options);
 
       return npd().showTables().then(function(tables){
         exit(tables.TableNames.join("\n"));
@@ -213,7 +213,7 @@ function initialize(){
   .description('       Dump specified table contents.')
   .action(function(table) {
     return initCli().then(function(config){
-      var npd = npdynamod.createClient(config.dynamoClient);
+      var npd = npdynamod.createClient(config.dynamoClient, config.options);
 
       return npd().table(table).all().then(function(data){
         exit(inspect(data));
@@ -226,7 +226,7 @@ function initialize(){
   .description('       Show result of the describe operation')
   .action(function(table) {
     return initCli().then(function(config){
-      var npd = npdynamod.createClient(config.dynamoClient);
+      var npd = npdynamod.createClient(config.dynamoClient, config.options);
 
       return npd().table(table).describe().then(function(data){
         exit(inspect(data));
@@ -239,7 +239,7 @@ function initialize(){
   .description('       Show results of the query operation')
   .action(function(table, hashKey, rangeKey) {
     return initCli().then(function(config){
-      var npd = npdynamod.createClient(config.dynamoClient);
+      var npd = npdynamod.createClient(config.dynamoClient, config.options);
       return npd().table(table).describe().then(function(data){
 
         var hashKeyName = data.Table.KeySchema[0].AttributeName,
@@ -263,7 +263,7 @@ function initialize(){
   .description('       Drop the specified table.')
   .action(function(table, hashKey, rangeKey) {
     return initCli().then(function(config){
-      var npd = npdynamod.createClient(config.dynamoClient);
+      var npd = npdynamod.createClient(config.dynamoClient, config.options);
       return npd().table(table).deleteTable().then(function(result){
         exit(inspect(result));
       });
