@@ -7,6 +7,10 @@ When I visited [here ](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/Dy
 Because it is too long and hard to see to understand.
 So I decided to make client to handle DynamoDB more easier and It doesn't take waste of time to read documentation for it.
 
+## Services that are used in Production
+[<img src="https://raw.githubusercontent.com/noppoMan/npdynamodb/gh-pages/resources/chatcast_logo.png" width="250">](https://chatca.st)
+
+
 ## Supported DynamoDB Api Versions
 * 2012-08-10
 
