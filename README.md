@@ -25,7 +25,6 @@ Npdynamodb has two faces. One is Simple Query Builder and the other is Light ORM
 We release you redundancy codes and see simple syntax.  
 of course, will not see callback hell !!
 
-
 ## Usage of QueryBuilder
 
 Initialization
@@ -372,143 +371,6 @@ Chat.customStaticMethod().then(function(data){
 });
 ```
 
-# Apis
-
-##  QueryBuilder
-
-##### options
-* timeout: default is 5000(ms)
-* initialize
-
-##### operations
-* createTable
-* deleteTable
-* all
-* count
-* create
-* update
-* delete
-* describe
-* showTables
-* feature
-* rawClient: Return promisified AWS.DynamoDB
-* freshBuilder: Getting fresh QueryBuilder instance with extending same options.
-
-##### Where
-* where
-* whereIn: Using batchGetItem
-* whereBetween
-* whereBeginsWith
-
-##### Filter
-* filter
-* filterBetween
-* filterIn
-* filterBeginsWith
-* filterContains
-* filterNotContains
-* filterNull
-* filterNotNull
-
-
-##### Other conditions
-* select :alias of `attributesToGet(['attr1', 'attr2'])`
-* table
-* indexName
-* asc :alias of `scanIndexForward(true)`
-* desc :alias of `scanIndexForward(false)`
-* limit
-
-
-##### feature methods (2012-08-10)
-* requestItems
-* returnConsumedCapacity
-* returnItemCollectionMetrics
-* attributeDefinitions
-* tableName
-* keySchema
-* key
-* expected
-* conditionalOperator
-* returnValues
-* conditionExpression
-* expressionAttributeNames
-* expressionAttributeValues
-* attributesToGet
-* consistentRead
-* projectionExpression
-* exclusiveStartTableName
-* item
-* keyConditions
-* queryFilter
-* scanIndexForward
-* exclusiveStartKey
-* filterExpression
-* scanFilter
-* totalSegments
-* segment
-* attributeUpdates
-* updateExpression
-
-### Events
-* `beforeQuery`: Fired before sending request
-* `afterQuery`: Fired after getting response
-
-### Callbacks
-* `beforeQuery`: Executed before sending request
-* `afterQuery`: Executed after getting response
-
-## ORM
-##### Operations
-* find
-* all
-* where
-* then
-* save
-* destroy
-
-##### Model
-* get
-* set
-* unset
-* extend
-* each
-* map
-* keys
-* values
-* contains
-* pick
-* toJson
-* attributes
-
-##### Collection
-* pluck
-* each
-* map
-* reduce
-* reduceRight
-* find
-* filter
-* where
-* findWhere
-* reject
-* every
-* some
-* invoke
-* sortBy
-* groupBy
-* indexBy
-* countBy
-* shuffle
-* sample
-* size
-* partition
-* first
-* last
-* toJson
-* toArray
-
-
 ## Migration
 We support schema migration for Dynamodb.
 
@@ -638,35 +500,10 @@ npd migrate:run
 npd migrate:rollback
 ```
 
-### List of APIs
-#### Migrator
-* createTable
-* updateTable
-* deleteTable
-* waitUntilTableActivate
-* waitForTableExists
-* waitForTableNotExists
-
-#### Schema Builder
-* string
-* number
-* binary
-* globalSecondaryIndexUpdates
-  - create
-  - update
-  - delete
-* localSecondaryIndex
-* globalSecondaryIndex
-* provisionedThroughput
-* streamSpecificationEnabled
-* streamSpecificationViewType
-* projectionTypeAll
-* projectionTypeKeysOnly
-* projectionTypeInclude
-
-##### chainable
-* rangeKey
-* hashKey
+## List of npdynamodb apis
+* [QueryBuilder Apis](https://github.com/noppoMan/npdynamodb/blob/master/docs/query_builder_apis.md)
+* [ORM Apis](https://github.com/noppoMan/npdynamodb/blob/master/docs/orm_apis.md)
+* [Migration Apis](https://github.com/noppoMan/npdynamodb/blob/master/docs/migration_apis.md)
 
 ## Command Line Interfaces (required global install and type `npd`)
 ### Commands
@@ -780,6 +617,9 @@ npdynamodb.plugin(function(Klass){
 
 });
 ```
+
+### Available Plugins
+* [npdynamodb-typecast](https://github.com/noppoMan/npdynamodb-typecast) For casting hash and range key to actual attribution type
 
 ## Browser Support
 Npdynamodb can be built using browserify or webpack, and pre-built or pre-built with uglified version can be found in the build directory.
