@@ -24,11 +24,21 @@ npm install npdynamodb
 Parameters are like Chant of the magic.
 [http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html)
 
-## Usage
-Npdynamodb has two faces. One is Simple Query Builder and the other is Light ORM.
-We release you redundancy codes and see simple syntax.  
-of course, will not see callback hell !!
+## Overview
+Npdynamodb has modern interfaces to handle AWS DynamoDB.
+We release you redundancy codes and see simple syntax.
+of course, will not see callback hell!
 
+Npdynamodb has following functions
+* [Simple QueryBuilder](https://github.com/noppoMan/npdynamodb/blob/master/README.md#usage-of-querybuilder)
+* [Light ORM(Active Record Model Like)](https://github.com/noppoMan/npdynamodb/blob/master/README.md#usage-of-orm)
+* [DynamoDB Migrator](https://github.com/noppoMan/npdynamodb/blob/master/README.md#migration)
+* [Command Line Interface](https://github.com/noppoMan/npdynamodb/blob/master/README.md#command-line-interfaces)
+
+### List of npdynamodb apis
+* [QueryBuilder Apis](https://github.com/noppoMan/npdynamodb/blob/master/docs/query_builder_apis.md)
+* [ORM Apis](https://github.com/noppoMan/npdynamodb/blob/master/docs/orm_apis.md)
+* [Migration Apis](https://github.com/noppoMan/npdynamodb/blob/master/docs/migration_apis.md)
 
 ## Usage of QueryBuilder
 
@@ -376,143 +386,6 @@ Chat.customStaticMethod().then(function(data){
 });
 ```
 
-# Apis
-
-##  QueryBuilder
-
-##### options
-* timeout: default is 5000(ms)
-* initialize
-
-##### operations
-* createTable
-* deleteTable
-* all
-* count
-* create
-* update
-* delete
-* describe
-* showTables
-* feature
-* rawClient: Return promisified AWS.DynamoDB
-* freshBuilder: Getting fresh QueryBuilder instance with extending same options.
-
-##### Where
-* where
-* whereIn: Using batchGetItem
-* whereBetween
-* whereBeginsWith
-
-##### Filter
-* filter
-* filterBetween
-* filterIn
-* filterBeginsWith
-* filterContains
-* filterNotContains
-* filterNull
-* filterNotNull
-
-
-##### Other conditions
-* select :alias of `attributesToGet(['attr1', 'attr2'])`
-* table
-* indexName
-* asc :alias of `scanIndexForward(true)`
-* desc :alias of `scanIndexForward(false)`
-* limit
-
-
-##### feature methods (2012-08-10)
-* requestItems
-* returnConsumedCapacity
-* returnItemCollectionMetrics
-* attributeDefinitions
-* tableName
-* keySchema
-* key
-* expected
-* conditionalOperator
-* returnValues
-* conditionExpression
-* expressionAttributeNames
-* expressionAttributeValues
-* attributesToGet
-* consistentRead
-* projectionExpression
-* exclusiveStartTableName
-* item
-* keyConditions
-* queryFilter
-* scanIndexForward
-* exclusiveStartKey
-* filterExpression
-* scanFilter
-* totalSegments
-* segment
-* attributeUpdates
-* updateExpression
-
-### Events
-* `beforeQuery`: Fired before sending request
-* `afterQuery`: Fired after getting response
-
-### Callbacks
-* `beforeQuery`: Executed before sending request
-* `afterQuery`: Executed after getting response
-
-## ORM
-##### Operations
-* find
-* all
-* where
-* then
-* save
-* destroy
-
-##### Model
-* get
-* set
-* unset
-* extend
-* each
-* map
-* keys
-* values
-* contains
-* pick
-* toJson
-* attributes
-
-##### Collection
-* pluck
-* each
-* map
-* reduce
-* reduceRight
-* find
-* filter
-* where
-* findWhere
-* reject
-* every
-* some
-* invoke
-* sortBy
-* groupBy
-* indexBy
-* countBy
-* shuffle
-* sample
-* size
-* partition
-* first
-* last
-* toJson
-* toArray
-
-
 ## Migration
 We support schema migration for Dynamodb.
 
@@ -642,37 +515,8 @@ npd migrate:run
 npd migrate:rollback
 ```
 
-### List of APIs
-#### Migrator
-* createTable
-* updateTable
-* deleteTable
-* waitUntilTableActivate
-* waitForTableExists
-* waitForTableNotExists
-
-#### Schema Builder
-* string
-* number
-* binary
-* globalSecondaryIndexUpdates
-  - create
-  - update
-  - delete
-* localSecondaryIndex
-* globalSecondaryIndex
-* provisionedThroughput
-* streamSpecificationEnabled
-* streamSpecificationViewType
-* projectionTypeAll
-* projectionTypeKeysOnly
-* projectionTypeInclude
-
-##### chainable
-* rangeKey
-* hashKey
-
-## Command Line Interfaces (required global install and type `npd`)
+## Command Line Interfaces
+#### required global install and type `npd`
 ### Commands
 * `init`: Create a fresh npdfile.js.
 * `migrate:generate <name>` Create a named migration file.
@@ -784,6 +628,9 @@ npdynamodb.plugin(function(Klass){
 
 });
 ```
+
+### Available Plugins
+* [npdynamodb-typecast](https://github.com/noppoMan/npdynamodb-typecast) For casting hash and range key to actual attribution type
 
 ## Browser Support
 Npdynamodb can be built using browserify or webpack, and pre-built or pre-built with uglified version can be found in the build directory.
