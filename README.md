@@ -135,6 +135,20 @@ npd().table('chats')
 });
 ```
 
+##### Limit and offset
+```js
+npd().table('chats')
+.where('room_id', 'room1')
+.limit(10)
+.offset(ExclusiveStartKey)
+.then(function(data){
+  console.log(data);
+})
+.catch(function(err){
+  console.err(err);
+});
+```
+
 ##### Count
 ```js
 npd().table('chats')
