@@ -194,7 +194,7 @@ describe('ORM', function(){
       });
     });
 
-    it("Should each model in collection save an item", function(done){
+    it("Should each models in collection save changes", function(done){
       Chat.where('room_id', 'room1').fetch().then(function(chats){
         return chats.first().set('message', 'this is a updated message').save()
         .then(function(chat){
@@ -241,14 +241,14 @@ describe('ORM', function(){
       });
     });
 
-    it('Result item should call custom method and equals with expected value.', function(done){
+    it('Should call custom method and that result should be true', function(done){
       Chat.find("room1", 1429291245).then(function(chat){
         expect(chat.customProtoMethod()).to.equal(true);
         done();
       });
     });
 
-    it('Result each item of result collection should call custom instance method and equals with expected value.', function(done){
+    it('Should call custom method and that result should be expected values', function(done){
       Chat.where('room_id', 'room1').fetch().then(function(chats){
         expect(chats.indexAt(0).customProtoMethod()).to.equal(true);
         expect(chats.indexAt(1).customProtoMethod()).to.equal(false);

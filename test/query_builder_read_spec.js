@@ -427,7 +427,7 @@ describe('QueryBuilder', function(){
   });
 
   describe('count', function(){
-    it('Should num of rows is 10', function(done){
+    it('Num of rows Should be same as specified limit', function(done){
       npd().table('complex_table')
       .where('hash_key', 'key1')
       .count()
@@ -440,7 +440,7 @@ describe('QueryBuilder', function(){
       });
     });
 
-    it('Should num of rows is 5 with limit', function(done){
+    it('Num of rows Should be same as specified limit', function(done){
       npd().table('complex_table')
       .where('hash_key', 'key1')
       .count()
@@ -456,7 +456,7 @@ describe('QueryBuilder', function(){
   });
 
   describe('limit, offset', function(){
-    it('Should rows count same as specified limit', function(done){
+    it('Num of rows should be same as specified limit', function(done){
       npd().table('complex_table')
       .where('hash_key', 'key1')
       .limit(4)
@@ -493,7 +493,7 @@ describe('QueryBuilder', function(){
 
   describe('order', function(){
 
-    it('Should finding rows order is ascending', function(done){
+    it('Order Should be ascending', function(done){
       npd().table('complex_table')
       .where('hash_key', 'key1')
       .limit(4)
@@ -507,7 +507,7 @@ describe('QueryBuilder', function(){
     });
 
 
-    it('Should finding rows order is descending', function(done){
+    it('Order Should be descending', function(done){
       npd().table('complex_table')
       .where('hash_key', 'key1')
       .limit(4)
@@ -522,7 +522,7 @@ describe('QueryBuilder', function(){
   });
 
   describe('indexName', function(){
-    it('Should find row with GlobalSecondaryIndex', function(done){
+    it('Should find rows by GlobalSecondaryIndex', function(done){
       npd().table('complex_table')
       .where('gsi_hash_key', 'gkey1')
       .indexName('indexName1')
@@ -536,7 +536,7 @@ describe('QueryBuilder', function(){
       });
     });
 
-    it('Should find row with LocalSecondaryIndex', function(done){
+    it('Should find rows by LocalSecondaryIndex', function(done){
       npd().table('complex_table')
       .where('hash_key', 'key1')
       .where('lsi_range_key', 1)
