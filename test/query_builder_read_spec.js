@@ -39,7 +39,7 @@ describe('QueryBuilder', function(){
     })
     .catch(function(err){
       done(err);
-    })
+    });
   });
 
   after(function(done){
@@ -455,7 +455,7 @@ describe('QueryBuilder', function(){
     });
   });
 
-  describe('limit', function(){
+  describe('limit, offset', function(){
     it('Should rows count same as specified limit', function(done){
       npd().table('complex_table')
       .where('hash_key', 'key1')
@@ -463,6 +463,27 @@ describe('QueryBuilder', function(){
       .then(function(data){
         expect(data.Count).to.equal(4);
         done();
+      })
+      .catch(function(err){
+        done(err);
+      });
+    });
+
+
+    it('Should get rows that are greater than LastEvaluatedKey', function(done){
+      npd().table('complex_table')
+      .where('hash_key', 'key1')
+      .limit(5)
+      .then(function(data){
+        expect(data.LastEvaluatedKey).to.deep.equal({ range_key: 5, hash_key: 'key1' });
+        return npd().table('complex_table')
+        .where('hash_key', 'key1')
+        .limit(5)
+        .offset(data.LastEvaluatedKey)
+        .then(function(data){
+          expect(data.LastEvaluatedKey).to.deep.equal({ range_key: 10, hash_key: 'key1' });
+          done();
+        });
       })
       .catch(function(err){
         done(err);

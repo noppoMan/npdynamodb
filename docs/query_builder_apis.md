@@ -36,12 +36,13 @@
 
 
 ##### Other conditions
-* select :alias of `attributesToGet(['attr1', 'attr2'])`
+* select :alias of `feature.attributesToGet(['attr1', 'attr2'])`
 * table
 * indexName
-* asc :alias of `scanIndexForward(true)`
-* desc :alias of `scanIndexForward(false)`
+* asc :alias of `feature.scanIndexForward(true)`
+* desc :alias of `feature.scanIndexForward(false)`
 * limit
+* offset: alias of `feature.exclusiveStartKey(Object)`
 
 
 ##### feature methods (2012-08-10)
