@@ -649,9 +649,6 @@ npdynamodb.plugin(function(Klass){
 ## Browser Support
 Npdynamodb can be built using browserify or webpack, and pre-built or pre-built with uglified version can be found in the build directory.
 
-#### Note that, if you use Npdynamodb on any browsers, It has a security issue. Because AccessKey and SecretAccessKey for DynamoDB can be seen from public. We recommend you only using it for private or readonly projects which is not including any privacy informations.
-
-
 ### For Browserify or Webpack
 ```js
 var AWS = require('aws-sdk');
