@@ -29,45 +29,45 @@
       </header>
       <section>
         <h1>
-<a id="npdynamodb---" class="anchor" href="#npdynamodb---" aria-hidden="true"><span class="octicon octicon-link"></span></a>npdynamodb <a href="http://badge.fury.io/js/npdynamodb"><img src="https://badge.fury.io/js/npdynamodb.svg" alt="npm version"></a> <a href="https://codeclimate.com/github/noppoMan/npdynamodb"><img src="https://codeclimate.com/github/noppoMan/npdynamodb/badges/gpa.svg" alt="Code Climate"></a> <a href="https://app.wercker.com/project/bykey/1ccc24d0af9825e0ae7990ea3fd8121a"><img src="https://app.wercker.com/status/1ccc24d0af9825e0ae7990ea3fd8121a/s" alt="wercker status" title="wercker status"></a>
+<a id="npdynamodb---" class="anchor" href="#npdynamodb---" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>npdynamodb <a href="http://badge.fury.io/js/npdynamodb"><img src="https://badge.fury.io/js/npdynamodb.svg" alt="npm version"></a> <a href="https://codeclimate.com/github/noppoMan/npdynamodb"><img src="https://codeclimate.com/github/noppoMan/npdynamodb/badges/gpa.svg" alt="Code Climate"></a> <a href="https://app.wercker.com/project/bykey/1ccc24d0af9825e0ae7990ea3fd8121a"><img src="https://app.wercker.com/status/1ccc24d0af9825e0ae7990ea3fd8121a/s" alt="wercker status" title="wercker status"></a>
 </h1>
 
 <p>A Node.js Simple Query Builder and ORM for AWS DynamoDB.</p>
 
 <h2>
-<a id="motivation" class="anchor" href="#motivation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Motivation</h2>
+<a id="motivation" class="anchor" href="#motivation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Motivation</h2>
 
 <p>When I visited <a href="http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html#query-property">here </a> for the first time, I closed it in a moment.
 Because it is too long and hard to see to understand.
 So I decided to make client to handle DynamoDB more easier and It doesn't take waste of time to read documentation for it.</p>
 
 <h2>
-<a id="supported-dynamodb-api-versions" class="anchor" href="#supported-dynamodb-api-versions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Supported DynamoDB Api Versions</h2>
+<a id="supported-dynamodb-api-versions" class="anchor" href="#supported-dynamodb-api-versions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Supported DynamoDB Api Versions</h2>
 
 <ul>
 <li>2012-08-10</li>
 </ul>
 
 <h2>
-<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h2>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation</h2>
 
 <div class="highlight highlight-source-shell"><pre>npm install npdynamodb</pre></div>
 
 <h2>
-<a id="why-is-the-pure-aws-sdk-in-nodejs-not-good" class="anchor" href="#why-is-the-pure-aws-sdk-in-nodejs-not-good" aria-hidden="true"><span class="octicon octicon-link"></span></a>Why is the Pure AWS-SDK in Node.js NOT good?</h2>
+<a id="why-is-the-pure-aws-sdk-in-nodejs-not-good" class="anchor" href="#why-is-the-pure-aws-sdk-in-nodejs-not-good" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Why is the Pure AWS-SDK in Node.js NOT good?</h2>
 
 <p>Parameters are like Chant of the magic.
 <a href="http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html">http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html</a></p>
 
 <h2>
-<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h2>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h2>
 
 <p>Npdynamodb has two faces. One is Simple Query Builder and the other is Light ORM.
 We release you redundancy codes and see simple syntax.<br>
 of course, will not see callback hell !!</p>
 
 <h2>
-<a id="usage-of-querybuilder" class="anchor" href="#usage-of-querybuilder" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage of QueryBuilder</h2>
+<a id="usage-of-querybuilder" class="anchor" href="#usage-of-querybuilder" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage of QueryBuilder</h2>
 
 <p>Initialization</p>
 
@@ -78,10 +78,10 @@ of course, will not see callback hell !!</p>
   apiVersion<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>2012-08-10<span class="pl-pds">'</span></span>
 });
 
-<span class="pl-k">var</span> npd <span class="pl-k">=</span> npdynamodb.createClient(dynamodb);
+<span class="pl-k">var</span> npd <span class="pl-k">=</span> <span class="pl-smi">npdynamodb</span>.<span class="pl-en">createClient</span>(dynamodb);
 
 <span class="pl-c">// Or can take options</span>
-<span class="pl-k">var</span> npd <span class="pl-k">=</span> npdynamodb.createClient(dynamodb, {
+<span class="pl-k">var</span> npd <span class="pl-k">=</span> <span class="pl-smi">npdynamodb</span>.<span class="pl-en">createClient</span>(dynamodb, {
   timeout<span class="pl-k">:</span> <span class="pl-c1">3000</span>,
   <span class="pl-en">initialize</span><span class="pl-k">:</span> <span class="pl-k">function</span>(){
     <span class="pl-c">// Some Initialization here.</span>
@@ -89,116 +89,116 @@ of course, will not see callback hell !!</p>
 });</pre></div>
 
 <h5>
-<a id="get-by-hash-key-getitem-operation" class="anchor" href="#get-by-hash-key-getitem-operation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Get by hash key (getItem operation)</h5>
+<a id="get-by-hash-key-getitem-operation" class="anchor" href="#get-by-hash-key-getitem-operation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Get by hash key (getItem operation)</h5>
 
-<div class="highlight highlight-source-js"><pre>npd().table(<span class="pl-s"><span class="pl-pds">'</span>users<span class="pl-pds">'</span></span>)
-.where(<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>, <span class="pl-c1">1</span>)
-.first()
-.then(<span class="pl-k">function</span>(<span class="pl-smi">data</span>){
+<div class="highlight highlight-source-js"><pre><span class="pl-en">npd</span>().<span class="pl-en">table</span>(<span class="pl-s"><span class="pl-pds">'</span>users<span class="pl-pds">'</span></span>)
+.<span class="pl-en">where</span>(<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>, <span class="pl-c1">1</span>)
+.<span class="pl-en">first</span>()
+.<span class="pl-en">then</span>(<span class="pl-k">function</span>(<span class="pl-smi">data</span>){
 
   <span class="pl-en">console</span>.<span class="pl-c1">log</span>(data)
   <span class="pl-c">// =&gt; {Item: {id: 1, name: 'Tonny'}, Count: 1, ScannedCount: 1}</span>
 
 })
-.catch(<span class="pl-k">function</span>(<span class="pl-smi">err</span>){
-  <span class="pl-en">console</span>.err(err);
+.<span class="pl-en">catch</span>(<span class="pl-k">function</span>(<span class="pl-smi">err</span>){
+  <span class="pl-en">console</span>.<span class="pl-en">err</span>(err);
 });</pre></div>
 
 <h5>
-<a id="get-rows-with-where-query-operation" class="anchor" href="#get-rows-with-where-query-operation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Get rows with where (query operation)</h5>
+<a id="get-rows-with-where-query-operation" class="anchor" href="#get-rows-with-where-query-operation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Get rows with where (query operation)</h5>
 
-<div class="highlight highlight-source-js"><pre>npd().table(<span class="pl-s"><span class="pl-pds">'</span>users<span class="pl-pds">'</span></span>)
-.where(<span class="pl-s"><span class="pl-pds">'</span>name<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>tonny<span class="pl-pds">'</span></span>) <span class="pl-c">//hash key</span>
-.then(<span class="pl-k">function</span>(<span class="pl-smi">data</span>){
+<div class="highlight highlight-source-js"><pre><span class="pl-en">npd</span>().<span class="pl-en">table</span>(<span class="pl-s"><span class="pl-pds">'</span>users<span class="pl-pds">'</span></span>)
+.<span class="pl-en">where</span>(<span class="pl-s"><span class="pl-pds">'</span>name<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>tonny<span class="pl-pds">'</span></span>) <span class="pl-c">//hash key</span>
+.<span class="pl-en">then</span>(<span class="pl-k">function</span>(<span class="pl-smi">data</span>){
 
   <span class="pl-en">console</span>.<span class="pl-c1">log</span>(data)
   <span class="pl-c">// =&gt; {Items: [{id: 1, name: 'Tonny'}], Count: 1, ScannedCount: 1}</span>
 
 })
-.catch(<span class="pl-k">function</span>(<span class="pl-smi">err</span>){
-  <span class="pl-en">console</span>.err(err);
+.<span class="pl-en">catch</span>(<span class="pl-k">function</span>(<span class="pl-smi">err</span>){
+  <span class="pl-en">console</span>.<span class="pl-en">err</span>(err);
 });</pre></div>
 
 <h5>
-<a id="get-multiple-rows-with-where-filter-and-descending-order" class="anchor" href="#get-multiple-rows-with-where-filter-and-descending-order" aria-hidden="true"><span class="octicon octicon-link"></span></a>Get multiple rows with where, filter and descending order</h5>
+<a id="get-multiple-rows-with-where-filter-and-descending-order" class="anchor" href="#get-multiple-rows-with-where-filter-and-descending-order" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Get multiple rows with where, filter and descending order</h5>
 
-<div class="highlight highlight-source-js"><pre>npd().table(<span class="pl-s"><span class="pl-pds">'</span>chats<span class="pl-pds">'</span></span>)
-.where(<span class="pl-s"><span class="pl-pds">'</span>room_id<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>room1<span class="pl-pds">'</span></span>) <span class="pl-c">// hash key</span>
-.where(<span class="pl-s"><span class="pl-pds">'</span>timestamp<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>&gt;<span class="pl-pds">'</span></span>, <span class="pl-c1">1429454911</span>) <span class="pl-c">// range key</span>
-.filter(<span class="pl-s"><span class="pl-pds">'</span>user_name<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>tonny<span class="pl-pds">'</span></span>) <span class="pl-c">// non index key</span>
-.desc()
-.then(<span class="pl-k">function</span>(<span class="pl-smi">data</span>){
+<div class="highlight highlight-source-js"><pre><span class="pl-en">npd</span>().<span class="pl-en">table</span>(<span class="pl-s"><span class="pl-pds">'</span>chats<span class="pl-pds">'</span></span>)
+.<span class="pl-en">where</span>(<span class="pl-s"><span class="pl-pds">'</span>room_id<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>room1<span class="pl-pds">'</span></span>) <span class="pl-c">// hash key</span>
+.<span class="pl-en">where</span>(<span class="pl-s"><span class="pl-pds">'</span>timestamp<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>&gt;<span class="pl-pds">'</span></span>, <span class="pl-c1">1429454911</span>) <span class="pl-c">// range key</span>
+.<span class="pl-en">filter</span>(<span class="pl-s"><span class="pl-pds">'</span>user_name<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>tonny<span class="pl-pds">'</span></span>) <span class="pl-c">// non index key</span>
+.<span class="pl-en">desc</span>()
+.<span class="pl-en">then</span>(<span class="pl-k">function</span>(<span class="pl-smi">data</span>){
   <span class="pl-en">console</span>.<span class="pl-c1">log</span>(data);
 })
-.catch(<span class="pl-k">function</span>(<span class="pl-smi">err</span>){
-  <span class="pl-en">console</span>.err(err);
+.<span class="pl-en">catch</span>(<span class="pl-k">function</span>(<span class="pl-smi">err</span>){
+  <span class="pl-en">console</span>.<span class="pl-en">err</span>(err);
 });</pre></div>
 
 <h5>
-<a id="wherein" class="anchor" href="#wherein" aria-hidden="true"><span class="octicon octicon-link"></span></a>whereIn</h5>
+<a id="wherein" class="anchor" href="#wherein" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>whereIn</h5>
 
 <p>whereIn call batchGetItem instead of query operation.</p>
 
 <h6>
-<a id="single-key-usage" class="anchor" href="#single-key-usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Single Key Usage</h6>
+<a id="single-key-usage" class="anchor" href="#single-key-usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Single Key Usage</h6>
 
-<div class="highlight highlight-source-js"><pre>npd().table(<span class="pl-s"><span class="pl-pds">'</span>chats<span class="pl-pds">'</span></span>)
-.whereIn(<span class="pl-s"><span class="pl-pds">'</span>room_id<span class="pl-pds">'</span></span>, [<span class="pl-s"><span class="pl-pds">'</span>room1<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>room2<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>room3<span class="pl-pds">'</span></span>])
-.then(<span class="pl-k">function</span>(<span class="pl-smi">data</span>){
+<div class="highlight highlight-source-js"><pre><span class="pl-en">npd</span>().<span class="pl-en">table</span>(<span class="pl-s"><span class="pl-pds">'</span>chats<span class="pl-pds">'</span></span>)
+.<span class="pl-en">whereIn</span>(<span class="pl-s"><span class="pl-pds">'</span>room_id<span class="pl-pds">'</span></span>, [<span class="pl-s"><span class="pl-pds">'</span>room1<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>room2<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>room3<span class="pl-pds">'</span></span>])
+.<span class="pl-en">then</span>(<span class="pl-k">function</span>(<span class="pl-smi">data</span>){
   <span class="pl-en">console</span>.<span class="pl-c1">log</span>(data);
 })
-.catch(<span class="pl-k">function</span>(<span class="pl-smi">err</span>){
-  <span class="pl-en">console</span>.err(err);
+.<span class="pl-en">catch</span>(<span class="pl-k">function</span>(<span class="pl-smi">err</span>){
+  <span class="pl-en">console</span>.<span class="pl-en">err</span>(err);
 });</pre></div>
 
 <h6>
-<a id="multiple-kyes-usage" class="anchor" href="#multiple-kyes-usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Multiple Kyes Usage</h6>
+<a id="multiple-kyes-usage" class="anchor" href="#multiple-kyes-usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Multiple Kyes Usage</h6>
 
-<div class="highlight highlight-source-js"><pre>npd().table(<span class="pl-s"><span class="pl-pds">'</span>chats<span class="pl-pds">'</span></span>)
-.whereIn([<span class="pl-s"><span class="pl-pds">'</span>room_id<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>timestamp<span class="pl-pds">'</span></span>], [[<span class="pl-s"><span class="pl-pds">'</span>room1<span class="pl-pds">'</span></span>, <span class="pl-c1">1429454911</span>], [<span class="pl-s"><span class="pl-pds">'</span>room2<span class="pl-pds">'</span></span>, <span class="pl-c1">1429454912</span>], [<span class="pl-s"><span class="pl-pds">'</span>room3<span class="pl-pds">'</span></span>, <span class="pl-c1">1429454913</span>]])
-.then(<span class="pl-k">function</span>(<span class="pl-smi">data</span>){
+<div class="highlight highlight-source-js"><pre><span class="pl-en">npd</span>().<span class="pl-en">table</span>(<span class="pl-s"><span class="pl-pds">'</span>chats<span class="pl-pds">'</span></span>)
+.<span class="pl-en">whereIn</span>([<span class="pl-s"><span class="pl-pds">'</span>room_id<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>timestamp<span class="pl-pds">'</span></span>], [[<span class="pl-s"><span class="pl-pds">'</span>room1<span class="pl-pds">'</span></span>, <span class="pl-c1">1429454911</span>], [<span class="pl-s"><span class="pl-pds">'</span>room2<span class="pl-pds">'</span></span>, <span class="pl-c1">1429454912</span>], [<span class="pl-s"><span class="pl-pds">'</span>room3<span class="pl-pds">'</span></span>, <span class="pl-c1">1429454913</span>]])
+.<span class="pl-en">then</span>(<span class="pl-k">function</span>(<span class="pl-smi">data</span>){
   <span class="pl-en">console</span>.<span class="pl-c1">log</span>(data);
 })
-.catch(<span class="pl-k">function</span>(<span class="pl-smi">err</span>){
-  <span class="pl-en">console</span>.err(err);
+.<span class="pl-en">catch</span>(<span class="pl-k">function</span>(<span class="pl-smi">err</span>){
+  <span class="pl-en">console</span>.<span class="pl-en">err</span>(err);
 });</pre></div>
 
 <h5>
-<a id="count" class="anchor" href="#count" aria-hidden="true"><span class="octicon octicon-link"></span></a>Count</h5>
+<a id="count" class="anchor" href="#count" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Count</h5>
 
-<div class="highlight highlight-source-js"><pre>npd().table(<span class="pl-s"><span class="pl-pds">'</span>chats<span class="pl-pds">'</span></span>)
-.where(<span class="pl-s"><span class="pl-pds">'</span>room_id<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>room1<span class="pl-pds">'</span></span>)
-.count()
-.then(<span class="pl-k">function</span>(<span class="pl-smi">data</span>){
-  <span class="pl-en">console</span>.<span class="pl-c1">log</span>(data.Count);
+<div class="highlight highlight-source-js"><pre><span class="pl-en">npd</span>().<span class="pl-en">table</span>(<span class="pl-s"><span class="pl-pds">'</span>chats<span class="pl-pds">'</span></span>)
+.<span class="pl-en">where</span>(<span class="pl-s"><span class="pl-pds">'</span>room_id<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>room1<span class="pl-pds">'</span></span>)
+.<span class="pl-en">count</span>()
+.<span class="pl-en">then</span>(<span class="pl-k">function</span>(<span class="pl-smi">data</span>){
+  <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-smi">data</span>.<span class="pl-smi">Count</span>);
 })
-.catch(<span class="pl-k">function</span>(<span class="pl-smi">err</span>){
-  <span class="pl-en">console</span>.err(err);
+.<span class="pl-en">catch</span>(<span class="pl-k">function</span>(<span class="pl-smi">err</span>){
+  <span class="pl-en">console</span>.<span class="pl-en">err</span>(err);
 });</pre></div>
 
 <h5>
-<a id="extra-options" class="anchor" href="#extra-options" aria-hidden="true"><span class="octicon octicon-link"></span></a>Extra options</h5>
+<a id="extra-options" class="anchor" href="#extra-options" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Extra options</h5>
 
 <p>You can set extra options in callback of <code>feature</code> method. All options are transformed from property to method, But its name(camelized) and arguments are same as pure AWS-SDK for node.js.</p>
 
-<div class="highlight highlight-source-js"><pre>npd().table(<span class="pl-s"><span class="pl-pds">'</span>users<span class="pl-pds">'</span></span>)
-.where(<span class="pl-s"><span class="pl-pds">'</span>name<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>tonny<span class="pl-pds">'</span></span>)
-.feature(<span class="pl-k">function</span>(<span class="pl-smi">f</span>){ <span class="pl-c">// f is raw feature object.</span>
-  f.consistentRead(<span class="pl-c1">true</span>);
-  f.returnConsumedCapacity(<span class="pl-s"><span class="pl-pds">'</span>TOTAL<span class="pl-pds">'</span></span>);
+<div class="highlight highlight-source-js"><pre><span class="pl-en">npd</span>().<span class="pl-en">table</span>(<span class="pl-s"><span class="pl-pds">'</span>users<span class="pl-pds">'</span></span>)
+.<span class="pl-en">where</span>(<span class="pl-s"><span class="pl-pds">'</span>name<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>tonny<span class="pl-pds">'</span></span>)
+.<span class="pl-en">feature</span>(<span class="pl-k">function</span>(<span class="pl-smi">f</span>){ <span class="pl-c">// f is raw feature object.</span>
+  <span class="pl-smi">f</span>.<span class="pl-en">consistentRead</span>(<span class="pl-c1">true</span>);
+  <span class="pl-smi">f</span>.<span class="pl-en">returnConsumedCapacity</span>(<span class="pl-s"><span class="pl-pds">'</span>TOTAL<span class="pl-pds">'</span></span>);
 })
-.then(<span class="pl-k">function</span>(<span class="pl-smi">data</span>){
+.<span class="pl-en">then</span>(<span class="pl-k">function</span>(<span class="pl-smi">data</span>){
   <span class="pl-en">console</span>.<span class="pl-c1">log</span>(data);
 })
-.catch(<span class="pl-k">function</span>(<span class="pl-smi">err</span>){
-  <span class="pl-en">console</span>.err(err);
+.<span class="pl-en">catch</span>(<span class="pl-k">function</span>(<span class="pl-smi">err</span>){
+  <span class="pl-en">console</span>.<span class="pl-en">err</span>(err);
 });</pre></div>
 
 <h5>
-<a id="createmake-overwrite-all-of-values-if-keys-have-already-existed" class="anchor" href="#createmake-overwrite-all-of-values-if-keys-have-already-existed" aria-hidden="true"><span class="octicon octicon-link"></span></a>create(Make Overwrite all of values, if key[s] have already existed.)</h5>
+<a id="createmake-overwrite-all-of-values-if-keys-have-already-existed" class="anchor" href="#createmake-overwrite-all-of-values-if-keys-have-already-existed" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>create(Make Overwrite all of values, if key[s] have already existed.)</h5>
 
-<div class="highlight highlight-source-js"><pre>npd().table(<span class="pl-s"><span class="pl-pds">'</span>users<span class="pl-pds">'</span></span>)
-.create({ <span class="pl-c">// Also can save collection.</span>
+<div class="highlight highlight-source-js"><pre><span class="pl-en">npd</span>().<span class="pl-en">table</span>(<span class="pl-s"><span class="pl-pds">'</span>users<span class="pl-pds">'</span></span>)
+.<span class="pl-en">create</span>({ <span class="pl-c">// Also can save collection.</span>
   id<span class="pl-k">:</span> <span class="pl-c1">2</span>,
   name<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>rhodes<span class="pl-pds">'</span></span>,
   company<span class="pl-k">:</span> {
@@ -208,71 +208,71 @@ of course, will not see callback hell !!</p>
     address<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>foo-bar-123<span class="pl-pds">'</span></span>
   }
 })
-.then(<span class="pl-k">function</span>(<span class="pl-smi">data</span>){
+.<span class="pl-en">then</span>(<span class="pl-k">function</span>(<span class="pl-smi">data</span>){
   <span class="pl-en">console</span>.<span class="pl-c1">log</span>(data);
 })
-.catch(<span class="pl-k">function</span>(<span class="pl-smi">err</span>){
-  <span class="pl-en">console</span>.err(err);
+.<span class="pl-en">catch</span>(<span class="pl-k">function</span>(<span class="pl-smi">err</span>){
+  <span class="pl-en">console</span>.<span class="pl-en">err</span>(err);
 });</pre></div>
 
 <h5>
-<a id="update" class="anchor" href="#update" aria-hidden="true"><span class="octicon octicon-link"></span></a>Update</h5>
+<a id="update" class="anchor" href="#update" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Update</h5>
 
-<div class="highlight highlight-source-js"><pre>npd().table(<span class="pl-s"><span class="pl-pds">'</span>users<span class="pl-pds">'</span></span>)
-.set(<span class="pl-s"><span class="pl-pds">"</span>company<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>PUT<span class="pl-pds">"</span></span>, {
+<div class="highlight highlight-source-js"><pre><span class="pl-en">npd</span>().<span class="pl-en">table</span>(<span class="pl-s"><span class="pl-pds">'</span>users<span class="pl-pds">'</span></span>)
+.<span class="pl-en">set</span>(<span class="pl-s"><span class="pl-pds">"</span>company<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>PUT<span class="pl-pds">"</span></span>, {
   name<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>moved company<span class="pl-pds">'</span></span>,
   tel<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>123-456-789<span class="pl-pds">'</span></span>,
   zip<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>123-456-789<span class="pl-pds">'</span></span>,
   address<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>foo-bar-456<span class="pl-pds">'</span></span>
 })
-.set(<span class="pl-s"><span class="pl-pds">"</span>suite_color<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>ADD<span class="pl-pds">"</span></span>, <span class="pl-c1">1</span>)
-.update()
-.then(<span class="pl-k">function</span>(<span class="pl-smi">data</span>){
+.<span class="pl-en">set</span>(<span class="pl-s"><span class="pl-pds">"</span>suite_color<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>ADD<span class="pl-pds">"</span></span>, <span class="pl-c1">1</span>)
+.<span class="pl-en">update</span>()
+.<span class="pl-en">then</span>(<span class="pl-k">function</span>(<span class="pl-smi">data</span>){
   <span class="pl-en">console</span>.<span class="pl-c1">log</span>(data);
 })
-.catch(<span class="pl-k">function</span>(<span class="pl-smi">err</span>){
-  <span class="pl-en">console</span>.err(err);
+.<span class="pl-en">catch</span>(<span class="pl-k">function</span>(<span class="pl-smi">err</span>){
+  <span class="pl-en">console</span>.<span class="pl-en">err</span>(err);
 });</pre></div>
 
 <h5>
-<a id="update-with-expressions" class="anchor" href="#update-with-expressions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Update with expressions</h5>
+<a id="update-with-expressions" class="anchor" href="#update-with-expressions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Update with expressions</h5>
 
-<div class="highlight highlight-source-js"><pre>npd().table(<span class="pl-s"><span class="pl-pds">'</span>users<span class="pl-pds">'</span></span>)
-.feature(<span class="pl-k">function</span>(<span class="pl-smi">f</span>){
-  f.updateExpression(<span class="pl-s"><span class="pl-pds">'</span>SET #gt = if_not_exists(#gt, :one)<span class="pl-pds">'</span></span>);
+<div class="highlight highlight-source-js"><pre><span class="pl-en">npd</span>().<span class="pl-en">table</span>(<span class="pl-s"><span class="pl-pds">'</span>users<span class="pl-pds">'</span></span>)
+.<span class="pl-en">feature</span>(<span class="pl-k">function</span>(<span class="pl-smi">f</span>){
+  <span class="pl-smi">f</span>.<span class="pl-en">updateExpression</span>(<span class="pl-s"><span class="pl-pds">'</span>SET #gt = if_not_exists(#gt, :one)<span class="pl-pds">'</span></span>);
 
-  f.expressionAttributeNames({
+  <span class="pl-smi">f</span>.<span class="pl-en">expressionAttributeNames</span>({
     <span class="pl-s"><span class="pl-pds">'</span>#gt<span class="pl-pds">'</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>gender_type<span class="pl-pds">'</span></span>
   });
 
-  f.expressionAttributeValues({
+  <span class="pl-smi">f</span>.<span class="pl-en">expressionAttributeValues</span>({
     <span class="pl-s"><span class="pl-pds">'</span>:one<span class="pl-pds">'</span></span><span class="pl-k">:</span> <span class="pl-c1">1</span>
   });
 
-  f.returnValues(<span class="pl-s"><span class="pl-pds">'</span>UPDATED_NEW<span class="pl-pds">'</span></span>);
+  <span class="pl-smi">f</span>.<span class="pl-en">returnValues</span>(<span class="pl-s"><span class="pl-pds">'</span>UPDATED_NEW<span class="pl-pds">'</span></span>);
 })
-.update()
-.then(<span class="pl-k">function</span>(<span class="pl-smi">data</span>){
+.<span class="pl-en">update</span>()
+.<span class="pl-en">then</span>(<span class="pl-k">function</span>(<span class="pl-smi">data</span>){
   <span class="pl-en">console</span>.<span class="pl-c1">log</span>(data);
 })
-.catch(<span class="pl-k">function</span>(<span class="pl-smi">err</span>){
-  <span class="pl-en">console</span>.err(err);
+.<span class="pl-en">catch</span>(<span class="pl-k">function</span>(<span class="pl-smi">err</span>){
+  <span class="pl-en">console</span>.<span class="pl-en">err</span>(err);
 });
 </pre></div>
 
 <h2>
-<a id="usage-of-orm" class="anchor" href="#usage-of-orm" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage of ORM</h2>
+<a id="usage-of-orm" class="anchor" href="#usage-of-orm" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage of ORM</h2>
 
 <p>Initialization</p>
 
 <div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> npdynamodb <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>npdynamodb<span class="pl-pds">'</span></span>);
 <span class="pl-k">var</span> <span class="pl-c1">AWS</span> <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>aws-sdk<span class="pl-pds">'</span></span>);
 
-<span class="pl-k">var</span> npd <span class="pl-k">=</span> npdynamodb.createClient(<span class="pl-k">new</span> <span class="pl-en">AWS.DynamoDB</span>({
+<span class="pl-k">var</span> npd <span class="pl-k">=</span> <span class="pl-smi">npdynamodb</span>.<span class="pl-en">createClient</span>(<span class="pl-k">new</span> <span class="pl-en">AWS.DynamoDB</span>({
   apiVersion<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>2012-08-10<span class="pl-pds">'</span></span>
 }));
 
-<span class="pl-k">var</span> Chat <span class="pl-k">=</span> npdynamodb.define(<span class="pl-s"><span class="pl-pds">'</span>chats<span class="pl-pds">'</span></span>, {
+<span class="pl-k">var</span> Chat <span class="pl-k">=</span> <span class="pl-smi">npdynamodb</span>.<span class="pl-en">define</span>(<span class="pl-s"><span class="pl-pds">'</span>chats<span class="pl-pds">'</span></span>, {
   npdynamodb<span class="pl-k">:</span> npd,
 
   hashKey<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>id<span class="pl-pds">'</span></span>,
@@ -281,72 +281,72 @@ of course, will not see callback hell !!</p>
 });</pre></div>
 
 <h5>
-<a id="fast-get-with-hash_key" class="anchor" href="#fast-get-with-hash_key" aria-hidden="true"><span class="octicon octicon-link"></span></a>Fast get with hash_key</h5>
+<a id="fast-get-with-hash_key" class="anchor" href="#fast-get-with-hash_key" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Fast get with hash_key</h5>
 
-<div class="highlight highlight-source-js"><pre>Chat.<span class="pl-c1">find</span>(<span class="pl-c1">1</span>).then(<span class="pl-k">function</span>(<span class="pl-smi">chat</span>){  <span class="pl-c">// where('id', '=', 1)</span>
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">Chat</span>.<span class="pl-c1">find</span>(<span class="pl-c1">1</span>).<span class="pl-en">then</span>(<span class="pl-k">function</span>(<span class="pl-smi">chat</span>){  <span class="pl-c">// where('id', '=', 1)</span>
   <span class="pl-c">// Get value of id key</span>
-  <span class="pl-en">console</span>.<span class="pl-c1">log</span>(chat.get(<span class="pl-s"><span class="pl-pds">'</span>id<span class="pl-pds">'</span></span>));
+  <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-smi">chat</span>.<span class="pl-en">get</span>(<span class="pl-s"><span class="pl-pds">'</span>id<span class="pl-pds">'</span></span>));
 
   <span class="pl-c">// Get attribute keys</span>
-  <span class="pl-en">console</span>.<span class="pl-c1">log</span>(chat.keys());
+  <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-smi">chat</span>.<span class="pl-en">keys</span>());
 
   <span class="pl-c">// Get attribute values</span>
-  <span class="pl-en">console</span>.<span class="pl-c1">log</span>(chat.values());
+  <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-smi">chat</span>.<span class="pl-en">values</span>());
 
   <span class="pl-c">// Pick specified key and value pairs</span>
-  <span class="pl-en">console</span>.<span class="pl-c1">log</span>(chat.pick(<span class="pl-s"><span class="pl-pds">'</span>chat_id<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>timestamp<span class="pl-pds">'</span></span>));
+  <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-smi">chat</span>.<span class="pl-en">pick</span>(<span class="pl-s"><span class="pl-pds">'</span>chat_id<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>timestamp<span class="pl-pds">'</span></span>));
 
   <span class="pl-c">// Transform as json string.</span>
-  <span class="pl-en">console</span>.<span class="pl-c1">log</span>(chat.toJson());
+  <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-smi">chat</span>.<span class="pl-en">toJson</span>());
 });</pre></div>
 
 <h5>
-<a id="fetch-with-multiple-conditions" class="anchor" href="#fetch-with-multiple-conditions" aria-hidden="true"><span class="octicon octicon-link"></span></a>fetch with multiple conditions</h5>
+<a id="fetch-with-multiple-conditions" class="anchor" href="#fetch-with-multiple-conditions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>fetch with multiple conditions</h5>
 
-<div class="highlight highlight-source-js"><pre>Chat.where(<span class="pl-s"><span class="pl-pds">'</span>id<span class="pl-pds">'</span></span>, <span class="pl-c1">1</span>)
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">Chat</span>.<span class="pl-en">where</span>(<span class="pl-s"><span class="pl-pds">'</span>id<span class="pl-pds">'</span></span>, <span class="pl-c1">1</span>)
 <span class="pl-c">// complex conditions</span>
-.query(<span class="pl-k">function</span>(<span class="pl-smi">qb</span>){
-  qb.whereBeteen(<span class="pl-s"><span class="pl-pds">'</span>timestamp<span class="pl-pds">'</span></span>, <span class="pl-c1">1429212102</span>, <span class="pl-c1">1429212202</span>);
+.<span class="pl-en">query</span>(<span class="pl-k">function</span>(<span class="pl-smi">qb</span>){
+  <span class="pl-smi">qb</span>.<span class="pl-en">whereBeteen</span>(<span class="pl-s"><span class="pl-pds">'</span>timestamp<span class="pl-pds">'</span></span>, <span class="pl-c1">1429212102</span>, <span class="pl-c1">1429212202</span>);
 })
-.fetch()
-.then(<span class="pl-k">function</span>(<span class="pl-smi">data</span>){
+.<span class="pl-en">fetch</span>()
+.<span class="pl-en">then</span>(<span class="pl-k">function</span>(<span class="pl-smi">data</span>){
 
   <span class="pl-c">// Check query result is empty?</span>
-  <span class="pl-en">console</span>.<span class="pl-c1">log</span>(data.isEmpty());
+  <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-smi">data</span>.<span class="pl-en">isEmpty</span>());
   <span class="pl-c">// =&gt; false</span>
 
   <span class="pl-c">// Get First Item</span>
-  <span class="pl-en">console</span>.<span class="pl-c1">log</span>(data.first().get(<span class="pl-s"><span class="pl-pds">'</span>id<span class="pl-pds">'</span></span>));
+  <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-smi">data</span>.<span class="pl-en">first</span>().<span class="pl-en">get</span>(<span class="pl-s"><span class="pl-pds">'</span>id<span class="pl-pds">'</span></span>));
   <span class="pl-c">// =&gt; 1</span>
 
   <span class="pl-c">// Get Last Item</span>
-  <span class="pl-en">console</span>.<span class="pl-c1">log</span>(data.last().get(<span class="pl-s"><span class="pl-pds">'</span>id<span class="pl-pds">'</span></span>));
+  <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-smi">data</span>.<span class="pl-en">last</span>().<span class="pl-en">get</span>(<span class="pl-s"><span class="pl-pds">'</span>id<span class="pl-pds">'</span></span>));
   <span class="pl-c">// =&gt; 1</span>
 
   <span class="pl-c">// Seequence(Also supported map, find, etc....)</span>
-  data.each(<span class="pl-k">function</span>(<span class="pl-smi">item</span>){
-    <span class="pl-en">console</span>.<span class="pl-c1">log</span>(item.get(<span class="pl-s"><span class="pl-pds">'</span>id<span class="pl-pds">'</span></span>));
+  <span class="pl-smi">data</span>.<span class="pl-en">each</span>(<span class="pl-k">function</span>(<span class="pl-smi">item</span>){
+    <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-smi">item</span>.<span class="pl-en">get</span>(<span class="pl-s"><span class="pl-pds">'</span>id<span class="pl-pds">'</span></span>));
   });
 
   <span class="pl-c">// Pluck specific column values.</span>
-  <span class="pl-en">console</span>.<span class="pl-c1">log</span>(data.pluck(<span class="pl-s"><span class="pl-pds">'</span>id<span class="pl-pds">'</span></span>));
+  <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-smi">data</span>.<span class="pl-en">pluck</span>(<span class="pl-s"><span class="pl-pds">'</span>id<span class="pl-pds">'</span></span>));
 
   <span class="pl-c">// Get as object.</span>
-  <span class="pl-en">console</span>.<span class="pl-c1">log</span>(data.toArray());
+  <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-smi">data</span>.<span class="pl-en">toArray</span>());
   <span class="pl-c">// =&gt; [{id: 1, name: 'tonny', company: {....}}]</span>
 
 });</pre></div>
 
 <h5>
-<a id="save" class="anchor" href="#save" aria-hidden="true"><span class="octicon octicon-link"></span></a>Save</h5>
+<a id="save" class="anchor" href="#save" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Save</h5>
 
 <div class="highlight highlight-source-js"><pre><span class="pl-c">// As Static</span>
-Chat.save({
+<span class="pl-smi">Chat</span>.<span class="pl-en">save</span>({
   room_id<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>room1<span class="pl-pds">'</span></span>,
-  ....
+  <span class="pl-k">...</span>.
 })
-.then(<span class="pl-k">function</span>(<span class="pl-smi">chat</span>){
-  <span class="pl-en">console</span>.<span class="pl-c1">log</span>(chat.get(<span class="pl-s"><span class="pl-pds">'</span>room_id<span class="pl-pds">'</span></span>));
+.<span class="pl-en">then</span>(<span class="pl-k">function</span>(<span class="pl-smi">chat</span>){
+  <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-smi">chat</span>.<span class="pl-en">get</span>(<span class="pl-s"><span class="pl-pds">'</span>room_id<span class="pl-pds">'</span></span>));
 });
 
 <span class="pl-c">// As Instance</span>
@@ -354,25 +354,25 @@ Chat.save({
   room_id<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>room1<span class="pl-pds">'</span></span>,
   user_id<span class="pl-k">:</span> <span class="pl-c1">1</span>
 });
-chat.set(<span class="pl-s"><span class="pl-pds">'</span>message<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>This is a message.<span class="pl-pds">'</span></span>);
+<span class="pl-smi">chat</span>.<span class="pl-en">set</span>(<span class="pl-s"><span class="pl-pds">'</span>message<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>This is a message.<span class="pl-pds">'</span></span>);
 
-chat.save()
-.then(<span class="pl-k">function</span>(<span class="pl-smi">chat</span>){
-  <span class="pl-en">console</span>.<span class="pl-c1">log</span>(chat.get(<span class="pl-s"><span class="pl-pds">'</span>room_id<span class="pl-pds">'</span></span>));
+<span class="pl-smi">chat</span>.<span class="pl-en">save</span>()
+.<span class="pl-en">then</span>(<span class="pl-k">function</span>(<span class="pl-smi">chat</span>){
+  <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-smi">chat</span>.<span class="pl-en">get</span>(<span class="pl-s"><span class="pl-pds">'</span>room_id<span class="pl-pds">'</span></span>));
 });</pre></div>
 
 <h5>
-<a id="destroy" class="anchor" href="#destroy" aria-hidden="true"><span class="octicon octicon-link"></span></a>Destroy</h5>
+<a id="destroy" class="anchor" href="#destroy" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Destroy</h5>
 
-<div class="highlight highlight-source-js"><pre>chat.destroy()
-.then(<span class="pl-k">function</span>(<span class="pl-smi">data</span>){
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">chat</span>.<span class="pl-en">destroy</span>()
+.<span class="pl-en">then</span>(<span class="pl-k">function</span>(<span class="pl-smi">data</span>){
   <span class="pl-en">console</span>.<span class="pl-c1">log</span>(data);
 });</pre></div>
 
 <h5>
-<a id="custom-methods-and-properties" class="anchor" href="#custom-methods-and-properties" aria-hidden="true"><span class="octicon octicon-link"></span></a>Custom Methods and Properties</h5>
+<a id="custom-methods-and-properties" class="anchor" href="#custom-methods-and-properties" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Custom Methods and Properties</h5>
 
-<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> Chat <span class="pl-k">=</span> npdynamodb.define(<span class="pl-s"><span class="pl-pds">'</span>chats<span class="pl-pds">'</span></span>, {
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> Chat <span class="pl-k">=</span> <span class="pl-smi">npdynamodb</span>.<span class="pl-en">define</span>(<span class="pl-s"><span class="pl-pds">'</span>chats<span class="pl-pds">'</span></span>, {
   npdynamodb<span class="pl-k">:</span> npd,
 
   hashKey<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>id<span class="pl-pds">'</span></span>,
@@ -382,7 +382,7 @@ chat.save()
   customProtoTypeConstant<span class="pl-k">:</span> <span class="pl-c1">1</span>,
 
   <span class="pl-en">customProtoTypeMethod</span><span class="pl-k">:</span> <span class="pl-k">function</span>(){
-    <span class="pl-k">return</span> <span class="pl-v">this</span>.get(<span class="pl-s"><span class="pl-pds">'</span>id<span class="pl-pds">'</span></span>) <span class="pl-k">===</span> <span class="pl-c1">1</span>;
+    <span class="pl-k">return</span> <span class="pl-v">this</span>.<span class="pl-en">get</span>(<span class="pl-s"><span class="pl-pds">'</span>id<span class="pl-pds">'</span></span>) <span class="pl-k">===</span> <span class="pl-c1">1</span>;
   }
 
 },
@@ -391,36 +391,36 @@ chat.save()
   customStaticConstant<span class="pl-k">:</span> <span class="pl-c1">1</span>,
 
   <span class="pl-en">customStaticMethod</span><span class="pl-k">:</span> <span class="pl-k">function</span>(){
-    <span class="pl-k">return</span> <span class="pl-v">this</span>.where(<span class="pl-s"><span class="pl-pds">'</span>room_id<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>room1<span class="pl-pds">'</span></span>)
-      .query(<span class="pl-k">function</span>(<span class="pl-smi">qb</span>){
-        qb.filter(<span class="pl-s"><span class="pl-pds">'</span>timestamp<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>&gt;<span class="pl-pds">'</span></span>, <span class="pl-c1">1429212102</span>);
+    <span class="pl-k">return</span> <span class="pl-v">this</span>.<span class="pl-en">where</span>(<span class="pl-s"><span class="pl-pds">'</span>room_id<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>room1<span class="pl-pds">'</span></span>)
+      .<span class="pl-en">query</span>(<span class="pl-k">function</span>(<span class="pl-smi">qb</span>){
+        <span class="pl-smi">qb</span>.<span class="pl-en">filter</span>(<span class="pl-s"><span class="pl-pds">'</span>timestamp<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>&gt;<span class="pl-pds">'</span></span>, <span class="pl-c1">1429212102</span>);
       })
-      .fetch();
+      .<span class="pl-en">fetch</span>();
   }
 });
 
 <span class="pl-c">// prototype</span>
-Chat.<span class="pl-c1">find</span>(<span class="pl-c1">1</span>).then(<span class="pl-k">function</span>(<span class="pl-smi">chat</span>){
-  <span class="pl-en">console</span>.<span class="pl-c1">log</span>(chat.customProtoTypeConstant);
-  <span class="pl-en">console</span>.<span class="pl-c1">log</span>(chat.customeProtoTypeMethod());
+<span class="pl-smi">Chat</span>.<span class="pl-c1">find</span>(<span class="pl-c1">1</span>).<span class="pl-en">then</span>(<span class="pl-k">function</span>(<span class="pl-smi">chat</span>){
+  <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-smi">chat</span>.<span class="pl-smi">customProtoTypeConstant</span>);
+  <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-smi">chat</span>.<span class="pl-en">customeProtoTypeMethod</span>());
 });
 
 
 <span class="pl-c">// static</span>
-<span class="pl-en">console</span>.<span class="pl-c1">log</span>(Chat.customStaticConstant);
+<span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-smi">Chat</span>.<span class="pl-smi">customStaticConstant</span>);
 
-Chat.customStaticMethod().then(<span class="pl-k">function</span>(<span class="pl-smi">data</span>){
+<span class="pl-smi">Chat</span>.<span class="pl-en">customStaticMethod</span>().<span class="pl-en">then</span>(<span class="pl-k">function</span>(<span class="pl-smi">data</span>){
   <span class="pl-en">console</span>.<span class="pl-c1">log</span>(data);
 });</pre></div>
 
 <h1>
-<a id="apis" class="anchor" href="#apis" aria-hidden="true"><span class="octicon octicon-link"></span></a>Apis</h1>
+<a id="apis" class="anchor" href="#apis" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Apis</h1>
 
 <h2>
-<a id="querybuilder" class="anchor" href="#querybuilder" aria-hidden="true"><span class="octicon octicon-link"></span></a>QueryBuilder</h2>
+<a id="querybuilder" class="anchor" href="#querybuilder" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>QueryBuilder</h2>
 
 <h5>
-<a id="options" class="anchor" href="#options" aria-hidden="true"><span class="octicon octicon-link"></span></a>options</h5>
+<a id="options" class="anchor" href="#options" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>options</h5>
 
 <ul>
 <li>timeout: default is 5000(ms)</li>
@@ -428,7 +428,7 @@ Chat.customStaticMethod().then(<span class="pl-k">function</span>(<span class="p
 </ul>
 
 <h5>
-<a id="operations" class="anchor" href="#operations" aria-hidden="true"><span class="octicon octicon-link"></span></a>operations</h5>
+<a id="operations" class="anchor" href="#operations" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>operations</h5>
 
 <ul>
 <li>createTable</li>
@@ -446,7 +446,7 @@ Chat.customStaticMethod().then(<span class="pl-k">function</span>(<span class="p
 </ul>
 
 <h5>
-<a id="where" class="anchor" href="#where" aria-hidden="true"><span class="octicon octicon-link"></span></a>Where</h5>
+<a id="where" class="anchor" href="#where" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Where</h5>
 
 <ul>
 <li>where</li>
@@ -456,7 +456,7 @@ Chat.customStaticMethod().then(<span class="pl-k">function</span>(<span class="p
 </ul>
 
 <h5>
-<a id="filter" class="anchor" href="#filter" aria-hidden="true"><span class="octicon octicon-link"></span></a>Filter</h5>
+<a id="filter" class="anchor" href="#filter" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Filter</h5>
 
 <ul>
 <li>filter</li>
@@ -470,7 +470,7 @@ Chat.customStaticMethod().then(<span class="pl-k">function</span>(<span class="p
 </ul>
 
 <h5>
-<a id="other-conditions" class="anchor" href="#other-conditions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Other conditions</h5>
+<a id="other-conditions" class="anchor" href="#other-conditions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Other conditions</h5>
 
 <ul>
 <li>select :alias of <code>attributesToGet(['attr1', 'attr2'])</code>
@@ -485,7 +485,7 @@ Chat.customStaticMethod().then(<span class="pl-k">function</span>(<span class="p
 </ul>
 
 <h5>
-<a id="feature-methods-2012-08-10" class="anchor" href="#feature-methods-2012-08-10" aria-hidden="true"><span class="octicon octicon-link"></span></a>feature methods (2012-08-10)</h5>
+<a id="feature-methods-2012-08-10" class="anchor" href="#feature-methods-2012-08-10" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>feature methods (2012-08-10)</h5>
 
 <ul>
 <li>requestItems</li>
@@ -523,7 +523,7 @@ Chat.customStaticMethod().then(<span class="pl-k">function</span>(<span class="p
 </ul>
 
 <h3>
-<a id="events" class="anchor" href="#events" aria-hidden="true"><span class="octicon octicon-link"></span></a>Events</h3>
+<a id="events" class="anchor" href="#events" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Events</h3>
 
 <ul>
 <li>
@@ -533,7 +533,7 @@ Chat.customStaticMethod().then(<span class="pl-k">function</span>(<span class="p
 </ul>
 
 <h3>
-<a id="callbacks" class="anchor" href="#callbacks" aria-hidden="true"><span class="octicon octicon-link"></span></a>Callbacks</h3>
+<a id="callbacks" class="anchor" href="#callbacks" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Callbacks</h3>
 
 <ul>
 <li>
@@ -543,10 +543,10 @@ Chat.customStaticMethod().then(<span class="pl-k">function</span>(<span class="p
 </ul>
 
 <h2>
-<a id="orm" class="anchor" href="#orm" aria-hidden="true"><span class="octicon octicon-link"></span></a>ORM</h2>
+<a id="orm" class="anchor" href="#orm" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>ORM</h2>
 
 <h5>
-<a id="operations-1" class="anchor" href="#operations-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Operations</h5>
+<a id="operations-1" class="anchor" href="#operations-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Operations</h5>
 
 <ul>
 <li>find</li>
@@ -558,7 +558,7 @@ Chat.customStaticMethod().then(<span class="pl-k">function</span>(<span class="p
 </ul>
 
 <h5>
-<a id="model" class="anchor" href="#model" aria-hidden="true"><span class="octicon octicon-link"></span></a>Model</h5>
+<a id="model" class="anchor" href="#model" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Model</h5>
 
 <ul>
 <li>get</li>
@@ -576,7 +576,7 @@ Chat.customStaticMethod().then(<span class="pl-k">function</span>(<span class="p
 </ul>
 
 <h5>
-<a id="collection" class="anchor" href="#collection" aria-hidden="true"><span class="octicon octicon-link"></span></a>Collection</h5>
+<a id="collection" class="anchor" href="#collection" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Collection</h5>
 
 <ul>
 <li>pluck</li>
@@ -607,12 +607,12 @@ Chat.customStaticMethod().then(<span class="pl-k">function</span>(<span class="p
 </ul>
 
 <h2>
-<a id="migration" class="anchor" href="#migration" aria-hidden="true"><span class="octicon octicon-link"></span></a>Migration</h2>
+<a id="migration" class="anchor" href="#migration" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Migration</h2>
 
 <p>We support schema migration for Dynamodb.</p>
 
 <h5>
-<a id="first-initialize-your-project-to-run-migration" class="anchor" href="#first-initialize-your-project-to-run-migration" aria-hidden="true"><span class="octicon octicon-link"></span></a>First, initialize your project to run migration.</h5>
+<a id="first-initialize-your-project-to-run-migration" class="anchor" href="#first-initialize-your-project-to-run-migration" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>First, initialize your project to run migration.</h5>
 
 <div class="highlight highlight-source-shell"><pre>npd install -g npdynamodb
 <span class="pl-c"># cd /path/to/your/project</span>
@@ -620,7 +620,7 @@ npd init
 <span class="pl-c"># created npdfile.js</span></pre></div>
 
 <h5>
-<a id="npdfilejs" class="anchor" href="#npdfilejs" aria-hidden="true"><span class="octicon octicon-link"></span></a>npdfile.js</h5>
+<a id="npdfilejs" class="anchor" href="#npdfilejs" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>npdfile.js</h5>
 
 <div class="highlight highlight-source-js"><pre><span class="pl-s"><span class="pl-pds">'</span>use strict<span class="pl-pds">'</span></span>;
 
@@ -633,7 +633,7 @@ npd init
   region<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>ap-northeast-1<span class="pl-pds">"</span></span>
 });
 
-<span class="pl-c1">module</span>.exports <span class="pl-k">=</span> {
+<span class="pl-c1">module</span>.<span class="pl-smi">exports</span> <span class="pl-k">=</span> {
 
   <span class="pl-c">// Specify migration file path. Default is `./migrations`</span>
   <span class="pl-c">// migration: {</span>
@@ -666,55 +666,55 @@ npd init
 };</pre></div>
 
 <h5>
-<a id="generate-migration-file" class="anchor" href="#generate-migration-file" aria-hidden="true"><span class="octicon octicon-link"></span></a>Generate migration file.</h5>
+<a id="generate-migration-file" class="anchor" href="#generate-migration-file" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Generate migration file.</h5>
 
 <div class="highlight highlight-source-shell"><pre>npd migrate:generate create_users
 <span class="pl-c"># =&gt; /migrations/20150406083039_create_users.js</span></pre></div>
 
 <h5>
-<a id="edit-migration-file" class="anchor" href="#edit-migration-file" aria-hidden="true"><span class="octicon octicon-link"></span></a>Edit migration file</h5>
+<a id="edit-migration-file" class="anchor" href="#edit-migration-file" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Edit migration file</h5>
 
 <p>/migrations/20150406083039_create_users.js</p>
 
 <div class="highlight highlight-source-js"><pre><span class="pl-c1">exports</span>.<span class="pl-en">up</span> <span class="pl-k">=</span> <span class="pl-k">function</span>(<span class="pl-smi">migrator</span>){
-  <span class="pl-k">return</span> migrator().createTable(<span class="pl-s"><span class="pl-pds">'</span>chats<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>(<span class="pl-smi">t</span>){
-    t.string(<span class="pl-s"><span class="pl-pds">'</span>room_id<span class="pl-pds">'</span></span>).hashKey();
-    t.number(<span class="pl-s"><span class="pl-pds">'</span>timestamp<span class="pl-pds">'</span></span>).rangeKey();
-    t.provisionedThroughput(<span class="pl-c1">100</span>, <span class="pl-c1">100</span>); <span class="pl-c">// read, write</span>
+  <span class="pl-k">return</span> <span class="pl-en">migrator</span>().<span class="pl-en">createTable</span>(<span class="pl-s"><span class="pl-pds">'</span>chats<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>(<span class="pl-smi">t</span>){
+    <span class="pl-smi">t</span>.<span class="pl-en">string</span>(<span class="pl-s"><span class="pl-pds">'</span>room_id<span class="pl-pds">'</span></span>).<span class="pl-en">hashKey</span>();
+    <span class="pl-smi">t</span>.<span class="pl-en">number</span>(<span class="pl-s"><span class="pl-pds">'</span>timestamp<span class="pl-pds">'</span></span>).<span class="pl-en">rangeKey</span>();
+    <span class="pl-smi">t</span>.<span class="pl-en">provisionedThroughput</span>(<span class="pl-c1">100</span>, <span class="pl-c1">100</span>); <span class="pl-c">// read, write</span>
 
-    t.globalSecandayIndex(<span class="pl-s"><span class="pl-pds">'</span>indexName1<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>(<span class="pl-smi">t</span>){
-      t.string(<span class="pl-s"><span class="pl-pds">'</span>user_id<span class="pl-pds">'</span></span>).hashKey();
-      t.provisionedThroughput(<span class="pl-c1">100</span>, <span class="pl-c1">100</span>); <span class="pl-c">// read, write</span>
-      t.ProjectionTypeAll(); <span class="pl-c">//default is NONE</span>
+    <span class="pl-smi">t</span>.<span class="pl-en">globalSecandayIndex</span>(<span class="pl-s"><span class="pl-pds">'</span>indexName1<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>(<span class="pl-smi">t</span>){
+      <span class="pl-smi">t</span>.<span class="pl-en">string</span>(<span class="pl-s"><span class="pl-pds">'</span>user_id<span class="pl-pds">'</span></span>).<span class="pl-en">hashKey</span>();
+      <span class="pl-smi">t</span>.<span class="pl-en">provisionedThroughput</span>(<span class="pl-c1">100</span>, <span class="pl-c1">100</span>); <span class="pl-c">// read, write</span>
+      <span class="pl-smi">t</span>.<span class="pl-en">ProjectionTypeAll</span>(); <span class="pl-c">//default is NONE</span>
     });
 
-    t.localSecandaryIndex(<span class="pl-s"><span class="pl-pds">'</span>indexName2<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>(<span class="pl-smi">t</span>){
-      t.string(<span class="pl-s"><span class="pl-pds">'</span>room_id<span class="pl-pds">'</span></span>).hashKey();
-      t.number(<span class="pl-s"><span class="pl-pds">'</span>user_id<span class="pl-pds">'</span></span>).rangeKey();
-      t.ProjectionTypeAll(); <span class="pl-c">//default is NONE</span>
+    <span class="pl-smi">t</span>.<span class="pl-en">localSecandaryIndex</span>(<span class="pl-s"><span class="pl-pds">'</span>indexName2<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>(<span class="pl-smi">t</span>){
+      <span class="pl-smi">t</span>.<span class="pl-en">string</span>(<span class="pl-s"><span class="pl-pds">'</span>room_id<span class="pl-pds">'</span></span>).<span class="pl-en">hashKey</span>();
+      <span class="pl-smi">t</span>.<span class="pl-en">number</span>(<span class="pl-s"><span class="pl-pds">'</span>user_id<span class="pl-pds">'</span></span>).<span class="pl-en">rangeKey</span>();
+      <span class="pl-smi">t</span>.<span class="pl-en">ProjectionTypeAll</span>(); <span class="pl-c">//default is NONE</span>
     });
   });
 };
 
 <span class="pl-c1">exports</span>.<span class="pl-en">down</span> <span class="pl-k">=</span> <span class="pl-k">function</span>(<span class="pl-smi">migrator</span>){
-  <span class="pl-k">return</span> migrator().deleteTable(<span class="pl-s"><span class="pl-pds">'</span>chats<span class="pl-pds">'</span></span>);
+  <span class="pl-k">return</span> <span class="pl-en">migrator</span>().<span class="pl-en">deleteTable</span>(<span class="pl-s"><span class="pl-pds">'</span>chats<span class="pl-pds">'</span></span>);
 };</pre></div>
 
 <h5>
-<a id="run-latest-migration" class="anchor" href="#run-latest-migration" aria-hidden="true"><span class="octicon octicon-link"></span></a>Run latest migration.</h5>
+<a id="run-latest-migration" class="anchor" href="#run-latest-migration" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Run latest migration.</h5>
 
 <div class="highlight highlight-source-shell"><pre>npd migrate:run</pre></div>
 
 <h5>
-<a id="rollback-latest-migration" class="anchor" href="#rollback-latest-migration" aria-hidden="true"><span class="octicon octicon-link"></span></a>Rollback latest migration.</h5>
+<a id="rollback-latest-migration" class="anchor" href="#rollback-latest-migration" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Rollback latest migration.</h5>
 
 <div class="highlight highlight-source-shell"><pre>npd migrate:rollback</pre></div>
 
 <h2>
-<a id="command-line-interfaces-required-global-install-and-type-npd" class="anchor" href="#command-line-interfaces-required-global-install-and-type-npd" aria-hidden="true"><span class="octicon octicon-link"></span></a>Command Line Interfaces (required global install and type <code>npd</code>)</h2>
+<a id="command-line-interfaces-required-global-install-and-type-npd" class="anchor" href="#command-line-interfaces-required-global-install-and-type-npd" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Command Line Interfaces (required global install and type <code>npd</code>)</h2>
 
 <h3>
-<a id="commands" class="anchor" href="#commands" aria-hidden="true"><span class="octicon octicon-link"></span></a>Commands</h3>
+<a id="commands" class="anchor" href="#commands" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Commands</h3>
 
 <ul>
 <li>
@@ -738,7 +738,7 @@ npd init
 </ul>
 
 <h3>
-<a id="global-options" class="anchor" href="#global-options" aria-hidden="true"><span class="octicon octicon-link"></span></a>Global Options</h3>
+<a id="global-options" class="anchor" href="#global-options" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Global Options</h3>
 
 <ul>
 <li><code>-h</code></li>
@@ -747,12 +747,12 @@ npd init
 </ul>
 
 <h2>
-<a id="how-to-test" class="anchor" href="#how-to-test" aria-hidden="true"><span class="octicon octicon-link"></span></a>How to test?</h2>
+<a id="how-to-test" class="anchor" href="#how-to-test" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>How to test?</h2>
 
 <div class="highlight highlight-source-shell"><pre>npm <span class="pl-c1">test</span></pre></div>
 
 <h2>
-<a id="querybuilder-callbacks" class="anchor" href="#querybuilder-callbacks" aria-hidden="true"><span class="octicon octicon-link"></span></a>QueryBuilder Callbacks</h2>
+<a id="querybuilder-callbacks" class="anchor" href="#querybuilder-callbacks" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>QueryBuilder Callbacks</h2>
 
 <p>You can be hooked several events and their can be taken promise.</p>
 
@@ -774,17 +774,17 @@ events: afterQuery
 </code></pre>
 
 <div class="highlight highlight-source-js"><pre><span class="pl-c">// Register callbacks globally</span>
-<span class="pl-k">var</span> npd <span class="pl-k">=</span> npdynamodb.createClient(dynamodb, {
+<span class="pl-k">var</span> npd <span class="pl-k">=</span> <span class="pl-smi">npdynamodb</span>.<span class="pl-en">createClient</span>(dynamodb, {
   <span class="pl-en">initialize</span><span class="pl-k">:</span> <span class="pl-k">function</span>(){
-    <span class="pl-v">this</span>.callbacks(<span class="pl-s"><span class="pl-pds">'</span>beforeQuery<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>(){
-      <span class="pl-k">if</span>(<span class="pl-v">this</span>._fature.params[<span class="pl-s"><span class="pl-pds">'</span>hash_key<span class="pl-pds">'</span></span>] <span class="pl-k">!==</span> <span class="pl-c1">1</span>) {
-        <span class="pl-k">return</span> Promise.reject(<span class="pl-k">new</span> <span class="pl-en">Error</span>(<span class="pl-s"><span class="pl-pds">'</span>invalid value<span class="pl-pds">'</span></span>));
+    <span class="pl-v">this</span>.<span class="pl-en">callbacks</span>(<span class="pl-s"><span class="pl-pds">'</span>beforeQuery<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>(){
+      <span class="pl-k">if</span>(<span class="pl-v">this</span>.<span class="pl-smi">_fature</span>.<span class="pl-smi">params</span>[<span class="pl-s"><span class="pl-pds">'</span>hash_key<span class="pl-pds">'</span></span>] <span class="pl-k">!==</span> <span class="pl-c1">1</span>) {
+        <span class="pl-k">return</span> <span class="pl-smi">Promise</span>.<span class="pl-en">reject</span>(<span class="pl-k">new</span> <span class="pl-en">Error</span>(<span class="pl-s"><span class="pl-pds">'</span>invalid value<span class="pl-pds">'</span></span>));
       }
     });
 
-    <span class="pl-v">this</span>.callbacks(<span class="pl-s"><span class="pl-pds">'</span>afterQuery<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>(<span class="pl-smi">result</span>){
-      <span class="pl-k">return</span> npd().table(<span class="pl-s"><span class="pl-pds">'</span>related<span class="pl-pds">'</span></span>).create({
-        foo_id<span class="pl-k">:</span> result.Items[<span class="pl-c1">0</span>][<span class="pl-s"><span class="pl-pds">'</span>hash_key<span class="pl-pds">'</span></span>],
+    <span class="pl-v">this</span>.<span class="pl-en">callbacks</span>(<span class="pl-s"><span class="pl-pds">'</span>afterQuery<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>(<span class="pl-smi">result</span>){
+      <span class="pl-k">return</span> <span class="pl-en">npd</span>().<span class="pl-en">table</span>(<span class="pl-s"><span class="pl-pds">'</span>related<span class="pl-pds">'</span></span>).<span class="pl-en">create</span>({
+        foo_id<span class="pl-k">:</span> <span class="pl-smi">result</span>.<span class="pl-smi">Items</span>[<span class="pl-c1">0</span>][<span class="pl-s"><span class="pl-pds">'</span>hash_key<span class="pl-pds">'</span></span>],
         bar<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>string value<span class="pl-pds">'</span></span>
       });
     });
@@ -792,20 +792,20 @@ events: afterQuery
 });
 
 <span class="pl-c">// Register callbacks at only this time.</span>
-npd().table(<span class="pl-s"><span class="pl-pds">'</span>foo<span class="pl-pds">'</span></span>).callbacks(<span class="pl-s"><span class="pl-pds">'</span>beforeQuery<span class="pl-pds">'</span></span>, Func).create({
+<span class="pl-en">npd</span>().<span class="pl-en">table</span>(<span class="pl-s"><span class="pl-pds">'</span>foo<span class="pl-pds">'</span></span>).<span class="pl-en">callbacks</span>(<span class="pl-s"><span class="pl-pds">'</span>beforeQuery<span class="pl-pds">'</span></span>, Func).<span class="pl-en">create</span>({
   hoo<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>hoo<span class="pl-pds">'</span></span>,
   bar<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>bar<span class="pl-pds">'</span></span>
 });</pre></div>
 
 <h2>
-<a id="plugin-and-extending" class="anchor" href="#plugin-and-extending" aria-hidden="true"><span class="octicon octicon-link"></span></a>Plugin and Extending</h2>
+<a id="plugin-and-extending" class="anchor" href="#plugin-and-extending" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Plugin and Extending</h2>
 
 <p>Npdynamodb can be accepted plugins.</p>
 
-<div class="highlight highlight-source-js"><pre>npdynamodb.plugin(<span class="pl-k">function</span>(<span class="pl-smi">Klass</span>){
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">npdynamodb</span>.<span class="pl-en">plugin</span>(<span class="pl-k">function</span>(<span class="pl-smi">Klass</span>){
 
   <span class="pl-c">// Extend QueryBuilder</span>
-  Klass.QueryBuilder.extend({
+  <span class="pl-smi">Klass</span>.<span class="pl-smi">QueryBuilder</span>.<span class="pl-en">extend</span>({
     <span class="pl-en">protoFn</span><span class="pl-k">:</span> <span class="pl-k">function</span>(){
       <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>foo<span class="pl-pds">'</span></span>);
     }
@@ -817,7 +817,7 @@ npd().table(<span class="pl-s"><span class="pl-pds">'</span>foo<span class="pl-p
   });
 
   <span class="pl-c">// Extend Orm Collection</span>
-  Klass.Collection.extend({
+  <span class="pl-smi">Klass</span>.<span class="pl-smi">Collection</span>.<span class="pl-en">extend</span>({
     <span class="pl-en">protoFn</span><span class="pl-k">:</span> <span class="pl-k">function</span>(){
       <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>foo<span class="pl-pds">'</span></span>);
     }
@@ -829,7 +829,7 @@ npd().table(<span class="pl-s"><span class="pl-pds">'</span>foo<span class="pl-p
   });
 
   <span class="pl-c">// Extend Orm Model</span>
-  Klass.Model.extend({
+  <span class="pl-smi">Klass</span>.<span class="pl-smi">Model</span>.<span class="pl-en">extend</span>({
     <span class="pl-en">protoFn</span><span class="pl-k">:</span> <span class="pl-k">function</span>(){
       <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>foo<span class="pl-pds">'</span></span>);
     }
@@ -843,15 +843,15 @@ npd().table(<span class="pl-s"><span class="pl-pds">'</span>foo<span class="pl-p
 });</pre></div>
 
 <h2>
-<a id="browser-support" class="anchor" href="#browser-support" aria-hidden="true"><span class="octicon octicon-link"></span></a>Browser Support</h2>
+<a id="browser-support" class="anchor" href="#browser-support" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Browser Support</h2>
 
 <p>Npdynamodb can be built using browserify or webpack, and pre-built or pre-built with uglified version can be found in the build directory.</p>
 
 <h4>
-<a id="note-that-if-you-use-npdynamodb-on-any-browsers-it-has-a-security-issue-because-accesskey-and-secretaccesskey-for-dynamodb-can-be-seen-from-public-we-recommend-you-only-using-it-for-private-or-readonly-projects-which-is-not-including-any-privacy-informations" class="anchor" href="#note-that-if-you-use-npdynamodb-on-any-browsers-it-has-a-security-issue-because-accesskey-and-secretaccesskey-for-dynamodb-can-be-seen-from-public-we-recommend-you-only-using-it-for-private-or-readonly-projects-which-is-not-including-any-privacy-informations" aria-hidden="true"><span class="octicon octicon-link"></span></a>Note that, if you use Npdynamodb on any browsers, It has a security issue. Because AccessKey and SecretAccessKey for DynamoDB can be seen from public. We recommend you only using it for private or readonly projects which is not including any privacy informations.</h4>
+<a id="note-that-if-you-use-npdynamodb-on-any-browsers-it-has-a-security-issue-because-accesskey-and-secretaccesskey-for-dynamodb-can-be-seen-from-public-we-recommend-you-only-using-it-for-private-or-readonly-projects-which-is-not-including-any-privacy-informations" class="anchor" href="#note-that-if-you-use-npdynamodb-on-any-browsers-it-has-a-security-issue-because-accesskey-and-secretaccesskey-for-dynamodb-can-be-seen-from-public-we-recommend-you-only-using-it-for-private-or-readonly-projects-which-is-not-including-any-privacy-informations" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Note that, if you use Npdynamodb on any browsers, It has a security issue. Because AccessKey and SecretAccessKey for DynamoDB can be seen from public. We recommend you only using it for private or readonly projects which is not including any privacy informations.</h4>
 
 <h3>
-<a id="for-browserify-or-webpack" class="anchor" href="#for-browserify-or-webpack" aria-hidden="true"><span class="octicon octicon-link"></span></a>For Browserify or Webpack</h3>
+<a id="for-browserify-or-webpack" class="anchor" href="#for-browserify-or-webpack" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>For Browserify or Webpack</h3>
 
 <div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> <span class="pl-c1">AWS</span> <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>aws-sdk<span class="pl-pds">'</span></span>);
 <span class="pl-k">var</span> npdynamodb <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>npdynamodb/build/npdynamodb<span class="pl-pds">'</span></span>);
@@ -864,13 +864,13 @@ npd().table(<span class="pl-s"><span class="pl-pds">'</span>foo<span class="pl-p
   sslEnabled<span class="pl-k">:</span> <span class="pl-c1">true</span>,
 });
 
-<span class="pl-k">var</span> npd <span class="pl-k">=</span> npdynamodb.createClient(dynamodb);
-npd().table(<span class="pl-s"><span class="pl-pds">'</span>table_name<span class="pl-pds">'</span></span>).where(<span class="pl-s"><span class="pl-pds">'</span>id<span class="pl-pds">'</span></span>, <span class="pl-c1">1</span>).then(<span class="pl-k">function</span>(<span class="pl-smi">data</span>){
+<span class="pl-k">var</span> npd <span class="pl-k">=</span> <span class="pl-smi">npdynamodb</span>.<span class="pl-en">createClient</span>(dynamodb);
+<span class="pl-en">npd</span>().<span class="pl-en">table</span>(<span class="pl-s"><span class="pl-pds">'</span>table_name<span class="pl-pds">'</span></span>).<span class="pl-en">where</span>(<span class="pl-s"><span class="pl-pds">'</span>id<span class="pl-pds">'</span></span>, <span class="pl-c1">1</span>).<span class="pl-en">then</span>(<span class="pl-k">function</span>(<span class="pl-smi">data</span>){
   <span class="pl-en">console</span>.<span class="pl-c1">log</span>(data);
 });</pre></div>
 
 <h3>
-<a id="for-html" class="anchor" href="#for-html" aria-hidden="true"><span class="octicon octicon-link"></span></a>For HTML</h3>
+<a id="for-html" class="anchor" href="#for-html" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>For HTML</h3>
 
 <div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>https://cdnjs.cloudflare.com/ajax/libs/aws-sdk/2.1.39/aws-sdk.min.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;
 &lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.0/lodash.min.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;
@@ -885,20 +885,20 @@ npd().table(<span class="pl-s"><span class="pl-pds">'</span>table_name<span clas
 <span class="pl-s1">    sslEnabled<span class="pl-k">:</span> <span class="pl-c1">true</span>,</span>
 <span class="pl-s1">  });</span>
 <span class="pl-s1"></span>
-<span class="pl-s1">  <span class="pl-k">var</span> npd <span class="pl-k">=</span> npdynamodb.createClient(dynamodb);</span>
-<span class="pl-s1">  npd().table(<span class="pl-s"><span class="pl-pds">'</span>table_name<span class="pl-pds">'</span></span>).where(<span class="pl-s"><span class="pl-pds">'</span>id<span class="pl-pds">'</span></span>, <span class="pl-c1">1</span>).then(<span class="pl-k">function</span>(<span class="pl-smi">data</span>){</span>
+<span class="pl-s1">  <span class="pl-k">var</span> npd <span class="pl-k">=</span> <span class="pl-smi">npdynamodb</span>.<span class="pl-en">createClient</span>(dynamodb);</span>
+<span class="pl-s1">  <span class="pl-en">npd</span>().<span class="pl-en">table</span>(<span class="pl-s"><span class="pl-pds">'</span>table_name<span class="pl-pds">'</span></span>).<span class="pl-en">where</span>(<span class="pl-s"><span class="pl-pds">'</span>id<span class="pl-pds">'</span></span>, <span class="pl-c1">1</span>).<span class="pl-en">then</span>(<span class="pl-k">function</span>(<span class="pl-smi">data</span>){</span>
 <span class="pl-s1">    <span class="pl-en">console</span>.<span class="pl-c1">log</span>(data);</span>
 <span class="pl-s1">  });</span>
 <span class="pl-s1">&lt;/<span class="pl-ent">script</span>&gt;</span></pre></div>
 
 <h2>
-<a id="upgrading-and-release-note" class="anchor" href="#upgrading-and-release-note" aria-hidden="true"><span class="octicon octicon-link"></span></a>Upgrading and Release Note</h2>
+<a id="upgrading-and-release-note" class="anchor" href="#upgrading-and-release-note" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Upgrading and Release Note</h2>
 
 <h4>
-<a id="upgrading-01x---02x" class="anchor" href="#upgrading-01x---02x" aria-hidden="true"><span class="octicon octicon-link"></span></a>Upgrading 0.1x -&gt; 0.2x</h4>
+<a id="upgrading-01x---02x" class="anchor" href="#upgrading-01x---02x" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Upgrading 0.1x -&gt; 0.2x</h4>
 
 <h5>
-<a id="querybuilder-1" class="anchor" href="#querybuilder-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>QueryBuilder</h5>
+<a id="querybuilder-1" class="anchor" href="#querybuilder-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>QueryBuilder</h5>
 
 <p>There should be a minor change for QueryBuilder. 0.2x  QueryBuilder can take options as second argument of createClient.</p>
 
@@ -909,7 +909,7 @@ npd().table(<span class="pl-s"><span class="pl-pds">'</span>table_name<span clas
 </ul>
 
 <h5>
-<a id="orm-1" class="anchor" href="#orm-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>ORM</h5>
+<a id="orm-1" class="anchor" href="#orm-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>ORM</h5>
 
 <p>There should be a major change for ORM. 0.2x ORM constructor need to pass the npdynamodb instance instead of pure dynamodb instance.</p>
 
@@ -918,7 +918,7 @@ npd().table(<span class="pl-s"><span class="pl-pds">'</span>table_name<span clas
 </ul>
 
 <h2>
-<a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h2>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h2>
 
 <p>(The MIT License)</p>
 
