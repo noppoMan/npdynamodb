@@ -405,7 +405,7 @@ We support schema migration for Dynamodb.
 
 ##### First, initialize your project to run migration.
 ```sh
-npd install -g npdynamodb
+npm install -g npdynamodb
 # cd /path/to/your/project
 npd init
 # created npdfile.js
