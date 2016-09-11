@@ -5,7 +5,7 @@ A Node.js Simple Query Builder and ORM for AWS DynamoDB.
 When I visited [here ](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html#query-property
 ) for the first time, I closed it in a moment.
 Because it is too long and hard to see to understand.
-So I decided to make client to handle DynamoDB more easier and It doesn't take waste of time to read documentation for it.
+So I decided to make client to handle DynamoDB more easier and it doesn't take waste of time to read documentation for it.
 
 ## Services that are used in Production
 [<img src="https://raw.githubusercontent.com/noppoMan/npdynamodb/gh-pages/resources/chatcast_logo.png" width="250">](https://chatca.st)
@@ -27,9 +27,9 @@ Parameters are like Chant of the magic.
 ## Overview
 Npdynamodb has modern interfaces to handle AWS DynamoDB.
 We release you redundancy codes and see simple syntax.
-of course, will not see callback hell!
+Of course, will not see callback hell!
 
-Npdynamodb has following functions
+Npdynamodb has the following functions
 * [Simple QueryBuilder](https://github.com/noppoMan/npdynamodb/blob/master/README.md#usage-of-querybuilder)
 * [Light ORM(Active Record Model Like)](https://github.com/noppoMan/npdynamodb/blob/master/README.md#usage-of-orm)
 * [DynamoDB Migrator](https://github.com/noppoMan/npdynamodb/blob/master/README.md#migration)
@@ -163,7 +163,7 @@ npd().table('chats')
 ```
 
 ##### Extra options
-You can set extra options in callback of `feature` method. All options are transformed from property to method, But its name(camelized) and arguments are same as pure AWS-SDK for node.js.
+You can set extra options in callback of `feature` method. All options are transformed from property to method, But its name (camelized) and arguments are same as pure AWS-SDK for node.js.
 
 ```js
 npd().table('users')
@@ -180,7 +180,7 @@ npd().table('users')
 });
 ```
 
-##### create(Make Overwrite all of values, if key[s] have already existed.)
+##### create (Make Overwrite all of values, if key[s] have already existed.)
 ```js
 npd().table('users')
 .create({ // Also can save collection.
@@ -464,7 +464,6 @@ npd migrate:generate create_users
 ```
 
 ##### Edit migration file
-/migrations/20150406083039_create_users.js
 ```js
 exports.up = function(migrator){
   return migrator().createTable('chats', function(t){
@@ -472,13 +471,13 @@ exports.up = function(migrator){
     t.number('timestamp').rangeKey();
     t.provisionedThroughput(100, 100); // read, write
 
-    t.globalSecandayIndex('indexName1', function(t){
+    t.globalSecondaryIndex('indexName1', function(t){
       t.string('user_id').hashKey();
       t.provisionedThroughput(100, 100); // read, write
       t.projectionTypeAll(); //default is NONE
     });
 
-    t.localSecandaryIndex('indexName2', function(t){
+    t.localSecondaryIndex('indexName2', function(t){
       t.string('room_id').hashKey();
       t.number('user_id').rangeKey();
       t.projectionTypeAll(); //default is NONE
@@ -599,7 +598,7 @@ npd().table('foo').callbacks('beforeQuery', Func).create({
 ```
 
 ## Plugin and Extending
-Npdynamodb can be accepted plugins.
+Npdynamodb can be extended via plugins.
 
 ```js
 npdynamodb.plugin(function(Klass){
