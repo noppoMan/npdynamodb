@@ -747,7 +747,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	module.exports = {
 		"name": "npdynamodb",
-		"version": "0.2.9",
+		"version": "0.2.11",
 		"description": "A Node.js Simple Query Builder and ORM for AWS DynamoDB.",
 		"main": "index.js",
 		"scripts": {
@@ -925,9 +925,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	], function(promiseInterface){
 	  QueryBuilder.prototype[promiseInterface] = function(cb){
 	    var self = this;
-	    var gotResponse = false;
 	    var feature = self._feature;
 	    var callbacks = this._callbacks;
+	    var timer;
 
 	    return Promise.all(callbacksPromisified.bind(self)(callbacks.beforeQuery)).then(function(){
 	      var built = feature.buildQuery();
@@ -935,7 +935,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	      return new Promise(function(resolve, reject){
 	        var request = feature.client[built.method](built.params, function(err, data){
-	          gotResponse = true;
+	          if(timer) {
+	            clearTimeout(timer);
+	            timer = null;
+	          }
 	          if(err) {
 	            return reject(err);
 	          }
@@ -944,11 +947,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        // Handle timeout
 	        if(self._options.timeout !== null) {
-	          setTimeout(function(){
-	            if(!gotResponse) {
-	              request.abort();
-	              reject(new Error("The connection has timed out."));
-	            }
+	          timer = setTimeout(function(){
+	            request.abort();
+	            reject(new Error("The connection has timed out."));
 	          }, self._options.timeout || 5000);
 	        }
 	      });
@@ -991,6 +992,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  'filterContains',
 	  'filterNotContains',
 	  'limit',
+	  'offset',
 	  'desc',
 	  'asc',
 	  'create',
@@ -2286,6 +2288,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	Feature.prototype.count = function(){
 	  this.conditions.Select = 'COUNT';
 	  this.nextThen = 'query';
+	};
+
+	Feature.prototype.offset = function(exclusiveStartKey){
+	  this.exclusiveStartKey(exclusiveStartKey);
 	};
 
 	Feature.prototype.whereIn = function(keys, values){
