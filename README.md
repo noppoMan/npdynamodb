@@ -1,4 +1,4 @@
-# npdynamodb [![npm version](https://badge.fury.io/js/npdynamodb.svg)](http://badge.fury.io/js/npdynamodb) [![Code Climate](https://codeclimate.com/github/noppoMan/npdynamodb/badges/gpa.svg)](https://codeclimate.com/github/noppoMan/npdynamodb) [![Circle CI](https://circleci.com/gh/noppoMan/npdynamodb/tree/master.svg?style=svg)](https://circleci.com/gh/noppoMan/npdynamodb/tree/master)
+# npdynamodb [![npm version](https://badge.fury.io/js/npdynamodb.svg)](http://badge.fury.io/js/npdynamodb) [![Code Climate](https://codeclimate.com/github/noppoMan/npdynamodb/badges/gpa.svg)](https://codeclimate.com/github/noppoMan/npdynamodb) [![Build Status](https://travis-ci.org/noppoMan/npdynamodb.svg?branch=master)](https://travis-ci.org/noppoMan/npdynamodb)
 A Node.js Simple Query Builder and ORM for AWS DynamoDB.
 
 ## Motivation
