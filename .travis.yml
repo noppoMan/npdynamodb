@@ -1,0 +1,17 @@
+sudo: required
+language: node_js
+node_js:
+  - "4"
+  - "5"
+  - "6"
+  - "7"
+  - "8"
+  - "node"
+  - "lts/*"
+
+install:
+  - docker run -d -p 8000:8000 tray/dynamodb-local -inMemory -port 8000
+  - npm i -g mocha
+  - npm i
+
+script: npm test
