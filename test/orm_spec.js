@@ -140,8 +140,8 @@ describe('ORM', function(){
     })
     .fetch()
     .then(function(chats){
-      expect(chats.at(0).get('timestamp')).to.equal(1429291245);
-      expect(chats.at(1).get('timestamp')).to.equal(1429291246);
+      expect(chats.at(0).get('timestamp')).to.equal(1429291246);
+      expect(chats.at(1).get('timestamp')).to.equal(1429291245);
       done();
     })
     .catch(function(err){

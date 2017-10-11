@@ -77,7 +77,7 @@ describe('QueryBuilder', function(){
     });
 
     it('Should batch create rows', function(done){
-      return npd().table('chats')
+      npd().table('chats')
       .create([
         {
           room_id: "room1",
