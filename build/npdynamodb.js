@@ -2335,7 +2335,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function addConditions(){
 	  var args = _.toArray(arguments);
 	  var col = args[1], op = args[2], val = args[3];
-	  if(!_.contains(availableOperators, op)){
+	  if(!_.includes(availableOperators, op)){
 	    val = op;
 	    op = '=';
 	  }
