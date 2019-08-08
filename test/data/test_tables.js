@@ -12,6 +12,7 @@ exports.compex_table = {
     { AttributeName: 'range_key', KeyType: 'RANGE' }
   ],
   TableName: 'complex_table',
+  BillingMode: 'PROVISIONED',
   ProvisionedThroughput: {
     ReadCapacityUnits: 100, WriteCapacityUnits: 100
   },

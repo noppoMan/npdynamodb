@@ -434,7 +434,7 @@ module.exports = {
   development: {
     dynamoClient: dynamodb,
     migrations: {
-      ProvisionedThroughput: [10, 10],
+      // Omitting ProvisionedThroughput will default to on-demand
       tableName: 'npd_migrations'
     }
   },
@@ -481,6 +481,7 @@ exports.up = function(migrator){
       t.string('room_id').hashKey();
       t.number('user_id').rangeKey();
       t.projectionTypeAll(); //default is NONE
+      // Not specifying `.provisionedThroughput` will default to on-demand
     });
   });
 };
